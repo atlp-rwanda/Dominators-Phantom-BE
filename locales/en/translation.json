@@ -13,7 +13,6 @@
   "deleted_ok": "Record was deleted successfully",
   "many_deleted": "Records were deleted successfully",
   "delete_invalid_req": "Cannot delete the record, Invalid request",
-  "deleted_fail": "Failed to delete the record",
   "incorrect": "Incorrect email or password",
   "please": "Please provide email and password!",
   "required_field": "All fields must be completed",
@@ -25,5 +24,6 @@
   "user_id": "The user with id of ${id} does not exist",
   "user_update": "User with ${id} was updated successfully",
   "uesr_exists": "User with id of ${id} does not exist",
-  "user_deleted": "User with id of ${id} successfully deleted"
+  "user_deleted": "User with id of ${id} successfully deleted",
+  "deleted_fail": "Failed to delete the record"
 }

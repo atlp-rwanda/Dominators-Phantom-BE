@@ -1,9 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../src/server';
+import props from '../src/config/config';
 chai.use(chaiHttp);
 
-const token = `Bearer ${process.env.ADMIN_TOKEN}`;
+const config = props[process.env.NODE_ENV];
+const { token } = config;
+
 const REQ_URL = '/api/v1/routes/';
 let ROUTE_ID;
 let EXISTING_ROUTE;
@@ -16,9 +19,7 @@ describe('TESTING ROUTES END POINTS', () => {
             origin: 'Kagugu',
             destination: 'Kamonyi',
             code: (Math.random() * 10000).toString(),
-            distance: (Math.random() * 10).toString(),
-            latitude: 8.99,
-            longitude: 98.99
+            distance: (Math.random() * 10).toString()
         }
         chai.request(server)
             .post(REQ_URL)
@@ -94,6 +95,7 @@ describe('TESTING ROUTES END POINTS', () => {
     it('BAD REQUEST, INVALID ROUTE ID', (done) => {
         chai.request(server)
             .get(`${REQ_URL}/InvalidId`)
+            .set('Accept', 'application/json')
             .set('Authorization', token)
             .then((res) => {
                 chai.expect(res.status).to.equal(404);

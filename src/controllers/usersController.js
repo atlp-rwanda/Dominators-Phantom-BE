@@ -64,6 +64,10 @@ const addUser = async (req, res) => {
           })
         );
     })
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3ede931 (crud route tests)
 };
 
 const allUsers = (req, res) => {

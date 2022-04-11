@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 'use strict';
 const {
   Model
 } = require('sequelize');
+=======
+import { Model } from 'sequelize';
+>>>>>>> 3ede931 (crud route tests)
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -39,4 +43,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   return User;
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 3ede931 (crud route tests)

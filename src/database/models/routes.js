@@ -25,7 +25,10 @@ module.exports = (sequelize, DataTypes) => {
     distance: DataTypes.STRING,
     status: DataTypes.ENUM("pending", "active", "disabled"),
     routeSlug: DataTypes.STRING,
+<<<<<<< HEAD
     coordinates: DataTypes.ARRAY(DataTypes.DECIMAL)
+=======
+>>>>>>> 3ede931 (crud route tests)
 
 
   }, {

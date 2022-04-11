@@ -1,6 +1,9 @@
 import nodemailer from "nodemailer";
 import "dotenv/config";
+<<<<<<< HEAD
 import jwt from "jsonwebtoken";
+=======
+>>>>>>> 3ede931 (crud route tests)
 
 function sendEmail(message, toEmail) {
   let transporter = nodemailer.createTransport({
@@ -28,6 +31,7 @@ function sendEmail(message, toEmail) {
   });
 }
 
+<<<<<<< HEAD
 function sendReset(email) {
   var token = jwt.sign({ email_id: email }, process.env.EMAIL_CRYPT, {
 
@@ -77,3 +81,6 @@ function resetLink(user) {
 
 
 export { sendEmail, resetLink };
+=======
+export default sendEmail;
+>>>>>>> 3ede931 (crud route tests)
