@@ -7,7 +7,7 @@
     "test": "better-npm-run test",
     "dev": "better-npm-run dev",
     "start": "npm run build && better-npm-run prod",
-    "build": "babel src -d dist" 
+    "build": "babel src -d dist"
   },
   "betterScripts": {
     "dev": {
@@ -60,7 +60,6 @@
     "promisfy": "^1.2.0",
     "sequelize": "^6.18.0",
     "sequelize-slugify": "^1.6.1",
-    "swagger-ui-express": "^4.3.0",
     "util": "^0.12.4"
   },
   "devDependencies": {
