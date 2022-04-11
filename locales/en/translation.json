@@ -1,0 +1,17 @@
+{
+  "welcome_message": "Welcome to Dominators-Phantom-API!",
+  "first_message": "Welcome",
+  "missing_params": "Please fill all missing parameters",
+  "already_exist": "record already exists",
+  "not_found": "Cannot find the requested record.",
+  "cannot_find": "Error retrieving the requested record! Try again!",
+  "created_ok": "Record created successfully",
+  "create_fail": "Failed to add new record! Try again!",
+  "updated_ok": "Record was updated successfully.",
+  "updated_fail": "Failed to update the record.",
+  "updated_invalid_req": "Cannot update the record, Invalid request",
+  "deleted_ok": "Record was deleted successfully",
+  "many_deleted": "Records were deleted successfully",
+  "delete_invalid_req": "Cannot delete the record, Invalid request",
+  "deleted_fail": "Failed to delete the record"
+}
