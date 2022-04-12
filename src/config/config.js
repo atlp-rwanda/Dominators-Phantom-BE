@@ -21,5 +21,5 @@ module.exports = {
         dialect: "postgres",
         port: process.env.PORT
     },
-
+  
 }
