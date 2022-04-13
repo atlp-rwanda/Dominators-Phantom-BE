@@ -1,8 +1,37 @@
 import welcome from './welcome';
+import { user, userDefinition } from './user';
+<<<<<<< HEAD
+import { route, createDefinition } from './routeDoc';
+import { Profile, ProfileDefinition } from './profile';
+import { users, usersDefinition } from './drivers&operators';
+<<<<<<< HEAD
 
-const paths = { ...welcome };
+<<<<<<< HEAD
+const paths = { ...welcome, ...user, ...route };
+const definitions = { ...userDefinition, ...createDefinition };
+=======
 
-const definitions = {};
+const paths = { ...welcome, ...user };
+
+const definitions = { ...userDefinition };
+>>>>>>> f1fa83b... Added login feature, jwt on a succesful login and documentation
+=======
+
+const paths = { ...welcome, ...user, ...route, ...Profile, ...users };
+const definitions = { ...userDefinition, ...createDefinition, ...ProfileDefinition, ...usersDefinition };
+>>>>>>> bcab845... added Get Post Delete Put for routes
+=======
+import { bus, busDefinition } from './bus';
+
+const paths = { ...welcome, ...user, ...route, ...Profile, ...users, ...bus };
+const definitions = {
+  ...userDefinition,
+  ...createDefinition,
+  ...ProfileDefinition,
+  ...usersDefinition,
+  ...busDefinition,
+};
+>>>>>>> 7f55af9... ft crud operation for bus:
 
 const config = {
   swagger: '2.0',
