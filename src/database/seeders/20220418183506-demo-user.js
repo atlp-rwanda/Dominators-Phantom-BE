@@ -24,7 +24,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 9,
           firstName: 'Fabrice',
           lastName: 'NDACYAYISENGA',
           email: 'operator@test.com',

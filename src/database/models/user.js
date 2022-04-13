@@ -11,13 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasOne(models.Profile, {
         foreignKey: 'userId',
-        as: 'Profiles',
+        as: 'profiles',
       });
-      this.hasOne(models.AssignDriver, {
-        foreignKey: 'UserId',
-        as: 'AssignDriver',
-        as: 'Profiles'
-      })
       this.belongsTo(models.roles, {
         foreignKey: { name: 'role', allowNull: true },
         as: 'roles',

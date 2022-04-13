@@ -5,10 +5,10 @@ import {
   updateUser,
   deleteUser,
 } from '../../controllers/profilecontroller';
+import permMiddleware from '../../helpers/checkPermission';
 
 import multer from 'multer';
 const path = require('path');
-import permMiddleware from '../../helpers/checkPermission';
 
 const router = express.Router();
 
