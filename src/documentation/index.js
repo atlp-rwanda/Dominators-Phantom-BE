@@ -1,5 +1,6 @@
 import welcome from './welcome';
 import { user, userDefinition } from './user';
+
 import { route, createDefinition } from './routeDoc';
 import { Profile, ProfileDefinition } from './profile';
 import { users, usersDefinition } from './drivers&operators';
@@ -15,6 +16,7 @@ const paths = {
   ...bus,
   ...AssignDriverToBuse,
 };
+
 const definitions = {
   ...userDefinition,
   ...createDefinition,

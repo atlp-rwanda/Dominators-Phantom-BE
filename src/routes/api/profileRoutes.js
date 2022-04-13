@@ -1,10 +1,15 @@
 import express from 'express';
+<<<<<<< HEAD
 import {
   allUsers,
   findOneUser,
   updateUser,
   deleteUser,
 } from '../../controllers/profilecontroller';
+=======
+
+import { allUsers, findOneUser, updateUser, deleteUser } from '../../controllers/profilecontroller'
+>>>>>>> d741551 (ft crud operation for bus:)
 import multer from 'multer';
 const path = require('path');
 

@@ -62,7 +62,12 @@ const PostAssignDriverToBuses = async (req, res) => {
       },
     }).then((created) => {
       created[1]
-        ? responseHandler(res, 201, req.t('driver_to_buses_create'), req) +
+        ? responseHandler(
+            res,
+            201,
+            { message: req.t('driver_to_buses_create') },
+            req
+          ) +
           User.findOne({
             where: {
               id: req.params.driverId,
@@ -84,7 +89,12 @@ const PostAssignDriverToBuses = async (req, res) => {
               sendNotification(message, data.email);
             });
           })
-        : responseHandler(res, 401, req.t('driver_has_assigned_exit'), req);
+        : responseHandler(
+            res,
+            400,
+            { message: req.t('driver_has_assigned_exit') },
+            req
+          );
     });
   } catch (error) {
     res.send(error.message);

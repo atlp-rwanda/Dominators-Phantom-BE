@@ -52,13 +52,14 @@ exports.login = async (req, res, next) => {
 let token;
 exports.protect = async (req, res, next) => {
   //1 Getting tocken and check its there
+  if (!req.headers.authorization)
+    return next(new AppError(req.t('not_logged_in'), 500));
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
-  // console.log(token)
   if (!token) {
     return next(new AppError(req.t('not_logged_in'), 401));
   }
@@ -72,6 +73,7 @@ exports.protect = async (req, res, next) => {
       id: decoded.user.id,
     },
   });
+  console.log(currentUser);
 
   if (!currentUser) {
     return next(new AppError(req.t('user_nolonger_exist'), 401));

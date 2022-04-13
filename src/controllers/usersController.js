@@ -10,7 +10,6 @@ dotenv.config();
 
 const addUser = async (req, res) => {
   // static create(req, res) {
-  console.log(req.body);
   const { firstName, lastName, email, role } = req.body;
   const userpassword = generatePassword();
   const password = await bcrypt.hash(userpassword, 10);

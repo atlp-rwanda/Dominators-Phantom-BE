@@ -12,10 +12,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      firstname: {
+      firstName: {
         type: Sequelize.STRING,
       },
-      lastname: {
+      lastName: {
         type: Sequelize.STRING,
       },
       profilePic: {

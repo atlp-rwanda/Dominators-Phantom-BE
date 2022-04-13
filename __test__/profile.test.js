@@ -11,8 +11,8 @@ describe('TESTING UPDATE PROFILE OF USERS', () => {
         .request(server)
         .post('/api/v1/profile/update/1')
         .send({
-          firstname: 'Kevin',
-          lastname: 'Kalimba',
+          firstName: 'Kevin',
+          lastName: 'Kalimba',
           phone: '0790020325',
           email: 'kevin.kalimba54@gmail.com',
           role: 'driver',
