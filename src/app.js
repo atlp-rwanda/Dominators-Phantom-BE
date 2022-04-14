@@ -13,6 +13,7 @@ i18next.use(Backend).use(middleware.LanguageDetector)
    fallbackLng: "en",
    backend: {
      loadPath: './translations/{{lng}}/translation.json'
+    //  addPath: './locales/'
    }
 }
 )
@@ -25,8 +26,11 @@ app.get('/api/v1', (req, res) => {
 });
 
 
-app.get('/' , (req, res) =>  {
+
+app.get('/' ,  (req, res) =>  {
+ 
   res.send({message: req.t('first_message')})
+console.log(req)
 })
 
 app.use(
