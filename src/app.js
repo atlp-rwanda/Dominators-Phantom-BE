@@ -8,15 +8,15 @@ import middleware from 'i18next-http-middleware';
 
 const app = express();
 
-i18next.use(Backend).use(middleware.LanguageDetector)
-.init({
-   fallbackLng: "en",
+i18next
+  .use(Backend)
+  .use(middleware.LanguageDetector)
+  .init({
+   fallbackLng: 'en',
    backend: {
-     loadPath: './translations/{{lng}}/translation.json'
-    //  addPath: './locales/'
+     loadPath: './locales/{{lng}}/translation.json'
    }
-}
-)
+  })
 
 app.use(middleware.handle(i18next));
 app.get('/api/v1', (req, res) => {
