@@ -7,6 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "better-npm-run dev",
     "start": "npm run build && better-npm-run prod",
+    "create-model": "npx sequelize-cli model:generate --name user --attributes name:string,username:string,email:string,password:string",
+    "migrate": "npx sequelize-cli db:migrate",
+    "undo-migrate": "npx sequelize-cli db:migrate:undo",
+    "create-seed": "npx sequelize-cli seed:generate --name demo-user",
+    "undo-seed": "npx sequelize-cli db:seed:undo:all",
+    "exec-seed": "npx sequelize-cli db:seed:all",
     "build": "babel src -d dist"
   },
   "betterScripts": {

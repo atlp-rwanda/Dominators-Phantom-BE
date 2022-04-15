@@ -1,7 +1,4 @@
-'use strict';
 
-module.exports = {
-  async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
       'user',
       [
@@ -11,8 +8,8 @@ module.exports = {
           username: 'username1',
           email: 'user1@test.com',
           password: Math.floor(Math.random() * 100),
-          created_at: new Date(),
-          updated_at: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
         {
           id: 2,
@@ -20,8 +17,8 @@ module.exports = {
           username: 'username2',
           email: 'user2@test.com',
           password: Math.floor(Math.random() * 100),
-          created_at: new Date(),
-          updated_at: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
         {
           id: 3,
@@ -29,15 +26,14 @@ module.exports = {
           username: 'username3',
           email: 'user3@test.com',
           password: Math.floor(Math.random() * 100),
-          created_at: new Date(),
-          updated_at: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
       ],
       {}
     );
-  },
 
-  async down(queryInterface, Sequelize) {
+
+
+
     await queryInterface.bulkDelete('user', null, {});
-  }
-};
