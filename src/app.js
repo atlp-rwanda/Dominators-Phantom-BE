@@ -12,25 +12,26 @@ i18next
   .use(Backend)
   .use(middleware.LanguageDetector)
   .init({
-   fallbackLng: 'en',
+   fallbackLng: 'en',         
    backend: {
      loadPath: './locales/{{lng}}/translation.json'
    }
   })
-
 app.use(middleware.handle(i18next));
 app.get('/api/v1', (req, res) => {
-  res.status(200).json({
-    message: "Welcome to Dominators-Phantom-API!",
+  res.status(200).send({
+    message: req.t("welcome_message")
   });
+  console.log(req.t())
+
 });
 
 
 
 app.get('/' ,  (req, res) =>  {
  
-  res.send({message: req.t('first_message')})
-console.log(req)
+  res.send( req.t('first_message'))
+
 })
 
 app.use(
