@@ -18,7 +18,7 @@ i18next
   })
 app.use(middleware.handle(i18next));
 app.get('/api/v1', (req, res) => {
-  res.status(200).send({
+  res.status(200).json({
     message: req.t("welcome_message")
   });
   console.log(req.t())
@@ -27,11 +27,11 @@ app.get('/api/v1', (req, res) => {
 
 
 
-app.get('/' ,  (req, res) =>  {
+// app.get('/' ,  (req, res) =>  {
  
-  res.send( req.t('first_message'))
+//   res.send( req.t('first_message'))
 
-})
+// })
 
 app.use(
   '/api-docs',
