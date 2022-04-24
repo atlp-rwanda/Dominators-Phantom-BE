@@ -1,8 +1,9 @@
 import app from './app';
 import config from './config/config';
 
+const currentConfig = config[process.env.NODE_ENV];
 
-const { port } = config;
+const { port } = currentConfig;
 // console.log(port);
 
 const server = app.listen(port, () =>
