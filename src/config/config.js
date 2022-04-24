@@ -2,23 +2,24 @@ import dotenv from "dotenv";
 
 dotenv.config()
 
-const config= {
+module.exports = {
     development: {
-        port: process.env.PORT,
-        DB: process.env.DEVDB,
-        JWT_SECRET: process.env.JWT_SECRET
+        JWT_SECRET: process.env.JWT_SECRET,
+        url: process.env.DEV_URL,
+        dialect: "postgres",
+        port: process.env.PORT
     },
     test: {
-        port: process.env.TEST_PORT,
-        DB: process.env.TESTDB,
-        JWT_SECRET: process.env.JWT_SECRET
+        JWT_SECRET: process.env.JWT_SECRET,
+        url: process.env.TEST_URL,
+        dialect: "postgres",
+        port: process.env.PORT
     },
     production: {
-        port: process.env.PORT,
-        DB: process.env.DATABASE_URL,
-        JWT_SECRET: process.env.JWT_SECRET
+        JWT_SECRET: process.env.JWT_SECRET,
+        url: process.env.PROD_URL,
+        dialect: "postgres",
+        port: process.env.PORT
     },
 
 }
-const currentConfig = config[process.env.NODE_ENV];
-export default currentConfig;
