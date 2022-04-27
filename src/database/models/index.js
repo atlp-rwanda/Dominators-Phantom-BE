@@ -1,5 +1,3 @@
-'use strict';
-
 import { readdirSync } from 'fs';
 import { basename as _basename, join } from 'path';
 import Sequelize, { DataTypes } from 'sequelize';
@@ -12,44 +10,43 @@ const db = {};
 
 let sequelize;
 if (config.url) {
-    sequelize = new Sequelize(config.url, {
-        dialect: 'postgres'
-    });
+  sequelize = new Sequelize(config.url, {
+    dialect: 'postgres',
+  });
 } else {
-    sequelize = new Sequelize(
-        config.database,
-        config.username,
-        config.password,
-        config
-    );
+  sequelize = new Sequelize(
+    config.database,
+    config.username,
+    config.password,
+    config
+  );
 }
 
 readdirSync(__dirname)
-    .filter((file) => {
-        return (
-            file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
-        );
-    })
-    .forEach((file) => {
-        const model = require(join(__dirname, file))(sequelize, DataTypes);
-        db[model.name] = model;
-    });
+  .filter(
+    (file) =>
+      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
+  )
+  .forEach((file) => {
+    const model = require(join(__dirname, file))(sequelize, DataTypes);
+    db[model.name] = model;
+  });
 
 Object.keys(db).forEach((modelName) => {
-    if (db[modelName].associate) {
-        db[modelName].associate(db);
-    }
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
 });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connected! Database Status : ON 🔥.');
-    })
-    .catch((err) => {
-        console.error('Failed to connect! Database Status : OFF:', err);
-    });
+  .authenticate()
+  .then(() => {
+    console.log('Connected! Database Status : ON 🔥.');
+  })
+  .catch((err) => {
+    console.error('Failed to connect! Database Status : OFF:', err);
+  });
 
 export default db;
