@@ -1,0 +1,188 @@
+import dotenv from "dotenv";
+
+import bcrypt from 'bcrypt'
+import generatePassword from "../helpers/generatePassword";
+import sendEmail from "../helpers/sendEmail";
+import model from "../database/models";
+
+  
+const User = model.User;
+
+dotenv.config();
+
+const addUser = async(req, res) => {
+  // static create(req, res) {
+  const { firstname, lastname, email, role } = req.body;
+  const userpassword = generatePassword();
+  const password = await bcrypt.hash(userpassword, 10)
+
+
+  if (firstname === "" || lastname === "" || email === "" || role === "") {
+    return res.status(500).json({
+      message: req.t('required_field'),
+    });
+  } else if (!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email))) {
+    return res.status(400).json({
+      message: req.t('email_invalid')
+    })
+  }
+  User.findOne({
+    where: {
+      email,
+    },
+  })
+    .then((emailExists) => {
+      if (emailExists) {
+        return res.status(400).json({
+          message: ('email_exists'),
+        });
+      }
+      console.log(password)
+      return User.create({
+        firstname,
+        lastname,
+        email,
+        role,
+        password
+      })
+      
+        .then((data) => {
+          if (data) {
+            const message = `
+              <h2>Your account has been registered. you can now login in</h2>
+              <a href="http://localhost:5000/login">here</a>
+              <p>${req.body.email}. Note that your login password will be <em>${userpassword}</em></p>
+              `;
+            sendEmail(message, data.email);
+            res.status(200).json({
+              message: req.t('user_created'),
+              data,
+            });
+          }
+        })
+        .catch((err) =>
+          res.status(400).json({
+            error: err.message,
+          })
+        );
+    })
+    .catch((err) =>
+      res.status(400).json({
+        error: err.message,
+      })
+    );
+}
+
+
+
+
+const allUsers = (req, res) => {
+ return User.findAll({
+    attributes: {
+      exclude: ["password"],
+    },
+  })
+
+    .then((data) => {
+      console.log(data)
+      if (data.length === 0) {
+        return res.status(404).json({
+          message: req.t('no_users'),
+        });
+      }
+      return res.status(200).json({
+        data,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        error: err.message,
+      });
+    });
+}
+
+const findOneUser = (req, res) => {
+  const { id } = req.params;
+   User.findOne({
+    where: {
+      id,
+    },
+    attributes: {
+      exclude: ["password"],
+    },
+  })
+    .then((user) => {
+      if (!user) {
+        return res.status(400).json({
+          message: req.t('no_user'),
+        });
+      }
+      return res.status(200).json({
+        user,
+      });
+    })
+    .catch((err) =>
+      res.status(400).json({
+        error: "invalid input id, it must be a number" || err.message,
+      })
+    );
+}
+
+const update = (req, res) => {
+  const { id } = req.params;
+  const { firstname, lastname, role } = req.body;
+  User.findOne({
+    where: {
+      id,
+    },
+    attributes: {
+      exclude: ["password"],
+    },
+  }).then((user) => {
+    if (!user) {
+      return res.status(400).json({
+        message: req.t(`user_id`),
+      });
+    }
+    return user
+      .update({
+        firstname: firstname || user.firstname,
+        lastname: lastname || user.lastname,
+        role: role || user.role,
+      })
+      .then((updatedUser) => {
+        res.status(200).json({
+          message: req.t(`user_update`),
+          updatedUser: {
+            firstname: updatedUser.firstname,
+            lastname: updatedUser.lastname,
+            role: updatedUser.role,
+            email: updatedUser.email,
+          },
+        });
+      });
+  });
+}
+
+const deleteUser = (req, res) => {
+  const { id } = req.params;
+  User.findOne({
+    where: {
+      id,
+    },
+  }).then((user) => {
+    if (!user) {
+      return res.status(404).json({
+        message: req.t(`uesr_exists`),
+      });
+    }
+    return user.destroy().then(() => {
+      res.status(200).json({
+        message: req.t(`user_deleted`),
+      });
+    });
+  });
+}
+
+
+export { addUser, allUsers, findOneUser, update, deleteUser }

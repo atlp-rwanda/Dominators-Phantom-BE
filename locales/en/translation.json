@@ -2,5 +2,15 @@
   "welcome_message": "Welcome to Dominators-Phantom-API!",
   "first_message": "Welcome",
   "incorrect": "Incorrect email or password",
-  "please": "Please provide email and password!"
+  "please": "Please provide email and password!",
+  "required_field": "All fields must be completed",
+  "email_invalid": "Invalid email",
+  "email_exists": "User with the email exists",
+  "user_created": "user sucessfully registered",
+  "no_users": "There are no users registered yet!",
+  "no_user": "User with that id does not exist",
+  "user_id": "The user with id of ${id} does not exist",
+  "user_update": "User with ${id} was updated successfully",
+  "uesr_exists": "User with id of ${id} does not exist",
+  "user_deleted": "User with id of ${id} successfully deleted"
 }

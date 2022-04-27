@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 import { Model } from 'sequelize';
 
+=======
+'use strict';
+const {
+  Model
+} = require('sequelize');
+>>>>>>> Added login feature, jwt on a succesful login and documentation
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+<<<<<<< HEAD
   User.init(
     {
       firstName: { type: DataTypes.STRING, allowNull: false },
@@ -35,5 +43,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
+=======
+  User.init({
+    firstname: DataTypes.STRING,
+    lastname: DataTypes.STRING,
+    email: DataTypes.STRING,
+    role: DataTypes.STRING,
+    password: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'User',
+  });
+>>>>>>> Added login feature, jwt on a succesful login and documentation
   return User;
 };
