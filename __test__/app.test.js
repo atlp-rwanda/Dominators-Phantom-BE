@@ -1,6 +1,8 @@
+
 //During the test the env variable is set to test
 
 //Require the dev-dependencies
+
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../src/app';
