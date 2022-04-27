@@ -3,6 +3,7 @@ const {
   Model
 } = require('sequelize');
 import { Model } from 'sequelize';
+
 import { Model } from 'sequelize';
 
 module.exports = (sequelize, DataTypes) => {
