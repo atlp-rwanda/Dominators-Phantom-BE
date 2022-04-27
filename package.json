@@ -4,28 +4,33 @@
   "description": "Backend of Phantom Project for team ATLP7-Dominators",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "better-npm-run test",
     "dev": "better-npm-run dev",
     "start": "npm run build && better-npm-run prod",
-    "build": "babel src -d dist" 
+    "migrate": "sequelize-cli db:migrate",
+    "undo-migrate": "sequelize-cli db:migrate:undo",
+    "build": "babel src -d dist"
   },
   "betterScripts": {
     "dev": {
       "command": "nodemon --exec babel-node ./src/server",
       "env": {
+        "PORT": 3000,
         "NODE_ENV": "development"
       }
     },
     "prod": {
       "command": "node ./dist/server",
       "env": {
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "PORT": 8000
       }
     },
     "test": {
-      "command": "karma start",
+      "command": "nyc mocha --require @babel/register ./__test__/ --recursive --timeout 20000 --exit",
       "env": {
-        "NODE_ENV": "test"
+        "NODE_ENV": "test",
+        "PORT": 5000
       }
     }
   },
@@ -37,26 +42,32 @@
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/register": "^7.17.7",
     "@types/i18next-fs-backend": "^1.1.2",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "better-npm-run": "^0.1.1",
     "dotenv": "^16.0.0",
+    "chai-http": "^4.3.0",
+    "cors": "^2.8.5",
     "eslint-config-node": "^4.1.0",
     "express": "^4.17.3",
-    "pg": "^8.7.3",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.18.0",
-    "body-parser": "^1.20.0",
-    "cors": "^2.8.5",
-    "express-validator": "^6.14.0",
+    "heroku": "^7.33.3",
     "i18next": "^21.6.16",
     "i18next-fs-backend": "^1.1.4",
     "i18next-http-middleware": "^3.2.0",
-    "sequelize-slugify": "^1.6.0",
-    "swagger-ui-express": "^4.3.0"
+    "jsonwebtoken": "^8.5.1",
+    "nyc": "^15.1.0",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "promisfy": "^1.2.0",
+    "sequelize": "^6.18.0",
+    "swagger-ui-express": "^4.3.0",
+    "util": "^0.12.4"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
+    "chai": "^4.3.6",
     "eslint": "^8.13.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
@@ -66,6 +77,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.4.0",
+    "mocha": "^9.2.2",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "sequelize-cli": "^6.4.1"

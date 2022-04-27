@@ -1,4 +1,26 @@
 {
-    "welcome_message": "Murakaze neza kuri Dominators-Phantom-API!",
-    "first_message": "Murakaze neza"
+  "welcome_message": "Murakaze neza kuri Dominators-Phantom-API!",
+  "first_message": "Murakaze neza",
+  "missing_params": "Ntibishobotse! Uzuza ahasabwa  hose",
+  "already_exist": "Yinjijwe isanzwemo",
+  "not_found": "Ntibishobotse kubona amakuru asabwe.",
+  "created_ok": "Kongeramo byagenze neza",
+  "updated_ok": "Guhindura byagenze neza",
+  "updated_invalid_req": "Ntibishoboka guhindura, Nonosora ubusabe",
+  "deleted_ok": "Gusiba byagenze neza",
+  "many_deleted": "Gusiba byose byagenze neza",
+  "delete_invalid_req": "Ntibishoboka gusiba, Nonosora ubusabe",
+  "deleted_fail": "Ntibishobotse gusiba! Ongera ugerageze",
+  "incorrect": "Imeyili cyangwa pasiwadi washyizemo ntago arizo",
+  "please": "Shyiramo imeyili na pasiwadi!",
+  "required_field": "Uzuza imyanya yose",
+  "email_invalid": "Imeri ntibonetse",
+  "email_exists": "Imeri washyizemo isanzwe irimo",
+  "user_created": "user sucessfully registered",
+  "no_users": "There are no users registered yet!",
+  "no_user": "User with that id does not exist",
+  "user_id": "The user with id of ${id} does not exist",
+  "user_update": "User with ${id} was updated successfully",
+  "uesr_exists": "User with id of ${id} does not exist",
+  "user_deleted": "User with id of ${id} successfully deleted"
 }
