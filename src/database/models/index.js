@@ -49,8 +49,4 @@ sequelize
     console.error('Failed to connect! Database Status : OFF:', err);
   });
 
-<<<<<<< HEAD
 export default db;
-=======
-export default db;
->>>>>>> 3ede931 (crud route tests)
