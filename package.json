@@ -6,7 +6,9 @@
   "scripts": {
     "test": "nyc mocha --recursive src/**/*.test.js --require @babel/register src/**/*_test.js __test__/",
     "dev": "better-npm-run dev",
-    "start": "npm run build && better-npm-run prod",
+    "start": "babel-node src/server.js",
+    "migrate": "sequelize-cli db:migrate",
+    "undo-migrate": "sequelize-cli db:migrate:undo",
     "build": "babel src -d dist"
   },
   "betterScripts": {
