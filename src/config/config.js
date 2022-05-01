@@ -13,14 +13,14 @@ module.exports = {
   },
   test: {
     JWT_SECRET: process.env.JWT_SECRET,
-    url: process.env.DATABASE_URL,
+    url: process.env.TEST_URL,
     dialect: 'postgres',
     port: process.env.PORT,
     token: process.env.ADMIN_TOKEN
   },
   production: {
     JWT_SECRET: process.env.JWT_SECRET,
-    url: process.env.DATABASE_URL,
+    url: process.env.PROD_URL,
     dialect: 'postgres',
     port: process.env.PORT,
     token: process.env.ADMIN_TOKEN

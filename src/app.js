@@ -1,13 +1,18 @@
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './documentation/index';
 import cors from 'cors';
+import routes from'./routes'
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import middleware from 'i18next-http-middleware';
 import cors from 'cors';
 import middleware from 'i18next-http-middleware';
 import globalErrorHandler from './controllers/errorController';
+<<<<<<< HEAD
 import routes from './routes/index';
+=======
+>>>>>>> 9b3e4d8 (crud operation for buses)
 
 const app = express();
 app.use(cors());

@@ -5,6 +5,7 @@ const currentConfig = prop[process.env.NODE_ENV];
 
 import config from './config/config';
 const { port } = currentConfig;
+console.log(port)
 
 
 
