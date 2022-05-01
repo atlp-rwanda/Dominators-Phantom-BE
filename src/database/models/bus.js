@@ -14,7 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Bus.init({
-    prateNumber:DataTypes.STRING,
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true
+    },
+    prateNumber:{
+      type: DataTypes.STRING,
+      unique: true
+    },
     routeId: DataTypes.STRING,
     busType: DataTypes.STRING,
     prateNumber: DataTypes.STRING

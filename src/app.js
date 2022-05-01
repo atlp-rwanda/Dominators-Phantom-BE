@@ -1,12 +1,12 @@
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './documentation/index';
 import cors from 'cors';
+import routes from'./routes'
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import middleware from 'i18next-http-middleware';
 import globalErrorHandler from './controllers/errorController';
-import swaggerDocument from './documentation/index';
-import routes from './routes/index';
 
 const app = express();
 
@@ -32,12 +32,6 @@ app.get('/api/v1', (req, res) => {
     message: req.t('welcome_message'),
   });
 });
-
-app.use(cors());
-app.use(express.json());
-
-app.use('/api/v1/', routes);
-
 app.use(
   '/api-docs',
   swaggerUi.serve,

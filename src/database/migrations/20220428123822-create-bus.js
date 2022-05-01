@@ -4,8 +4,9 @@ module.exports = {
     await queryInterface.createTable('Buses', {
       id: {
         allowNull: false,
-        autoIncrement: true,
-        type: Sequelize.INTEGER
+        defaultValue: Sequelize.UUIDV4,
+        primaryKey: true,
+        type: Sequelize.UUID,
       },
       routeId: {
         type: Sequelize.STRING,

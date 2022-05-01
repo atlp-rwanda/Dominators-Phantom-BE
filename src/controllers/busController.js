@@ -3,6 +3,7 @@ import model from '../database/models'
 import Op from 'sequelize';
 const buses = model.Bus;
 const addBus = async (req, res) => {
+    console.log("bus:",res.body)
     // Validate request
     if (!req.body.prateNumber || !req.body.routeId || !req.body.busType) {
         res.status(400).send({
@@ -16,11 +17,13 @@ const addBus = async (req, res) => {
     await buses.findOrCreate({
         where: { prateNumber: req.body.prateNumber, routeId: req.body.routeId, busType: req.body.busType}
     }).then(([bus, created]) => {
+       
         if (created) responseHandler(res, 200, bus)
         else responseHandler(res, 400, "Bus already exists.")
 
     })
         .catch(err => {
+            console.log("-err:", err)
             responseHandler(res, 500, err.message || "Some error occurred while creating the route.")
         });
 }
@@ -63,12 +66,11 @@ const findOne = async (req, res) => {
 }
 
 const updateBus = async (req, res) => {
+    
     const id = req.params.id;
-
-
-
+    console.log("id:",id)
     await buses.update(req.body, {
-        where: { id: id }
+        where: {id: id }
     })
         .then(num => {
             if (num == 1) {
@@ -77,7 +79,7 @@ const updateBus = async (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot update Bus with id=${id}. Maybe Bus was not found or req.body is empty!`
+                    message: `Cannot update Bus with prateNumber=${id}. Maybe Bus was not found or req.body is empty!`
                 });
             }
         })
