@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { addBus, findAll, findOne, updateBus, removeBus, deleteAll } from '../controllers/busController';
+import { addBus, findAll, findOne, updateBus, removeBus, deleteAll } from '../../controllers/busController';
 const router = Router();
 
 router.get('/', findAll);

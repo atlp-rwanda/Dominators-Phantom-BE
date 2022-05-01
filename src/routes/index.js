@@ -9,7 +9,7 @@ routes.use('/users', userRoutes);
 export default routes;
 =======
 import { Router } from 'express';
-import { buses } from './buses';
+import buses from './api/buses';
 
 const router = Router();
 

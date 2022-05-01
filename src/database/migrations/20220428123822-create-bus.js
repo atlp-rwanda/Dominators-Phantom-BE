@@ -5,15 +5,14 @@ module.exports = {
       id: {
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
         type: Sequelize.INTEGER
       },
       routeId: {
         type: Sequelize.STRING,
-        primaryKey: true,
         },
       prateNumber: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        primaryKey: true,
       },
       busType: {
         type: Sequelize.STRING
