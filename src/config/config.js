@@ -5,7 +5,7 @@ dotenv.config()
 module.exports = {
     development: {
         JWT_SECRET: process.env.JWT_SECRET,
-        url: process.env.DATABASE_DEV_URL,
+        url: process.env.HEROKU_POSTGRESQL_ROSE_URL,
         dialect: "postgres",
         port: process.env.PORT
     },
@@ -17,7 +17,7 @@ module.exports = {
     },
     production: {
         JWT_SECRET: process.env.JWT_SECRET,
-        url: process.env.DATABASE_URL,
+        url: process.env.HEROKU_POSTGRESQL_ROSE_URL,
         dialect: "postgres",
         port: process.env.PORT
     },

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "nyc mocha --recursive src/**/*.test.js --require @babel/register src/**/*_test.js __test__/",
     "dev": "better-npm-run dev",
-    "start": "babel-node src/server.js",
+    "start": "node src/server.js",
     "migrate": "sequelize-cli db:migrate",
     "undo-migrate": "sequelize-cli db:migrate:undo",
     "build": "babel src -d dist"
@@ -55,6 +55,8 @@
     "@babel/core": "^7.17.9",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "chai": "^4.3.6",
     "eslint": "^8.13.0",
     "eslint-config-airbnb": "^19.0.4",
