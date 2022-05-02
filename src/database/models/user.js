@@ -1,7 +1,7 @@
-'use strict';
 import { Model } from 'sequelize';
-export default (sequelize, DataTypes) => {
-  class user extends Model {
+
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,14 +11,29 @@ export default (sequelize, DataTypes) => {
       // define association here
     }
   }
-  user.init({
-    name: DataTypes.STRING,
-    username: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'user',
-  });
-  return user;
+  User.init(
+    {
+      firstName: { type: DataTypes.STRING, allowNull: false },
+      lastName: { type: DataTypes.STRING, allowNull: false },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: { isEmail: true },
+        lowercase: true,
+      },
+      role: { type: DataTypes.STRING, allowNull: false },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: { min: 8 },
+      },
+    },
+    {
+      sequelize,
+      modelName: 'User',
+    }
+  );
+
+  return User;
 };

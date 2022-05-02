@@ -1,4 +1,6 @@
 {
-    "welcome_message": "Karibuni sana kwa Dominators-Phantom-API!",
-    "first_message": "Karibuni sana"
+  "welcome_message": "Karibuni sana kwa Dominators-Phantom-API!",
+  "first_message": "Karibuni sana",
+  "incorrect": "barua pepe au nenosiri lisilo sahihi",
+  "please": "Tafadhali toa barua pepe na nenosiri!"
 }

@@ -1,4 +1,6 @@
 {
-    "welcome_message": "Murakaze neza kuri Dominators-Phantom-API!",
-    "first_message": "Murakaze neza"
+  "welcome_message": "Murakaze neza kuri Dominators-Phantom-API!",
+  "first_message": "Murakaze neza",
+  "incorrect": "Imeyili cyangwa pasiwadi washyizemo ntago arizo",
+  "please": "Shyiramo imeyili na pasiwadi!"
 }

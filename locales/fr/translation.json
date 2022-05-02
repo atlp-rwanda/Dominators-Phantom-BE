@@ -1,4 +1,6 @@
 {
-    "welcome_message": "Bienvenue au Dominators-Phantom-API!",
-    "first_message": "Bienvenue"
+  "welcome_message": "Bienvenue au Dominators-Phantom-API!",
+  "first_message": "Bienvenue",
+  "incorrect": "email ou mot de passe incorrect",
+  "please": "Veuillez fournir un email et un mot de passe!"
 }
