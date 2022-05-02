@@ -28,7 +28,7 @@ exports.login = async (req, res, next) => {
 
   //1)Check if email & password exist.
   if (!email || !password) {
-    return next(new AppError('Please provide email and password!', 400));
+    return next(new AppError(req.t('please'), 400));
   }
 
   //2)Check if user exist and password is correct
@@ -40,7 +40,7 @@ exports.login = async (req, res, next) => {
   };
 
   if (!user || !(await correctPassword(password, user.password))) {
-    return next(new AppError('Incorrect email or password', 401));
+    return next(new AppError(req.t('incorrect'), 401));
   }
 
   //3)if everything is ok, then send token to user

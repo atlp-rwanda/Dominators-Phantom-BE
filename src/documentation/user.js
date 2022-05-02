@@ -17,10 +17,7 @@ export const user = {
       ],
       responses: {
         200: {
-          description: 'User Loged in successfully',
-        },
-        400: {
-          description: 'Please provide email and password!',
+          description: 'User Logged in successfully',
         },
         400: {
           description: 'Please provide email and password!',
