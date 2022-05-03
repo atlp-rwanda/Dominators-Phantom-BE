@@ -14,38 +14,25 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(cors());
-app.use(express.json());
-
 i18next
   .use(Backend)
   .use(middleware.LanguageDetector)
   .init({
     fallbackLng: 'en',
     backend: {
-      loadPath: './locales/{{lng}}/translation.json'
-    }
-  })
+      loadPath: './locales/{{lng}}/translation.json',
+    },
+  });
 
 app.use(middleware.handle(i18next));
-app.use('', appRoutes);
+
 app.get('/api/v1', (req, res) => {
   res.status(200).json({
     message: req.t('welcome_message'),
   });
 });
 
-app.use(cors());
-app.use(express.json());
-
 app.use('/api/v1/', routes);
-
-// bodyParser
-app.use(bodyParser.json({ limit: "100mb" }));
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: "true" }));
-app.use(bodyParser.json({ type: "application/vnd.api+json" }));
-
-
 
 app.use(
   '/api-docs',

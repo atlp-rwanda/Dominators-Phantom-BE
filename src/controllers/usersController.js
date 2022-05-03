@@ -1,30 +1,28 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 
-import bcrypt from 'bcrypt'
-import generatePassword from "../helpers/generatePassword";
-import sendEmail from "../helpers/sendEmail";
-import model from "../database/models";
+import bcrypt from 'bcrypt';
+import generatePassword from '../helpers/generatePassword';
+import sendEmail from '../helpers/sendEmail';
+import model from '../database/models';
 
-  
 const User = model.User;
 
 dotenv.config();
 
-const addUser = async(req, res) => {
+const addUser = async (req, res) => {
   // static create(req, res) {
-  const { firstname, lastname, email, role } = req.body;
+  const { firstName, lastName, email, role } = req.body;
   const userpassword = generatePassword();
-  const password = await bcrypt.hash(userpassword, 10)
+  const password = await bcrypt.hash(userpassword, 10);
 
-
-  if (firstname === "" || lastname === "" || email === "" || role === "") {
+  if (firstName === '' || lastName === '' || email === '' || role === '') {
     return res.status(500).json({
       message: req.t('required_field'),
     });
-  } else if (!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email))) {
+  } else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)) {
     return res.status(400).json({
-      message: req.t('email_invalid')
-    })
+      message: req.t('email_invalid'),
+    });
   }
   User.findOne({
     where: {
@@ -34,18 +32,18 @@ const addUser = async(req, res) => {
     .then((emailExists) => {
       if (emailExists) {
         return res.status(400).json({
-          message: ('email_exists'),
+          message: 'email_exists',
         });
       }
-      console.log(password)
+      console.log(password);
       return User.create({
-        firstname,
-        lastname,
+        firstName,
+        lastName,
         email,
         role,
-        password
+        password,
       })
-      
+
         .then((data) => {
           if (data) {
             const message = `
@@ -54,7 +52,7 @@ const addUser = async(req, res) => {
               <p>${req.body.email}. Note that your login password will be <em>${userpassword}</em></p>
               `;
             sendEmail(message, data.email);
-            res.status(200).json({
+            res.status(201).json({
               message: req.t('user_created'),
               data,
             });
@@ -66,25 +64,18 @@ const addUser = async(req, res) => {
           })
         );
     })
-    .catch((err) =>
-      res.status(400).json({
-        error: err.message,
-      })
-    );
-}
-
-
-
+   
+};
 
 const allUsers = (req, res) => {
- return User.findAll({
+  return User.findAll({
     attributes: {
-      exclude: ["password"],
+      exclude: ['password'],
     },
   })
 
     .then((data) => {
-      console.log(data)
+      console.log(data);
       if (data.length === 0) {
         return res.status(404).json({
           message: req.t('no_users'),
@@ -99,16 +90,16 @@ const allUsers = (req, res) => {
         error: err.message,
       });
     });
-}
+};
 
 const findOneUser = (req, res) => {
   const { id } = req.params;
-   User.findOne({
+  User.findOne({
     where: {
       id,
     },
     attributes: {
-      exclude: ["password"],
+      exclude: ['password'],
     },
   })
     .then((user) => {
@@ -123,20 +114,20 @@ const findOneUser = (req, res) => {
     })
     .catch((err) =>
       res.status(400).json({
-        error: "invalid input id, it must be a number" || err.message,
+        error: 'invalid input id, it must be a number' || err.message,
       })
     );
-}
+};
 
 const update = (req, res) => {
   const { id } = req.params;
-  const { firstname, lastname, role } = req.body;
+  const { firstName, lastName, role } = req.body;
   User.findOne({
     where: {
       id,
     },
     attributes: {
-      exclude: ["password"],
+      exclude: ['password'],
     },
   }).then((user) => {
     if (!user) {
@@ -146,23 +137,23 @@ const update = (req, res) => {
     }
     return user
       .update({
-        firstname: firstname || user.firstname,
-        lastname: lastname || user.lastname,
+        firstName: firstName || user.firstName,
+        lastName: lastName || user.lastName,
         role: role || user.role,
       })
       .then((updatedUser) => {
         res.status(200).json({
           message: req.t(`user_update`),
           updatedUser: {
-            firstname: updatedUser.firstname,
-            lastname: updatedUser.lastname,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName,
             role: updatedUser.role,
             email: updatedUser.email,
           },
         });
       });
   });
-}
+};
 
 const deleteUser = (req, res) => {
   const { id } = req.params;
@@ -182,7 +173,6 @@ const deleteUser = (req, res) => {
       });
     });
   });
-}
+};
 
-
-export { addUser, allUsers, findOneUser, update, deleteUser }
+export { addUser, allUsers, findOneUser, update, deleteUser };
