@@ -62,6 +62,7 @@
     "promisfy": "^1.2.0",
     "sequelize": "^6.18.0",
     "sequelize-slugify": "^1.6.1",
+    "swagger-ui-express": "^4.3.0",
     "util": "^0.12.4"
   },
   "devDependencies": {

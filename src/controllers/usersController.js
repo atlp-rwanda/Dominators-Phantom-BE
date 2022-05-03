@@ -72,9 +72,9 @@ const addUser = async (req, res) => {
 
 
 const allUsers = (req, res) => {
- return User.findAll({
+  return User.findAll({
     attributes: {
-      exclude: ["password"],
+      exclude: ['password'],
     },
   })
 
