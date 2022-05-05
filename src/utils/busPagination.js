@@ -22,8 +22,6 @@ function paginatedResult (model) {
             }
     
         }
-   
-     
             results.results = await model.findAll({limit:limit, offset:page*limit})
         //    console.log("--------------",results) 
             res.paginatedResults = results;
