@@ -57,8 +57,10 @@
     "nyc": "^15.1.0",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
+    "promisfy": "^1.2.0",
     "sequelize": "^6.18.0",
-    "swagger-ui-express": "^4.3.0"
+    "swagger-ui-express": "^4.3.0",
+    "util": "^0.12.4"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",

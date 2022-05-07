@@ -2,5 +2,15 @@
   "welcome_message": "Karibuni sana kwa Dominators-Phantom-API!",
   "first_message": "Karibuni sana",
   "incorrect": "barua pepe au nenosiri lisilo sahihi",
-  "please": "Tafadhali toa barua pepe na nenosiri!"
+  "please": "Tafadhali toa barua pepe na nenosiri!",
+    "required_field": "Sehemu zote lazima zikamilishwe",
+    "email_invalid": "Barua pepe si sahihi",
+    "email_exists": "Mtumiaji aliye na barua pepe yupo",
+    "user_created": " mtumiaji amesajiliwa kwa mafanikio",
+    "no_users": "Bado hakuna watumiaji waliosajiliwa!",
+    "no_user": "Mtumiaji aliye na kitambulisho hicho hayupo",
+    "user_id": "Mtumiaji aliye na kitambulisho cha ${id} hayupo",
+    "user_update": "Mtumiaji aliye na ${id} alisasishwa kwa mafanikio",
+    "uesr_exists": "Mtumiaji aliye na kitambulisho cha ${id} hayupo",
+    "user_deleted": "Mtumiaji aliye na kitambulisho cha ${id} amefutwa"
 }
