@@ -7,6 +7,7 @@ import middleware from 'i18next-http-middleware';
 import globalErrorHandler from './controllers/errorController';
 import swaggerDocument from './documentation/index';
 import routes from './routes/index';
+import AppError from './utils/appError';
 
 const app = express();
 app.use(cors());
@@ -45,7 +46,13 @@ app.use(
   })
 );
 
+app.all('*', (req, res, next) => {
+  next(
+    new AppError(`The address ${req.originalUrl} is wrong, try again!`, 404)
+  );
+});
+
 //ERROR HANDLING MIDDLEWARE
 app.use(globalErrorHandler);
 
-export default app
+export default app;

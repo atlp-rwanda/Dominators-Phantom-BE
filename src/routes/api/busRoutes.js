@@ -1,13 +1,21 @@
 import express from 'express';
-import { addRoute, findAll, findOne, updateRoute, removeRoute, deleteAll } from '../../controllers/RouteController.js';
-import authController from '../../controllers/authController';
+import {
+  addRoute,
+  findAll,
+  findOne,
+  updateRoute,
+  removeRoute,
+  deleteAll,
+} from '../../controllers/RouteController';
+import { protect, restrictTo } from '../../controllers/authController';
+
 const router = express.Router();
 
-router.get('/', authController.protect, findAll);
-router.get('/:id/', authController.protect, findOne);
-router.put('/:id/', authController.protect, updateRoute);
-router.post('/', authController.protect, addRoute);
-router.delete('/:id', authController.protect, removeRoute);
-router.delete('/', authController.protect, deleteAll);
+router.get('/', protect, findAll);
+router.get('/:id/', protect, findOne);
+router.put('/:id/', protect, updateRoute);
+router.post('/', protect, addRoute);
+router.delete('/:id', protect, removeRoute);
+router.delete('/', protect, deleteAll);
 
 export default router;

@@ -1,14 +1,13 @@
 function generatePassword() {
   const chars =
-    "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+?><:{}[]";
+    '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+?><:{}[]';
 
+  const passwodLength = 15;
 
-  var passwodLength = 15;
+  let password = '';
 
-  var password = "";
-
-  for (var i = 0; i < passwodLength; i++) {
-    var randomNumber = Math.floor(Math.random() * chars.length);
+  for (let i = 0; i < passwodLength; i++) {
+    const randomNumber = Math.floor(Math.random() * chars.length);
     password += chars.substring(randomNumber, randomNumber + 1);
   }
   return password;

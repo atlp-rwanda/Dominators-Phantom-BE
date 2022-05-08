@@ -24,7 +24,7 @@ module.exports = {
         lowercase: true,
       },
       role: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM('admin', 'operator', 'driver'),
         allowNull: false,
       },
       password: {

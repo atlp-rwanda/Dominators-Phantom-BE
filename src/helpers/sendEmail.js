@@ -1,10 +1,10 @@
-import nodemailer from "nodemailer";
-import "dotenv/config";
-import jwt from "jsonwebtoken";
+import 'dotenv/config';
+import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
 
 function sendEmail(message, toEmail) {
-  let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
     port: 587,
     secure: false,
     auth: {
@@ -12,11 +12,15 @@ function sendEmail(message, toEmail) {
       pass: process.env.USER_EMAIL_P,
     },
   });
-  let mailOptions = {
-    from: process.env.USER_EMAIL, // sender address
-    to: toEmail, // list of receivers
-    subject: "Registration Successfull", // Subject line
-    html: message, // html body
+  const mailOptions = {
+    // sender address
+    from: process.env.USER_EMAIL,
+    // list of receivers
+    to: toEmail,
+    // Subject line
+    subject: 'Registration Successfull',
+    // html body
+    html: message,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
@@ -24,15 +28,13 @@ function sendEmail(message, toEmail) {
       return console.log(error);
     }
 
-    res.render("contact", { msg: "Email has been sent" });
+    res.render('contact', { msg: 'Email has been sent' });
   });
 }
 
 function sendReset(email) {
   var token = jwt.sign({ email_id: email }, process.env.EMAIL_CRYPT, {
-
-    expiresIn: '1h'
-
+    expiresIn: '1h',
   });
 
   const url = `https://localhost:3000/api/v1/users/reset/${token}`;
@@ -47,10 +49,9 @@ function sendReset(email) {
   return msg;
 }
 
-
 function resetLink(user) {
   let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: 'smtp.gmail.com',
     port: 587,
     secure: false,
     auth: {
@@ -62,18 +63,14 @@ function resetLink(user) {
   let mailOptions = {
     from: process.env.APP_MAIL, // sender address
     to: user, // list of receivers
-    subject: "Reset Password", // Subject line
+    subject: 'Reset Password', // Subject line
     html: sendReset(user), // html body
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
-    if (error) return 0
-    else return 1
+    if (error) return 0;
+    else return 1;
   });
-
 }
-
-
-
 
 export { sendEmail, resetLink };

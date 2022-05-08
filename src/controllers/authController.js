@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { promisify } from 'util';
 import AppError from '../utils/appError';
 import models from '../database/models';
-import { promisify } from 'util';
+import catchAsync from '../utils/catchAsync';
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -24,7 +25,7 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
-exports.login = async (req, res, next) => {
+export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
   //1)Check if email & password exist.
@@ -46,9 +47,9 @@ exports.login = async (req, res, next) => {
 
   //3)if everything is ok, then send token to user
   createSendToken(user, 200, res);
-};
+});
 
-exports.protect = async (req, res, next) => {
+export const protect = catchAsync(async (req, res, next) => {
   //1 Getting tocken and check its there
   let token;
   if (
@@ -68,17 +69,30 @@ exports.protect = async (req, res, next) => {
 
   // 3.check if user still exists
 
-  const freshUser = await models.User.findOne({
+  const currentUser = await models.User.findOne({
     where: {
       id: decoded.id,
     },
   });
 
-  if (!freshUser) {
+  if (!currentUser) {
     return next(
       new AppError('The token belonging to this use does no long exist.', 401)
     );
   }
 
+  //Grant access to protected route
+  req.user = currentUser;
   next();
-};
+});
+
+export const restrictTo =
+  (...roles) =>
+  (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError('You do not have permission to perform this action', 403)
+      );
+    }
+    next();
+  };

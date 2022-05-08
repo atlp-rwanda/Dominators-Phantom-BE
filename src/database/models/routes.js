@@ -1,8 +1,6 @@
 'use strict';
 import SequelizeSlugify from 'sequelize-slugify';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class routes extends Model {
     /**
@@ -14,24 +12,26 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  routes.init({
-    routeId: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+  routes.init(
+    {
+      routeId: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      origin: DataTypes.STRING,
+      destination: DataTypes.STRING,
+      code: DataTypes.STRING,
+      distance: DataTypes.STRING,
+      status: DataTypes.ENUM('pending', 'active', 'disabled'),
+      routeSlug: DataTypes.STRING,
+      coordinates: DataTypes.ARRAY(DataTypes.DECIMAL),
     },
-    origin: DataTypes.STRING,
-    destination: DataTypes.STRING,
-    code: DataTypes.STRING,
-    distance: DataTypes.STRING,
-    status: DataTypes.ENUM("pending", "active", "disabled"),
-    routeSlug: DataTypes.STRING,
-    coordinates: DataTypes.ARRAY(DataTypes.DECIMAL)
 
-
-  }, {
-    sequelize,
-    modelName: 'routes',
-  });
+    {
+      sequelize,
+      modelName: 'routes',
+    }
+  );
   routes.removeAttribute('id');
 
   SequelizeSlugify.slugifyModel(routes, {
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     overwrite: true,
     bulkUpdate: true,
     suffixSource: ['destination'],
-    column: 'routeSlug'
+    column: 'routeSlug',
   });
   return routes;
 };

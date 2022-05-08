@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import generatePassword from '../helpers/generatePassword';
 import sendEmail from '../helpers/sendEmail';
 import model from '../database/models';
@@ -28,35 +28,38 @@ const addUser = async (req, res) => {
     where: {
       email,
     },
-  })
-    .then((emailExists) => {
-      if (emailExists) {
-        return res.status(400).json({
-          message: 'email_exists',
-        });
-      }
-      console.log(password);
-      return User.create({
-        firstName,
-        lastName,
-        email,
-        role,
-        password,
-      })
+  }).then((emailExists) => {
+    if (emailExists) {
+      return res.status(400).json({
+        message: 'email_exists',
+      });
+    }
+    console.log(password);
+    return User.create({
+      firstName,
+      lastName,
+      email,
+      role,
+      password,
+    })
 
-        .then((data) => {
-          if (data) {
-            const message = `
+      .then((data) => {
+        if (data) {
+          const message = `
               <h2>Your account has been registered. you can now login in</h2>
               <a href="http://localhost:5000/login">here</a>
               <p>${req.body.email}. Note that your login password will be <em>${userpassword}</em></p>
               `;
-            sendEmail(message, data.email);
-            res.status(201).json({
-              message: req.t('user_created'),
-              data,
-            });
-          }
+          sendEmail(message, data.email);
+          res.status(201).json({
+            message: req.t('user_created'),
+            data,
+          });
+        }
+      })
+      .catch((err) =>
+        res.status(400).json({
+          error: err.message,
         })
         .catch((err) =>
           res.status(400).json({
