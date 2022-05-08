@@ -22,5 +22,8 @@
   "user_id": "The user with id of ${id} does not exist",
   "user_update": "User with ${id} was updated successfully",
   "uesr_exists": "User with id of ${id} does not exist",
-  "user_deleted": "User with id of ${id} successfully deleted"
+  "user_deleted": "User with id of ${id} successfully deleted",
+  "not_logged_in": "Ntabwo winjiye! Nyamuneka injira kugirango ubone uburyo",
+  "user_nolonger_exist": "Ikimenyetso ni icy'umukoresha utakibaho",
+  "not_have_permission": "Ntabwo ufite uburenganzira bwo gukora iki gikorwa!"
 }

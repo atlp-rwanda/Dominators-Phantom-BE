@@ -60,9 +60,7 @@ export const protect = catchAsync(async (req, res, next) => {
   }
   // console.log(token)
   if (!token) {
-    return next(
-      new AppError('You are not logged in! Please login to get access', 401)
-    );
+    return next(new AppError(req.t('not_logged_in'), 401));
   }
   // 2. verificatoin token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
@@ -76,9 +74,7 @@ export const protect = catchAsync(async (req, res, next) => {
   });
 
   if (!currentUser) {
-    return next(
-      new AppError('The token belonging to this use does no long exist.', 401)
-    );
+    return next(new AppError(req.t('user_nolonger_exist'), 401));
   }
 
   //Grant access to protected route
@@ -90,9 +86,7 @@ export const restrictTo =
   (...roles) =>
   (req, res, next) => {
     if (!roles.includes(req.user.role)) {
-      return next(
-        new AppError('You do not have permission to perform this action', 403)
-      );
+      return next(new AppError(req.t('not_have_permission'), 403));
     }
     next();
   };

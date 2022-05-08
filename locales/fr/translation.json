@@ -22,5 +22,8 @@
   "user_id": "L'utilisateur avec l'identifiant de ${id} n'existe pas",
   "user_update": "L'utilisateur avec ${id} a été mis à jour avec succès",
   "uesr_exists": " L'utilisateur avec l'identifiant ${id} n'existe pas",
-  "user_deleted": " L'utilisateur avec l'identifiant ${id} a bien été supprimé"
+  "user_deleted": " L'utilisateur avec l'identifiant ${id} a bien été supprimé",
+  "not_logged_in": "Vous n'êtes pas connecté! Veuillez vous connecter pour avoir accès",
+  "user_nolonger_exist": "Le jeton appartient à un utilisateur qui n'existe plus",
+  "not_have_permission": "Vous n'êtes pas autorisé à effectuer cette action!"
 }

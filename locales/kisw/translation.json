@@ -22,5 +22,8 @@
   "user_id": "Mtumiaji aliye na kitambulisho cha ${id} hayupo",
   "user_update": "Mtumiaji aliye na ${id} alisasishwa kwa mafanikio",
   "uesr_exists": "Mtumiaji aliye na kitambulisho cha ${id} hayupo",
-  "user_deleted": "Mtumiaji aliye na kitambulisho cha ${id} amefutwa"
+  "user_deleted": "Mtumiaji aliye na kitambulisho cha ${id} amefutwa",
+  "not_logged_in": "Hujaingia! Tafadhali ingia ili kupata ufikiaji",
+  "user_nolonger_exist": "Tokeni ni ya mtumiaji ambaye hayupo tena.",
+  "not_have_permission": "You do not have permission to perform this action!"
 }
