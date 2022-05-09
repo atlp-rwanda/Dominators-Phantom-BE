@@ -1,12 +1,9 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../src/server';
-import props from '../src/config/config';
 chai.use(chaiHttp);
 
-const config = props[process.env.NODE_ENV];
-const { token } = config;
-
+const token = `Bearer ${process.env.ADMIN_TOKEN}`;
 const REQ_URL = '/api/v1/routes/';
 let ROUTE_ID;
 let EXISTING_ROUTE;

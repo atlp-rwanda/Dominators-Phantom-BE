@@ -11,6 +11,11 @@ describe('Root testing: welcome', () => {
       .end((err, res) => {
         chai.expect(res.statusCode).to.equal(200);
         chai.expect(res.body).to.have.property('message');
+        // res.should.have.status(200);
+        // res.body.should.have
+        //   .property('message')
+        //   .eql('Welcome to Dominators-Phantom-API!');
+        // done();
       });
     done();
   });

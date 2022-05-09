@@ -1,12 +1,12 @@
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './documentation/index';
 import cors from 'cors';
-
-import { appRoutes } from './routes'
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import middleware from 'i18next-http-middleware';
+import globalErrorHandler from './controllers/errorController';
+import swaggerDocument from './documentation/index';
+import routes from './routes/index';
 
 const app = express();
 app.use(cors());
@@ -25,15 +25,14 @@ i18next
   });
 
 app.use(middleware.handle(i18next));
+
 app.get('/api/v1', (req, res) => {
   res.status(200).json({
-    message: req.t('welcome_message')
+    message: req.t('welcome_message'),
   });
-  console.log(req.t())
-
 });
-app.use('/api/v1', appRoutes);
 
+app.use('/api/v1/', routes);
 
 app.use(
   '/api-docs',
@@ -46,5 +45,7 @@ app.use(
   })
 );
 
+//ERROR HANDLING MIDDLEWARE
+app.use(globalErrorHandler);
 
 export default app;

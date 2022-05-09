@@ -1,11 +1,10 @@
-import { Router } from 'express';
+import express from 'express';
 import busRoutes from './api/busRoutes';
 import userRoutes from './api/userRoutes';
-const router = Router();
+const routes = express.Router();
 
-router.use('/users', userRoutes);
+routes.use('/users', userRoutes);
+routes.use('/routes', busRoutes);
 
-router.use('/routes', busRoutes);
 
-
-export const appRoutes = router;
+export default routes;
