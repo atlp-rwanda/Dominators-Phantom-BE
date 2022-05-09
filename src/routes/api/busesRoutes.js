@@ -3,14 +3,15 @@ import { addBus, findAll, findOne, updateBus, removeBus, deleteAll } from '../..
 import paginatedResult from "../../utils/busPagination"
 import model from '../../database/models'
 import Op from 'sequelize';
+import authController from '../../controllers/authController';
 const buses = model.Bus;
 const router = Router();
 
-router.get('/', paginatedResult(buses), findAll);
-router.get('/:id/', findOne);
-router.patch('/:id/', updateBus);
-router.post('/', addBus);
-router.delete('/:id', removeBus);
-router.delete('/', deleteAll);
+router.get('/', paginatedResult(buses),authController.protect, findAll);
+router.get('/:id/',authController.protect, findOne);
+router.patch('/:id/',authController.protect, updateBus);
+router.post('/', authController.protect, addBus);
+router.delete('/:id', authController.protect, removeBus);
+router.delete('/', authController.protect, deleteAll);
 
 export default router;
