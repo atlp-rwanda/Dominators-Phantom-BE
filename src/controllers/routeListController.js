@@ -5,7 +5,7 @@ import { getPagination } from '../utils/paginationHandler';
 import { getPagingData } from '../utils/paginationHandler';
 
 
-const busRoutes = model.routes;
+const busRoutes = model.Route;
 
 const findAll = async (req, res) => {
     const { page, size } = req.query;
@@ -13,7 +13,9 @@ const findAll = async (req, res) => {
 
     await busRoutes.findAndCountAll({ 
         limit, offset,
-        include: [{model: model.Bus, as: 'Buses'}],
+        // include: [{model: model.Bus, as: 'Buses'}],
+        // include:'Buses',
+        include: busRoutes.associations.Buses,
         distinct: true,   
      })
         .then(data => {

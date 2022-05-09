@@ -18,14 +18,14 @@ const addBus = async (req, res) => {
         routeId: req.params.routeId,
         busType: req.body.busType,
         where: { prateNumber: req.body.prateNumber, routeId: req.body.routeId, busType: req.body.busType},
-        // include: [{model: model.routes, as: 'Route'}]
     }).then(([bus, created]) => {
         if (created) responseHandler(res, 200, bus)
         else responseHandler(res, 400, "Bus already exists.")
 
     })
         .catch(err => {
-            responseHandler(res, 500, err.message || "Some error occurred while creating the route.")
+            responseHandler(res, 500, err.message || "Some error occurred while creating the route.");
+            console.log(err)
         });
 }
 
@@ -33,10 +33,7 @@ const findAll = async (req, res) => {
 
     await buses.findAll({
         id: req.body.id,
-        include: [{
-            model: model.routes, 
-            as: 'Route'
-        }]
+        include: buses.associations.routes
     })
         .then(data => {
             res.send(data);

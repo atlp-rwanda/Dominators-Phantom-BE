@@ -13,4 +13,6 @@ router.use('/buses', buses);
 router.use('/routelist', routeList);
 router.use('/buslist', busList);
 
-export default router;
+router.use('/users', userRoutes);
+
+export const routes = router;

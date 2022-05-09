@@ -1,10 +1,7 @@
 'use strict';
-import SequelizeSlugify from 'sequelize-slugify';
 const {
   Model
 } = require('sequelize');
-// // const { appRoutes } = require('../../routes');
-// // const { default: router } = require('../../routes/api/buses');
 module.exports = (sequelize, DataTypes) => {
   class Bus extends Model {
     /**
@@ -12,17 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({routes}) {
+
+     static associate({Route}) {
       // define association here
-      this.belongsTo(routes, { 
-        foreignKey: {name: 'routeId', allowNull: true }, 
-        as: 'Route',
-        onUpdate: "cascade" 
-      });
+      this.belongsTo(Route, {foreignKey: {name: 'routeId', allowNull: true}, onDelete: 'CASCADE', as: 'routes' }, )
     }
-    // toJSON() {
-    //   return { ...this.get(), id: undefined, routeId: undefined }
-    // }
   }
   Bus.init({ 
     id: {
@@ -38,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
     routeId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      allowNull: true
+      allowNull: false,
+      // unique: true
     },
     busType: {
       type: DataTypes.STRING,
@@ -47,9 +39,10 @@ module.exports = (sequelize, DataTypes) => {
     }, 
   {
     sequelize,
+    paranoid: false,
     tableName: 'Buses',
     modelName: 'Bus',    
-    timestamps: true,
+    // timestamps: true,
 
   });
   return Bus;

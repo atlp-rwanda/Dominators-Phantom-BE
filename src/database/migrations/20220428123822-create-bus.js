@@ -6,10 +6,17 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,    
+        allowNull: false,
       },
       routeId: {
+        allowNull: false,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'routes', 
+          key: 'routeId'
+        }
       },
       prateNumber: {
         type: Sequelize.STRING,

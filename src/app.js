@@ -6,7 +6,7 @@ import Backend from 'i18next-fs-backend';
 import middleware from 'i18next-http-middleware';
 import globalErrorHandler from './controllers/errorController';
 import swaggerDocument from './documentation/index';
-import routes from './routes/index';
+import {routes} from './routes/index';
 
 const app = express();
 
@@ -48,6 +48,6 @@ app.use(
 );
 
 //ERROR HANDLING MIDDLEWARE
-app.use(globalErrorHandler);
+// app.use(globalErrorHandler);
 
 export default app;

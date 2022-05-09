@@ -4,32 +4,24 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class routes extends Model {
+  class Route extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Bus}) {
-      // define association here
-      this.hasMany(Bus, 
-        { 
-          foreignKey: 'routeId', 
-          as: 'Buses', 
-          onDelete: "cascade", 
-          onUpdate: "cascade" ,
-          hooks: true 
-        });
-      }
-    // toJSON() {
-    //   return { ...this.get(), id: undefined }
-    // }
+  static associate({Bus}) {
+    // define association here
+      this.hasMany(Bus, {foreignKey: 'routeId', as: 'Buses', onDelete: 'CASCADE' })
+    }
   }
-  routes.init({
+  Route.init({
     routeId: {
       type:DataTypes.UUID,
       defaultValue:DataTypes.UUIDV4,
       primaryKey: true,
+      allowNull: false
+      // unique: true
     },
     origin: {
       type: DataTypes.STRING,
@@ -47,22 +39,24 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM("pending", "active", "disabled")
   },
     routeSlug: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      unique: true
     },
     
 
   }, {
     sequelize,
+    paranoid: false,
     tableName: 'routes',
-    modelName: 'routes',
+    modelName: 'Route',
   });
-  routes.removeAttribute('id');
+  Route.removeAttribute('id');
 
-  SequelizeSlugify.slugifyModel(routes, {
+  SequelizeSlugify.slugifyModel(Route, {
     source: ['origin'],
     suffixSource: ['destination'],
-    column: 'routeSlug'
+    column: 'routeSlug',
   });
 
-  return routes;
+  return Route;
 };

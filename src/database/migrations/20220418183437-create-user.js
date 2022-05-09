@@ -7,15 +7,19 @@ export async function up(queryInterface, Sequelize) {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    name: {
+    firstName: {
       type: Sequelize.STRING
     },
-    username: {
+    lastName: {
       type: Sequelize.STRING
     },
     email: {
       type: Sequelize.STRING,
       unique: true
+    },
+    role: {
+      type: Sequelize.STRING,
+      allowNull: false,
     },
     password: {
       type: Sequelize.STRING
