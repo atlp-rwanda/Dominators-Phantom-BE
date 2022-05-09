@@ -8,19 +8,21 @@ import { getPagingData } from '../utils/paginationHandler';
 const busRoutes = model.routes;
 const addRoute = async (req, res) => {
 
-    if (!req.body.origin || !req.body.destination || !req.body.distance || !req.body.code) {
+    if (!(req.body.origin && req.body.destination && req.body.distance && req.body.code && req.body.latitude && req.body.longitude))
+        return responseHandler(res, 400, req.t("missing_params"))
 
-        responseHandler(res, 400, req.t('missing_params'));
-
-        return;
-    }
+    const point = draw(req.body.latitude, req.body.longitude);
 
     await busRoutes.findOrCreate({
-        where: { origin: req.body.origin, destination: req.body.destination, code: req.body.code, distance: req.body.distance },
-        default: { distance: req.body.distance }
-    }).then(([route, created]) => {
-        if (created) responseHandler(res, 200, req.t('created_ok'))
-        else responseHandler(res, 400, req.t('already_exist'))
+        where: {
+            origin: req.body.origin,
+            destination: req.body.destination,
+            code: req.body.code,
+            distance: req.body.distance
+        },
+        defaults: { coordinates: point }
+    }).then((created) => {
+        created[1] ? responseHandler(res, 200, req.t("created_ok")) : responseHandler(res, 401, req.t("already_exist"));
     });
 }
 
@@ -61,20 +63,12 @@ const updateRoute = async (req, res) => {
         num[1].length > 0 && responseHandler(res, 200, req.t("updated_ok"));
     await busRoutes.update(req.body, {
         where: {
-            routeSlug: id
-        },
-        individualHooks: true
-    }).then(num => {
-        if (num[1].length > 0) {
-            responseHandler(res, 200, req.t('updated_ok'));
-        } else {
-            responseHandler(res, 400, req.t('updated_invalid_req'))
+            routeSlug: id,
         }
-
     });
 }
-}
 
+}
 const removeRoute = async(req, res) => {
     const id = req.params.id;
 

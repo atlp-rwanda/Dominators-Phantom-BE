@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     distance: DataTypes.STRING,
     status: DataTypes.ENUM("pending", "active", "disabled"),
     routeSlug: DataTypes.STRING,
+    coordinates: DataTypes.ARRAY(DataTypes.DECIMAL)
 
     coordinates: DataTypes.ARRAY(DataTypes.DECIMAL)
 
