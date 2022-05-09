@@ -32,7 +32,7 @@ const addUser = async (req, res) => {
     .then((emailExists) => {
       if (emailExists) {
         return res.status(400).json({
-          message: 'email_exists',
+          message: req.t('email_exists'),
         });
       }
       console.log(password);

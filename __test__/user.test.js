@@ -181,7 +181,4 @@ describe('TESTING REGISTRATION OF USERS', () => {
       done();
     });
   });
-
-
-
 });
