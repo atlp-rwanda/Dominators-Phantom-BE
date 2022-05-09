@@ -1,8 +1,16 @@
 import express from 'express';
 import userRoutes from './api/userRoutes';
+import {busRoutes}  from './api/busRoutes';
+import {buses} from './api/buses';
+import {routeList} from './api/listRoutes';
+import {busList} from './api/listBuses'
 
-const routes = express.Router();
+const router = express.Router();
 
-routes.use('/users', userRoutes);
+router.use('/users', userRoutes);
+router.use('/routes', busRoutes);
+router.use('/buses', buses);
+router.use('/routelist', routeList);
+router.use('/buslist', busList);
 
-export default routes;
+export default router;
