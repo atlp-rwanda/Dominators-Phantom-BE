@@ -31,7 +31,7 @@ export const user = {
         },
       },
     },
-  },
+  }
 };
 
 export const userDefinition = {

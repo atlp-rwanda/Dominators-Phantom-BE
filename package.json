@@ -15,8 +15,8 @@
     "dev": {
       "command": "nodemon --exec babel-node ./src/server",
       "env": {
-        "NODE_ENV": "development",
-        "PORT": 3000
+        "PORT": 3000,
+        "NODE_ENV": "development"
       }
     },
     "prod": {
@@ -27,7 +27,7 @@
       }
     },
     "test": {
-      "command": "nyc mocha --recursive src/**/*.test.js --require @babel/register src/**/*_test.js __test__/",
+      "command": "nyc mocha --require @babel/register ./__test__/ --recursive --timeout 20000 --exit",
       "env": {
         "NODE_ENV": "test",
         "PORT": 5000
@@ -54,11 +54,13 @@
     "i18next-fs-backend": "^1.1.4",
     "i18next-http-middleware": "^3.2.0",
     "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.7.5",
     "nyc": "^15.1.0",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
     "promisfy": "^1.2.0",
     "sequelize": "^6.18.0",
+    "sequelize-slugify": "^1.6.1",
     "swagger-ui-express": "^4.3.0",
     "util": "^0.12.4"
   },

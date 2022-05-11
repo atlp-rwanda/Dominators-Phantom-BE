@@ -1,8 +1,6 @@
 import express from 'express';
 import authController from '../../controllers/authController';
-import { addUser, allUsers, findOneUser, update, deleteUser} from '../../controllers/usersController'
-
-
+import { addUser, allUsers, findOneUser, update, deleteUser } from '../../controllers/usersController'
 
 const router = express.Router();
 
