@@ -1,39 +1,40 @@
 'use strict';
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.sequelize.query(
       'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
     );
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('routes', {
       id: {
-        allowNull: false,
         defaultValue: Sequelize.literal('uuid_generate_v4()'),
+        allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
       },
-      firstName: {
+      origin: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
-      lastName: {
+      destination: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
-      email: {
+      code: {
         type: Sequelize.STRING,
-        allowNull: false,
+      },
+      distance: {
+        type: Sequelize.STRING,
+      },
+      status: {
+        type: Sequelize.ENUM('pending', 'active', 'disabled'),
+        defaultValue: 'pending',
+      },
+      routeSlug: {
+        type: Sequelize.STRING,
         unique: true,
-        validate: { isEmail: true },
-        lowercase: true,
       },
-      role: {
-        type: Sequelize.ENUM('admin', 'operator', 'driver'),
-        allowNull: false,
-      },
-      password: {
+      coordinates: {
         type: Sequelize.STRING,
         allowNull: false,
-        validate: { min: 8 },
       },
       createdAt: {
         allowNull: false,
@@ -45,7 +46,8 @@ module.exports = {
       },
     });
   },
+
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('routes');
   },
 };

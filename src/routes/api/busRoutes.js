@@ -11,11 +11,14 @@ import { protect, restrictTo } from '../../controllers/authController';
 
 const router = express.Router();
 
-router.get('/', protect, findAll);
-router.get('/:id/', protect, findOne);
-router.put('/:id/', protect, updateRoute);
-router.post('/', protect, addRoute);
-router.delete('/:id', protect, removeRoute);
-router.delete('/', protect, deleteAll);
+router.use(protect);
+router.use(restrictTo('admin', 'operator'));
+
+router.get('/', findAll);
+router.get('/:id/', findOne);
+router.put('/:id/', updateRoute);
+router.post('/', addRoute);
+router.delete('/:id', removeRoute);
+router.delete('/', deleteAll);
 
 export default router;

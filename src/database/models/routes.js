@@ -1,5 +1,7 @@
 'use strict';
 import SequelizeSlugify from 'sequelize-slugify';
+import { v4 as uuid } from 'uuid';
+
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class routes extends Model {
@@ -14,9 +16,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   routes.init(
     {
-      routeId: {
+      id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: uuid(),
+        isUUID: 4,
+        primaryKey: true,
+        allowNull: false,
       },
       origin: DataTypes.STRING,
       destination: DataTypes.STRING,
@@ -32,7 +37,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'routes',
     }
   );
-  routes.removeAttribute('id');
 
   SequelizeSlugify.slugifyModel(routes, {
     source: ['origin'],

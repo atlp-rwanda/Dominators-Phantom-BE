@@ -1,7 +1,6 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+import { Model } from 'sequelize';
+import { v4 as uuid } from 'uuid';
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -16,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: uuid(),
+        primaryKey: true,
+        allowNull: false,
+      },
       firstName: { type: DataTypes.STRING, allowNull: false },
       lastName: { type: DataTypes.STRING, allowNull: false },
       email: {
@@ -40,6 +45,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'User',
     }
   );
-
+  // User.beforeCreate((user, _) => (user.id = uuid()));
   return User;
 };

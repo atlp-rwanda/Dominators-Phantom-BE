@@ -34,7 +34,7 @@ const addUser = async (req, res) => {
         message: 'email_exists',
       });
     }
-    console.log(password);
+    // console.log(password);
     return User.create({
       firstName,
       lastName,
@@ -42,14 +42,14 @@ const addUser = async (req, res) => {
       role,
       password,
     })
-
       .then((data) => {
         if (data) {
+          data.password = undefined;
           const message = `
-              <h2>Your account has been registered. you can now login in</h2>
-              <a href="http://localhost:5000/login">here</a>
-              <p>${req.body.email}. Note that your login password will be <em>${userpassword}</em></p>
-              `;
+        <h2>Your account has been registered. you can now login in</h2>
+        <a href="http://localhost:5000/login">here</a>
+        <p>${req.body.email}. Note that your login password will be <em>${userpassword}</em></p>
+        `;
           sendEmail(message, data.email);
           res.status(201).json({
             message: req.t('user_created'),
@@ -84,6 +84,7 @@ const allUsers = (req, res) => {
         });
       }
       return res.status(200).json({
+        Results: data.length,
         data,
       });
     })

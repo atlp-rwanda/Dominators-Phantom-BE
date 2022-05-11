@@ -22,18 +22,17 @@ const addRoute = async (req, res) => {
     }).then((created) => {
         created[1] ? responseHandler(res, 200, req.t("created_ok")) : responseHandler(res, 401, req.t("already_exist"));
     });
-}
+});
 
 const findAll = async (req, res) => {
-    const { page, size } = req.query;
-    const { limit, offset } = getPagination(page, size);
+  const { page, size } = req.query;
+  const { limit, offset } = getPagination(page, size);
 
-    await busRoutes.findAndCountAll({ limit, offset })
-        .then(data => {
-            const response = getPagingData(data, page, limit);
-            res.send(response);
-        });
-}
+  await busRoutes.findAndCountAll({ limit, offset }).then((data) => {
+    const response = getPagingData(data, page, limit);
+    res.send(response);
+  });
+};
 
 const fetchOne = async (req, res) => {
     const id = req.params.id;
@@ -45,7 +44,14 @@ const fetchOne = async (req, res) => {
     }).then(data => {
         null != data ? res.send(data) : responseHandler(res, 404, req.t("not_found"));
     })
-}
+    .then((data) => {
+      if (data != '') {
+        res.send(data);
+      } else {
+        responseHandler(res, 404, req.t('not_found'));
+      }
+    });
+};
 
 const updateRoute = async (req, res) => {
     const id = req.params.id;
@@ -70,24 +76,26 @@ const updateRoute = async (req, res) => {
     }).then(num => {
         num[1].length > 0 && responseHandler(res, 200, req.t("updated_ok"));
     });
-}
+};
 
 const removeRoute = async (req, res) => {
-    const id = req.params.id;
+  const { id } = req.params;
 
     await busRoutes.destroy({
         where: { routeSlug: id }
     }).then(num => {
         1 == num ? responseHandler(res, 200, req.t("deleted_ok")) : responseHandler(res, 400, req.t("delete_invalid_req"));
     });
-}
+};
 
 const deleteAll = async (req, res) => {
-    await busRoutes.destroy({
-        where: {},
-        truncate: false
-    }).then(nums => {
-        responseHandler(res, 200, req.t('many_deleted'));
+  await busRoutes
+    .destroy({
+      where: {},
+      truncate: false,
+    })
+    .then((nums) => {
+      responseHandler(res, 200, req.t('many_deleted'));
     });
 }
 

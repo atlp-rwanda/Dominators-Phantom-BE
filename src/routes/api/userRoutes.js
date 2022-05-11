@@ -21,7 +21,7 @@ router.use(restrictTo('admin'));
 router.post('/register', addUser);
 router.get('/', allUsers);
 router.get('/:id', findOneUser);
-router.put('/:id', update);
+router.patch('/:id', update);
 router.delete('/:id', deleteUser);
 
 export default router;
