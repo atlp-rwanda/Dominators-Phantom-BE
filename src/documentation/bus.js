@@ -31,8 +31,41 @@ export const bus = {
         },
       },
     },
-  },
-};
+  
+
+  delete: {
+    tags: [
+        "DELETE ROUTE"
+    ],
+    summary: "DELETE_ALL_ROUTES",
+    description: "DELETE_ALL_ROUTES",
+    operationId: "deleteAllRoutes",
+    consumes: [
+        "application/json"
+    ],
+    produces: [
+        "application/json"
+    ],
+    parameters: [
+        {
+            name: "Accept-Language",
+            in: "header",
+            description: "the Accept-Language",
+            required: false,
+            type: "string"
+        }
+    ],
+    responses: {
+        200: {
+            description: "OK",
+            schema: {
+                type: "string"
+            }
+        }
+    }
+}
+
+}};
 
 export const busDefinition = {
   buses: {

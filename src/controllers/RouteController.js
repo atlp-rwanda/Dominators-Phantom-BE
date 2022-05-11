@@ -7,6 +7,7 @@ import { getPagingData } from '../utils/paginationHandler';
 
 const busRoutes = model.routes;
 const addRoute = async (req, res) => {
+    console.log(req.body)
 
     if (!(req.body.origin && req.body.destination && req.body.distance && req.body.code && req.body.latitude && req.body.longitude))
         return responseHandler(res, 400, req.t("missing_params"))
