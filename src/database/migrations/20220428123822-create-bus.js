@@ -9,10 +9,10 @@ module.exports = {
         allowNull: false,
       },
       routeId: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
-        onDelete: 'CASCADE',
+        onDelete: 'SET NULL',
         references: {
           model: 'routes', 
           key: 'routeId'

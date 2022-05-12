@@ -7,7 +7,11 @@ const findAll = async (req, res) => {
 
     await buses.findAll({
         id: req.body.id,
-        include: 'routes'
+        include: [{
+            model: model.Route,
+            as: 'routes',
+            attributes: ['routeId', 'origin', 'destination']
+          }]
     })
         .then(data => {
             res.send(data);
@@ -27,9 +31,10 @@ const findOne = async (req, res) => {
     await buses.findOne({
         where: { id: id },
         include: [{
-            model: model.Route, 
-            as: 'Route'
-        }]
+            model: model.Route,
+            as: 'routes',
+            attributes: ['routeId', 'origin', 'destination']
+          }]
     })
         .then(data => {
             if (data) {

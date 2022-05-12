@@ -4,12 +4,12 @@ import app from '../src/server';
 import props from '../src/config/config';
 
 chai.use(chaiHttp);
-describe("DISPLAYING BUSES!", () => {
+describe("DISPLAYING ROUTES!", () => {
     
-    it('IT GETS ALL BUSES', (done) => {
+    it('IT GETS ALL ROUTES', (done) => {
         chai
         .request(app)
-        .get('/api/v1/buslist/')
+        .get('/api/v1/routelist/')
         // .set('Authorization', `Bearer ${process.env.ADMIN_TOKEN}`)
         .end((err, response) => {
             chai.expect(response.statusCode).to.equal(200);
@@ -18,14 +18,14 @@ describe("DISPLAYING BUSES!", () => {
     });
 });
 
-describe('GET ONE BUS', () => {
-    it('IT GETS ONE BUS', (done) => {
+describe('GET ONE ROUTE', () => {
+    it('IT GETS ONE ROUTE', (done) => {
       chai
         .request(app)
-        .get('/api/v1/buslist/748784cc-48ec-4e08-8e35-61e460bc7e0b')
+        .get('/api/v1/routelist/748784cc-48ec-4e08-8e35-61e460bc7e0b')
         // .set('Authorization', `Bearer ${process.env.ADMIN_TOKEN}`)
         .end((err, response) => {
-          chai.expect(response.statusCode).to.equal(404);
+          chai.expect(response.statusCode).to.equal(200);
         });
       done();
     });

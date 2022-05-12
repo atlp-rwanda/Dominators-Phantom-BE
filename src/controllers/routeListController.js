@@ -12,10 +12,13 @@ const findAll = async (req, res) => {
     const { limit, offset } = getPagination(page, size);
 
     await busRoutes.findAndCountAll({ 
-        limit, offset,
-        // include: [{model: model.Bus, as: 'Buses'}],
-        // include:'Buses',
-        include: busRoutes.associations.Buses,
+        limit, 
+        offset,
+        include: [{
+            model: model.Bus,
+            as: 'Buses',
+            attributes: [ 'id']
+          }],
         distinct: true,   
      })
         .then(data => {
@@ -32,7 +35,12 @@ const findOne = async (req, res) => {
     const id = req.params.id;
 
     await busRoutes.findOne({
-        include: [{model: model.Bus, as: 'Buses'}],
+        attributes: {exclude: ["origin", "destination", "code", "distance", "status", "routeSlug", "createdAt", "updatedAt"]},
+        include: [{
+            model: model.Bus,
+            as: 'Buses',
+            attributes: [ 'id']
+          }],
         distinct: true,   
         where: { routeId: id }
     })

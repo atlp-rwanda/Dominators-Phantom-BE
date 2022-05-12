@@ -48,6 +48,6 @@ app.use(
 );
 
 //ERROR HANDLING MIDDLEWARE
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 export default app;

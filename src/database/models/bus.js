@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 
      static associate({Route}) {
       // define association here
-      this.belongsTo(Route, {foreignKey: {name: 'routeId', allowNull: true}, onDelete: 'CASCADE', as: 'routes' }, )
+      this.belongsTo(Route, {foreignKey: {name: 'routeId', allowNull: true}, onDelete: 'SET NULL', as: 'routes' }, )
     }
   }
   Bus.init({ 
@@ -29,8 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     routeId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
-      // unique: true
+      allowNull: true,
     },
     busType: {
       type: DataTypes.STRING,

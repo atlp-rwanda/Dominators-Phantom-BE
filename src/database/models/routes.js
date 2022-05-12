@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
   static associate({Bus}) {
     // define association here
-      this.hasMany(Bus, {foreignKey: 'routeId', as: 'Buses', onDelete: 'CASCADE' })
+      this.hasMany(Bus, {foreignKey: 'routeId', as: 'Buses', onDelete: 'SET NULL' })
     }
   }
   Route.init({
@@ -54,6 +54,10 @@ module.exports = (sequelize, DataTypes) => {
 
   SequelizeSlugify.slugifyModel(Route, {
     source: ['origin'],
+    suffixSource: ['code'],
+    incrementalSeparator: '-',
+    overwrite: true,
+    bulkUpdate: true,
     suffixSource: ['destination'],
     column: 'routeSlug',
   });
