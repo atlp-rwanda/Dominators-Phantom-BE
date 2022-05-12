@@ -1,6 +1,5 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import { draw } from '../src/helpers/drawCoordinates';
 import server from '../src/server';
 chai.use(chaiHttp);
 
