@@ -38,21 +38,21 @@ describe('TESTING USER AUTHENTICATION', () => {
     done();
   });
 
-  // it('User login fail(message:Please provide email and password!)', (done) => {
-  //   chai
-  //     .request(server)
-  //     .post('/api/v1/users/login')
-  //     .send({
-  //       email: '',
-  //       password: '',
-  //     })
-  //     .end((error, response) => {
-  //       chai.expect(response.statusCode).to.equal(400);
-  //       chai.expect(response.body).to.have.property('error');
-  //       chai
-  //         .expect(response.body.message)
-  //         .to.equal('Please provide email and password!');
-  //     });
-  //   done();
-  // });
+  it('User login fail(message:Please provide email and password!)', (done) => {
+    chai
+      .request(server)
+      .post('/api/v1/users/login')
+      .send({
+        email: '',
+        password: '',
+      })
+      .end((error, response) => {
+        chai.expect(response.statusCode).to.equal(400);
+        chai.expect(response.body).to.have.property('error');
+        chai
+          .expect(response.body.message)
+          .to.equal('Please provide email and password!');
+      });
+    done();
+  });
 });
