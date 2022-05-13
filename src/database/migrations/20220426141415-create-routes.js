@@ -8,41 +8,41 @@ module.exports = {
         primaryKey: true,
       },
       origin: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       destination: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       code: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       distance: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       status: {
-        type: Sequelize.ENUM("pending", "active", "disabled"),
-        defaultValue: "pending",
+        type: Sequelize.ENUM('pending', 'active', 'disabled'),
+        defaultValue: 'pending',
       },
       routeSlug: {
         type: Sequelize.STRING,
-        unique: true
+        unique: true,
       },
 
       coordinates: {
         type: Sequelize.ARRAY(Sequelize.DECIMAL),
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('routes');
-  }
+  },
 };
