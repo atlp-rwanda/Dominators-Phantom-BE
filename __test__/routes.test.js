@@ -16,7 +16,9 @@ describe('TESTING ROUTES END POINTS', () => {
             origin: 'Kagugu',
             destination: 'Kamonyi',
             code: (Math.random() * 10000).toString(),
-            distance: (Math.random() * 10).toString()
+            distance: (Math.random() * 10).toString(),
+            latitude: 8.99,
+            longitude: 98.99
         }
         chai.request(server)
             .post(REQ_URL)
@@ -92,7 +94,6 @@ describe('TESTING ROUTES END POINTS', () => {
     it('BAD REQUEST, INVALID ROUTE ID', (done) => {
         chai.request(server)
             .get(`${REQ_URL}/InvalidId`)
-            .set('Accept', 'application/json')
             .set('Authorization', token)
             .then((res) => {
                 chai.expect(res.status).to.equal(404);
