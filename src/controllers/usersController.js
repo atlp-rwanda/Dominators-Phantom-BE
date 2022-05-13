@@ -64,7 +64,6 @@ const addUser = async (req, res) => {
           })
         );
     })
-
 };
 
 const allUsers = (req, res) => {
