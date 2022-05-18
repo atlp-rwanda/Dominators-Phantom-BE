@@ -10,7 +10,6 @@ describe("DISPLAYING BUSES!", () => {
         chai
         .request(app)
         .get('/api/v1/buslist/')
-        // .set('Authorization', `Bearer ${process.env.ADMIN_TOKEN}`)
         .end((err, response) => {
             chai.expect(response.statusCode).to.equal(200);
         });
@@ -23,7 +22,6 @@ describe('GET ONE BUS', () => {
       chai
         .request(app)
         .get('/api/v1/buslist/748784cc-48ec-4e08-8e35-61e460bc7e0b')
-        // .set('Authorization', `Bearer ${process.env.ADMIN_TOKEN}`)
         .end((err, response) => {
           chai.expect(response.statusCode).to.equal(404);
         });

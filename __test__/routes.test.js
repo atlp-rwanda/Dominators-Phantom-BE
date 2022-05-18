@@ -11,12 +11,14 @@ let EXISTING_ROUTE;
 
 describe('TESTING ROUTES END POINTS', () => {
 
-    it('MUST CREATE ROUTE', async function() {
+    it('MUST CREATE ROUTE', (done) => {
         const data = {
             origin: 'Kagugu',
             destination: 'Kamonyi',
             code: (Math.random() * 10000).toString(),
-            distance: (Math.random() * 10).toString()
+            distance: (Math.random() * 10).toString(),
+            latitude: 8.99,
+            longitude: 98.99
         }
         chai.request(server)
             .post(REQ_URL)
@@ -26,10 +28,11 @@ describe('TESTING ROUTES END POINTS', () => {
             .then((res) => {
                 chai.expect(res).to.have.status(200);
 
+                done();
             }).catch((err) => done(err));
     });
 
-    it('MUST FETCH ROUTES', async function() {
+    it('MUST FETCH ROUTES', (done) => {
         chai
             .request(server)
             .get(REQ_URL)
@@ -44,10 +47,11 @@ describe('TESTING ROUTES END POINTS', () => {
                     distance: ROUTE.distance,
                     code: ROUTE.code
                 }
+                done();
             }).catch((err) => done(err))
     });
 
-    it('BAD REQUEST, ROUTE ALREADY EXISTS', async function() {
+    it('BAD REQUEST, ROUTE ALREADY EXISTS', (done) => {
         chai.request(server)
             .post(REQ_URL)
             .set('Accept', 'application/json')
@@ -56,10 +60,11 @@ describe('TESTING ROUTES END POINTS', () => {
             .then((res) => {
                 chai.expect(res).to.have.status(400);
 
+                done();
             }).catch((err) => done(err));
     });
 
-    it('BAD REQUEST, MISSING PARAMS', async function() {
+    it('BAD REQUEST, MISSING PARAMS', (done) => {
         const data = {
             origin: 'Kamonyi',
             destination: 'Kinyinya'
@@ -71,33 +76,32 @@ describe('TESTING ROUTES END POINTS', () => {
             .send(data)
             .then((res) => {
                 chai.expect(res).have.status(400);
-               
+                done();
             }).catch((err) => done(err));
     });
 
-    it('MUST FETCH SINGLE ROUTE', async function() {
+    it('MUST FETCH SINGLE ROUTE', (done) => {
         chai.request(server)
             .get(`${REQ_URL}/${ROUTE_ID}`)
             .set('Accept', 'application/json')
             .set('Authorization', token)
             .then((res) => {
                 chai.expect(res.status).to.equal(200);
-                
+                done();
             }).catch((err) => done(err));
     });
 
-    it('BAD REQUEST, INVALID ROUTE ID', async function() {
+    it('BAD REQUEST, INVALID ROUTE ID', (done) => {
         chai.request(server)
             .get(`${REQ_URL}/InvalidId`)
-            .set('Accept', 'application/json')
             .set('Authorization', token)
             .then((res) => {
                 chai.expect(res.status).to.equal(404);
-              
+                done();
             }).catch((err) => done(err));
     });
 
-    it('MUST UPDATE ROUTE', async function() {
+    it('MUST UPDATE ROUTE', (done) => {
         const data = {
             distance: (Math.random() * 100).toString()
         }
@@ -108,11 +112,11 @@ describe('TESTING ROUTES END POINTS', () => {
             .send(data)
             .then((res) => {
                 chai.expect(res.status).to.equal(200);
-                
+                done();
             }).catch((err) => done(err));
     });
 
-    it('MUST NOT UPDATE, INVALID ID', async function() {
+    it('MUST NOT UPDATE, INVALID ID', (done) => {
         const data = {
             status: "active"
         }
@@ -123,39 +127,39 @@ describe('TESTING ROUTES END POINTS', () => {
             .send(data)
             .then((res) => {
                 chai.expect(res.status).to.equal(400);
-                
+                done();
             }).catch((err) => done(err));
     });
 
-    it('MUST DELETE ROUTE', async function() {
+    it('MUST DELETE ROUTE', (done) => {
         chai.request(server)
             .delete(`${REQ_URL}/${ROUTE_ID}`)
             .set('Accept', 'application/json')
             .set('Authorization', token)
             .then((res) => {
                 chai.expect(res.status).to.equal(200);
-               
+                done();
             }).catch((err) => done(err));
     });
 
-    it('MUST NOT DELETE ROUTE, INVALID ID', async function() {
+    it('MUST NOT DELETE ROUTE, INVALID ID', (done) => {
         chai.request(server)
             .delete(`${REQ_URL}/InvalidId`)
             .set('Accept', 'application/json')
             .set('Authorization', token)
             .then((res) => {
                 chai.expect(res.status).to.equal(400);
-                
+                done();
             }).catch((err) => done(err));
     });
 
-    it('MUST DELETE ALL ROUTE', async function() {
+    it('MUST DELETE ALL ROUTE', (done) => {
         chai.request(server)
             .delete(REQ_URL)
             .set('Authorization', token)
             .then((res) => {
                 chai.expect(res.status).to.equal(200);
-               
+                done();
             }).catch((err) => done(err));
     });
 

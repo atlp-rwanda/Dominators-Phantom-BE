@@ -21,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue:DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false
-      // unique: true
     },
     origin: {
       type: DataTypes.STRING,
@@ -37,16 +36,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.ENUM("pending", "active", "disabled")
-  },
-    routeSlug: {
-      type: DataTypes.STRING,
-      unique: true
     },
+    routeSlug: {
+      type: DataTypes.STRING
+    },
+    
+    coordinates: {
+      type: DataTypes.ARRAY(DataTypes.DECIMAL)
+    }
     
 
   }, {
     sequelize,
-    paranoid: false,
     tableName: 'routes',
     modelName: 'Route',
   });

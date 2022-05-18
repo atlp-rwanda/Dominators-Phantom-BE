@@ -35,11 +35,11 @@ const findOne = async (req, res) => {
     const id = req.params.id;
 
     await busRoutes.findOne({
-        attributes: {exclude: ["origin", "destination", "code", "distance", "status", "routeSlug", "createdAt", "updatedAt"]},
+        attributes: {exclude: ["origin", "destination", "coordinates", "code", "distance", "status", "routeSlug", "createdAt", "updatedAt"]},
         include: [{
             model: model.Bus,
             as: 'Buses',
-            attributes: [ 'id']
+            attributes: [ 'id', 'prateNumber']
           }],
         distinct: true,   
         where: { routeId: id }
