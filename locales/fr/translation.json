@@ -22,5 +22,6 @@
   "user_id": "L'utilisateur avec l'identifiant de ${id} n'existe pas",
   "user_update": "L'utilisateur avec ${id} a été mis à jour avec succès",
   "uesr_exists": " L'utilisateur avec l'identifiant ${id} n'existe pas",
-  "user_deleted": " L'utilisateur avec l'identifiant ${id} a bien été supprimé"
+  "user_deleted": " L'utilisateur avec l'identifiant ${id} a bien été supprimé",
+  "invalid_email": "ID d'entrée non valide, il doit s'agir d'un nombre"
 }

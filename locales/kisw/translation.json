@@ -22,5 +22,6 @@
   "user_id": "Mtumiaji aliye na kitambulisho cha ${id} hayupo",
   "user_update": "Mtumiaji aliye na ${id} alisasishwa kwa mafanikio",
   "uesr_exists": "Mtumiaji aliye na kitambulisho cha ${id} hayupo",
-  "user_deleted": "Mtumiaji aliye na kitambulisho cha ${id} amefutwa"
+  "user_deleted": "Mtumiaji aliye na kitambulisho cha ${id} amefutwa",
+  "invalid_email": "id ingizo batili, lazima iwe nambari"
 }
