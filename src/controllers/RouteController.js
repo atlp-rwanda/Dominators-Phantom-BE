@@ -2,12 +2,9 @@ import responseHandler from '../utils/responseHandler';
 import model from '../database/models';
 import { getPagination, getPagingData } from '../utils/paginationHandler';
 import { draw } from '../helpers/drawCoordinates';
-import { getPagination } from '../utils/paginationHandler';
-import { getPagingData } from '../utils/paginationHandler';
-
 const busRoutes = model.routes;
+
 const addRoute = async (req, res) => {
-    console.log(req.body)
 
     if (!(req.body.origin && req.body.destination && req.body.distance && req.body.code && req.body.latitude && req.body.longitude))
         return responseHandler(res, 400, req.t("missing_params"))
@@ -38,10 +35,20 @@ const findAll = async (req, res) => {
         });
 }
 
+const fetchOne = async (req, res) => {
+    const id = req.params.id;
+
+    await busRoutes.findOne({
+        where: {
+            routeSlug: id
+        }
+    }).then(data => {
+        null != data ? res.send(data) : responseHandler(res, 404, req.t("not_found"));
+    })
+}
 
 const updateRoute = async (req, res) => {
     const id = req.params.id;
-
     let latitude = req.body.latitude;
     let longitude = req.body.longitude;
     await busRoutes.findOne({ where: { routeSlug: id } })
@@ -62,20 +69,14 @@ const updateRoute = async (req, res) => {
         }
     }).then(num => {
         num[1].length > 0 && responseHandler(res, 200, req.t("updated_ok"));
-    await busRoutes.update(req.body, {
-        where: {
-            routeSlug: id,
-        }
     });
 }
 
-}
-const removeRoute = async(req, res) => {
+const removeRoute = async (req, res) => {
     const id = req.params.id;
 
     await busRoutes.destroy({
         where: { routeSlug: id }
-
     }).then(num => {
         1 == num ? responseHandler(res, 200, req.t("deleted_ok")) : responseHandler(res, 400, req.t("delete_invalid_req"));
     });

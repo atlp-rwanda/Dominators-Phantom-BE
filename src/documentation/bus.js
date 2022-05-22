@@ -1,7 +1,7 @@
 export const bus = {
   '/api/v1/buses': {
     post: {
-      tags: ['Buses'],
+      tags: ['Create Buses'],
       summary: 'This will enable operator to perform CRUD operation for bus',
       description: ' ',
       produces: ['application/json'],
@@ -31,41 +31,158 @@ export const bus = {
         },
       },
     },
-  
-
+    get: {
+      tags: [
+          "Fetch Buses"
+      ],
+      summary: "FETCH_ALL",
+      description: "FETCH_ALL",
+      operationId: "fetchAll",
+      produces: [
+          "application/json"
+      ],
+      parameters: [
+          {
+              name: "page",
+              in: "query",
+              description: "the page",
+              required: false,
+              type: "string",
+          },
+          {
+              name: "size",
+              in: "query",
+              description: "the size",
+              required: false,
+              type: "string",
+          }
+      ],
+      responses: {
+          200: {
+              description: "OK",
+              schema: {
+                  type: "string"
+              }
+          }
+      }
+  },
   delete: {
-    tags: [
-        "DELETE ROUTE"
-    ],
-    summary: "DELETE_ALL_ROUTES",
-    description: "DELETE_ALL_ROUTES",
-    operationId: "deleteAllRoutes",
-    consumes: [
-        "application/json"
-    ],
-    produces: [
-        "application/json"
-    ],
-    parameters: [
-        {
-            name: "Accept-Language",
-            in: "header",
-            description: "the Accept-Language",
-            required: false,
-            type: "string"
-        }
-    ],
-    responses: {
-        200: {
-            description: "OK",
-            schema: {
-                type: "string"
-            }
-        }
-    }
-}
+      tags: [
+          "Delete All Bus"
+      ],
+      summary: "DELETE_ALL_BUSES",
+      description: "DELETE_ALL_BUSES",
+      operationId: "deleteAllBUSES",
+      consumes: [
+          "application/json"
+      ],
+      produces: [
+          "application/json"
+      ],
+      parameters: [
+          {
+              name: "Accept-Language",
+              in: "header",
+              description: "the Accept-Language",
+              required: false,
+              type: "string"
+          }
+      ],
+      responses: {
+          200: {
+              description: "OK",
+              schema: {
+                  type: "string"
+              }
+          }
+      }
+  }
 
-}};
+},
+  '/api/v1/buses/:id': {
+    delete: {
+      tags: ['DELET BUS'],
+      summary: 'DELETE_SINGLE_BUS',
+      description: 'DELETE SINGLE BUS',
+      operationId: 'delete',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      parameters: [
+        {
+          name: 'Accept-Language',
+          in: 'header',
+          description: 'the Accept-Language',
+          required: false,
+          type: 'string',
+        },
+      ],
+      responses: {
+        200: {
+          description: 'OK',
+          schema: {
+            type: 'string',
+          },
+        },
+      },
+    },
+  },
+  
+  '/api/v1/buses/:id': {
+    put: {
+      tags: ['Update Bus'],
+      summary: 'UPDATE',
+      description: 'UPDATE',
+      operationId: 'Update single bus',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      parameters: [
+        {
+          name: 'Accept-Language',
+          in: 'header',
+          description: 'the Accept-Language',
+          required: false,
+          type: 'string',
+        },
+      ],
+      responses: {
+        200: {
+          description: 'OK',
+          schema: {
+            type: 'string',
+          },
+        },
+      },
+    },
+  },
+  
+  '/api/v1/buses/:id': {
+    delete: {
+      tags: ['Delete Bus'],
+      summary: 'DELETE',
+      description: 'DELETE',
+      operationId: 'Delete single bus',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      parameters: [
+        {
+          name: 'Accept-Language',
+          in: 'header',
+          description: 'the Accept-Language',
+          required: false,
+          type: 'string',
+        },
+      ],
+      responses: {
+        200: {
+          description: 'OK',
+          schema: {
+            type: 'string',
+          },
+        },
+      },
+    },
+  },
+};
 
 export const busDefinition = {
   buses: {

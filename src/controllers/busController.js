@@ -3,7 +3,6 @@ import model from '../database/models'
 import Op from 'sequelize';
 const buses = model.Bus;
 const addBus = async (req, res) => {
-    console.log("bus:",res)
     // Validate request
     if (!req.body.prateNumber || !req.body.routeId || !req.body.busType) {
         res.status(400).send({
