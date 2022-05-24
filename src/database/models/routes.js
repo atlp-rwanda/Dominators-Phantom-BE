@@ -15,15 +15,27 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   routes.init({
+<<<<<<< HEAD
     routeId: {type:DataTypes.UUID,
     defaultValue:DataTypes.UUIDV4},
+=======
+    routeId: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
+    },
+>>>>>>> develop
     origin: DataTypes.STRING,
     destination: DataTypes.STRING,
     code: DataTypes.STRING,
     distance: DataTypes.STRING,
     status: DataTypes.ENUM("pending", "active", "disabled"),
     routeSlug: DataTypes.STRING,
+<<<<<<< HEAD
     
+=======
+    coordinates: DataTypes.ARRAY(DataTypes.DECIMAL)
+
+>>>>>>> develop
 
   }, {
     sequelize,
@@ -33,6 +45,13 @@ module.exports = (sequelize, DataTypes) => {
 
   SequelizeSlugify.slugifyModel(routes, {
     source: ['origin'],
+<<<<<<< HEAD
+=======
+    suffixSource: ['code'],
+    incrementalSeparator: '-',
+    overwrite: true,
+    bulkUpdate: true,
+>>>>>>> develop
     suffixSource: ['destination'],
     column: 'routeSlug'
   });

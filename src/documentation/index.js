@@ -1,9 +1,12 @@
 import welcome from './welcome';
 import { user, userDefinition } from './user';
+import { route, createDefinition } from './routeDoc';
+import { Profile, ProfileDefinition } from './profile';
+import { users, usersDefinition } from './drivers&operators';
 
-const paths = { ...welcome, ...user };
 
-const definitions = { ...userDefinition };
+const paths = { ...welcome, ...user, ...route, ...Profile, ...users };
+const definitions = { ...userDefinition, ...createDefinition, ...ProfileDefinition, ...usersDefinition };
 
 const config = {
   swagger: '2.0',

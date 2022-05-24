@@ -1,6 +1,27 @@
 {
+  "missing_params": "Jaza sehemu zote zinazohitajika",
+  "already_exist": "rekodi tayari ipo",
+  "not_found": "Haiwezi kupata rekodi iliyoombwa.",
+  "created_ok": "Rekodi imeundwa",
+  "updated_ok": "Rekodi imesasishwa.",
+  "updated_invalid_req": "Haiwezi kusasisha rekodi, ombi batili",
+  "deleted_ok": "Rekodi ilifutwa",
+  "many_deleted": "Rekodi zimefutwa",
+  "delete_invalid_req": "Haiwezi kufuta rekodi, ombi batili",
+  "deleted_fail": "Imeshindwa kufuta rekodi",
   "welcome_message": "Karibuni sana kwa Dominators-Phantom-API!",
   "first_message": "Karibuni sana",
   "incorrect": "barua pepe au nenosiri lisilo sahihi",
-  "please": "Tafadhali toa barua pepe na nenosiri!"
+  "please": "Tafadhali toa barua pepe na nenosiri!",
+  "required_field": "Sehemu zote lazima zikamilishwe",
+  "email_invalid": "Barua pepe si sahihi",
+  "email_exists": "Mtumiaji aliye na barua pepe yupo",
+  "user_created": " mtumiaji amesajiliwa kwa mafanikio",
+  "no_users": "Bado hakuna watumiaji waliosajiliwa!",
+  "no_user": "Mtumiaji aliye na kitambulisho hicho hayupo",
+  "user_id": "Mtumiaji aliye na kitambulisho cha ${id} hayupo",
+  "user_update": "Mtumiaji aliye na ${id} alisasishwa kwa mafanikio",
+  "uesr_exists": "Mtumiaji aliye na kitambulisho cha ${id} hayupo",
+  "user_deleted": "Mtumiaji aliye na kitambulisho cha ${id} amefutwa",
+  "invalid_email": "id ingizo batili, lazima iwe nambari"
 }

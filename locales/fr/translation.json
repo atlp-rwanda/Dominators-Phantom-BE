@@ -1,6 +1,27 @@
 {
   "welcome_message": "Bienvenue au Dominators-Phantom-API!",
   "first_message": "Bienvenue",
+  "missing_params": "veuillez remplir tous les champs obligatoires",
+  "already_exist": "l'enregistrement existe déjà",
+  "not_found": "Impossible de trouver l'enregistrement demandé",
+  "created_ok": "Enregistrement créé avec succès",
+  "updated_ok": "L'enregistrement a été mis à jour avec succès.",
+  "updated_invalid_req": "Impossible de mettre à jour l'enregistrement, demande non valide",
+  "deleted_ok": "L'enregistrement a été supprimé avec succès",
+  "many_deleted": "Les enregistrements ont été supprimés avec succès",
+  "delete_invalid_req": "Impossible de supprimer l'enregistrement, demande invalide",
+  "deleted_fail": "Échec de la suppression de l'enregistrement",
   "incorrect": "email ou mot de passe incorrect",
-  "please": "Veuillez fournir un email et un mot de passe!"
+  "please": "Veuillez fournir un email et un mot de passe!",
+  "required_field": "Tous les champs doivent être remplis",
+  "email_invalid": "Email invalide",
+  "email_exists": "L'utilisateur avec l'e-mail existe",
+  "user_created": "utilisateur enregistré avec succès",
+  "no_users": "Il n'y a pas encore d'utilisateurs enregistrés !",
+  "no_user": "L'utilisateur avec cet identifiant n'existe pas",
+  "user_id": "L'utilisateur avec l'identifiant de ${id} n'existe pas",
+  "user_update": "L'utilisateur avec ${id} a été mis à jour avec succès",
+  "uesr_exists": " L'utilisateur avec l'identifiant ${id} n'existe pas",
+  "user_deleted": " L'utilisateur avec l'identifiant ${id} a bien été supprimé",
+  "invalid_email": "ID d'entrée non valide, il doit s'agir d'un nombre"
 }

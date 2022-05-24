@@ -1,5 +1,8 @@
-import { Model } from 'sequelize';
 
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -9,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasOne(models.Profile, {
+        foreignKey: 'userId',
+        as: 'Profiles'
+      })
     }
   }
   User.init(
@@ -25,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       role: { type: DataTypes.STRING, allowNull: false },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: { min: 8 },
       },
     },
