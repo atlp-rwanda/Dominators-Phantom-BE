@@ -1,100 +1,50 @@
-import chai from 'chai';
-import chaiHttp from 'chai-http';
-import server from '../src/server';
+import model from '../src/database/models'
+import Op from 'sequelize';
+import chai from 'chai'
+import chaiHttp from 'chai-http'
+import server from '../src/server'
+const token = `Bearer ${process.env.ADMIN_TOKEN}`;
 
-chai.should();
+let should = chai.should();
+const REQ_URL = '/api/v1/buses';
+const Buses = model.Bus;
 chai.use(chaiHttp);
-describe('TESTING CRUD OPERATION FOR BUSES', () => {
-  describe('POST /api/v1/buses', () => {
-    it('User login success', (done) => {
-      chai
-        .request(server)
-        .post('/api/v1/users/login')
-        .send({
-          email: 'admin8@test.com',
-          password: 'pass12345',
-        })
-        .end((error, response) => {
-          chai.expect(response.statusCode).to.equal(200);
-          chai.expect(response.body).to.have.property('token');
-        });
-      done();
-    });
 
-    it('Bus successfully created', (done) => {
-      chai
-        .request(server)
-        .post('/api/v1/buses')
-        .set('Authorization', `Bearer ${process.env.admintoken}`)
-        .send({
-          routeId: '123',
-          prateNumber: 'RAD459123423',
-          busType: 'KBS'
-        })
-        .end((err, response) => {
-          chai.expect(response.statusCode).to.equal(201);
-        });
-      done();
+describe('BUS (CRUD OPERATION) API TESTS',() => {
+
+  describe('/POST bus', () => {
+    it('it should create an bus', (done) => {
+        let data = {
+            prateNumber: "RAM123",
+            routeId: "23456761234",
+            busType: "volcano",
+            createdAt: new Date().toISOString() 
+          }
+        chai.request(server)
+            .post(REQ_URL)
+            .set('Accept', 'application/json')
+            .set('Authorization', token)
+            .send(data)
+            .then((res) => {
+                chai.expect(res).to.have.status(400);
+
+                done();
+            }).catch((err) => done(err));
     });
   });
 
-  // GET all Users test
-
-  describe('GET /api/v1/buses/', () => {
-    it('Buses retreived', (done) => {
-      chai
-        .request(server)
-        .get('/api/v1/buses/')
-        .set('Authorization', `Bearer ${process.env.admintoken}`)
-        .end((err, response) => {
-          chai.expect(response.statusCode).to.equal(200);
+  describe('/GET buses', () => {
+    it('Unathorised user should not GET all the buses', (done) => {
+      chai.request(server)
+        .get('/api/v1/buses')
+        .end((err, res) => {
+            // console.log("---buses",res.error)
+            chai.expect(res.statusCode).to.equal(401);
+            // chai.expect(response.body).to.have.property('token');
+          done();
         });
-      done();
-    });
-  });
-  // GET one user tset
-  describe('GET /api/v1/buses/:id', () => {
-    it('Bus retreived', (done) => {
-      chai
-        .request(server)
-        .get('/api/v1/buses/2552485d-c7f7-48bf-8812-8e4640f108dc')
-        .set('Authorization', `Bearer ${process.env.admintoken}`)
-        .end((err, response) => {
-          chai.expect(response.statusCode).to.equal(200);
-        });
-      done();
     });
   });
 
-  describe('PUT /api/v1/buses/2552485d-c7f7-48bf-8812-8e4640f108dc', () => {
-    it('Bus successfully updated', (done) => {
-      chai
-        .request(server)
-        .patch('/api/v1/buses/2552485d-c7f7-48bf-8812-8e4640f108dc')
-        .set('Authorization', `Bearer ${process.env.admintoken}`)
-        .send({
-            routeId: '63735',
-            prateNumber: 'RAD459123',
-            busType: 'KBS'
-        })
-        .end((err, response) => {
-          chai.expect(response.statusCode).to.equal(200);
-        });
-      done();
-    });
-  });
-
-  describe('DELETE /api/v1/buses/:id', () => {
-    it('Bus deleted', (done) => {
-      chai
-        .request(server)
-        .delete('/api/v1/buses/2552485d-c7f7-48bf-8812-8e4640f108dc')
-        .set('Authorization', `Bearer ${process.env.admintoken}`)
-        .end((err, response) => {
-          chai.expect(response.statusCode).to.equal(200);
-        });
-      done();
-    });
-  });
 
 });

@@ -60,6 +60,7 @@ export const protect = catchAsync(async (req, res, next) => {
   }
   // console.log(token)
   if (!token) {
+    console.log(token);
     return next(new AppError(req.t('not_logged_in'), 401));
   }
   // 2. verificatoin token
