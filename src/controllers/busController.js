@@ -4,7 +4,7 @@ import Op from 'sequelize';
 const buses = model.Bus;
 const addBus = async (req, res) => {
     // Validate request
-    if ((!req.body.prateNumber || !req.body.busType) && !req.query.routeId) {
+    if ((!req.body.prateNumber || !req.body.busType)) {
         res.status(400).send({
             message: "Invalid request! Missing required items!"
         });
@@ -14,7 +14,12 @@ const addBus = async (req, res) => {
     // // Create a ROUTE
 
     await buses.findOrCreate({
-        where: { prateNumber: req.body.prateNumber, routeId: req.body.routeId, busType: req.body.busType},
+        routeId: req.body.routeId, 
+        prateNumber: req.body.prateNumber, 
+        busType: req.body.busType,
+        where: { prateNumber: req.body.prateNumber, 
+            // routeId: req.body.routeId, 
+            busType: req.body.busType},
     }).then(([bus, created]) => {
         if (created) responseHandler(res, 200, bus)
         else responseHandler(res, 400, "Bus already exists.")
@@ -30,7 +35,6 @@ const findAll = async (req, res) => {
 
     await buses.findAll({
         id: req.body.id,
-        include: buses.associations.routes
     })
         .then(data => {
             res.send(data);

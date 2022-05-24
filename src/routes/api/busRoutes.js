@@ -1,21 +1,24 @@
-import { Router } from 'express';
-import { 
-    addRoute, 
-    findAll, 
-    findOne, 
-    updateRoute, 
-    removeRoute, 
-    deleteAll 
-} from '../../controllers/RouteController.js';
-import authController from '../../controllers/authController';
+import express from 'express';
+import {
+  addRoute,
+  findAll,
+  findOne,
+  updateRoute,
+  removeRoute,
+  deleteAll,
+} from '../../controllers/RouteController';
+import { protect, restrictTo } from '../../controllers/authController';
 
-const router = Router();
+const router = express.Router();
 
-router.get('/', authController.protect, findAll);
-router.get('/:id/', authController.protect, findOne)
-router.put('/:id/', authController.protect, updateRoute)
-router.post('/', authController.protect, addRoute);
-router.delete('/:id', authController.protect, removeRoute);
-router.delete('/', authController.protect, deleteAll);
+router.use(protect);
+router.use(restrictTo('admin', 'operator'));
 
-export const busRoutes = router;
+router.get('/', findAll);
+router.get('/:id/', findOne);
+router.put('/:id/', updateRoute);
+router.post('/', addRoute);
+router.delete('/:id', removeRoute);
+router.delete('/', deleteAll);
+
+export default router;

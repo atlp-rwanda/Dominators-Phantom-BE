@@ -1,9 +1,9 @@
-import nodemailer from "nodemailer";
-import "dotenv/config";
+import nodemailer from 'nodemailer';
+import 'dotenv/config';
 
 function sendEmail(message, toEmail) {
-  let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
     port: 587,
     secure: false,
     auth: {
@@ -11,11 +11,15 @@ function sendEmail(message, toEmail) {
       pass: process.env.USER_EMAIL_P,
     },
   });
-  let mailOptions = {
-    from: process.env.USER_EMAIL, // sender address
-    to: toEmail, // list of receivers
-    subject: "Registration Successfull", // Subject line
-    html: message, // html body
+  const mailOptions = {
+    // sender address
+    from: process.env.USER_EMAIL,
+    // list of receivers
+    to: toEmail,
+    // Subject line
+    subject: 'Registration Successfull',
+    // html body
+    html: message,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
@@ -23,7 +27,7 @@ function sendEmail(message, toEmail) {
       return console.log(error);
     }
 
-    res.render("contact", { msg: "Email has been sent" });
+    res.render('contact', { msg: 'Email has been sent' });
   });
 }
 

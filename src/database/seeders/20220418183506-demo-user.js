@@ -6,10 +6,9 @@ import bcrypt from 'bcryptjs';
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
-      'users',
+      'Users',
       [
         {
-          id: 8,
           firstName: 'jean eric',
           lastName: 'TUYISHIMIRE',
           email: 'admin8@test.com',
@@ -19,7 +18,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 7,
           firstName: 'kevin',
           lastName: 'kalimba',
           email: 'admin7@test.com',

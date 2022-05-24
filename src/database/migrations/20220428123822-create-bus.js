@@ -11,7 +11,7 @@ module.exports = {
       routeId: {
         allowNull: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        // defaultValue: Sequelize.UUIDV4,
         onDelete: 'SET NULL',
         references: {
           model: 'routes', 

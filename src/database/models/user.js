@@ -1,7 +1,6 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+import { Model } from 'sequelize';
+import { v4 as uuid } from 'uuid';
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -13,16 +12,38 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  User.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    role: DataTypes.STRING,
-    password: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'User',
-    tableName: 'users'
-  });
+  User.init(
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: uuid(),
+        primaryKey: true,
+        allowNull: false,
+      },
+      firstName: { type: DataTypes.STRING, allowNull: false },
+      lastName: { type: DataTypes.STRING, allowNull: false },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: { isEmail: true },
+        lowercase: true,
+      },
+      role: {
+        type: DataTypes.ENUM('admin', 'operator', 'driver'),
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: { min: 8 },
+      },
+    },
+    {
+      sequelize,
+      modelName: 'User',
+    }
+  );
+  // User.beforeCreate((user, _) => (user.id = uuid()));
   return User;
 };

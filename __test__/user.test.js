@@ -1,3 +1,5 @@
+/* eslint-disable node/no-unpublished-import */
+/* eslint-disable no-undef */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../src/server';
@@ -58,7 +60,7 @@ describe('TESTING REGISTRATION OF USERS', () => {
     it('User retreived', (done) => {
       chai
         .request(server)
-        .get('/api/v1/users/4')
+        .get('/api/v1/users/2')
         .set('Authorization', `Bearer ${process.env.admintoken}`)
         .end((err, response) => {
           chai.expect(response.statusCode).to.equal(200);
@@ -181,7 +183,4 @@ describe('TESTING REGISTRATION OF USERS', () => {
       done();
     });
   });
-
-
-
 });

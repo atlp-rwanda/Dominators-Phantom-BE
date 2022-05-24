@@ -28,43 +28,41 @@ const addUser = async (req, res) => {
     where: {
       email,
     },
-  })
-    .then((emailExists) => {
-      if (emailExists) {
-        return res.status(400).json({
-          message: 'email_exists',
-        });
-      }
-      console.log(password);
-      return User.create({
-        firstName,
-        lastName,
-        email,
-        role,
-        password,
-      })
-
-        .then((data) => {
-          if (data) {
-            const message = `
-              <h2>Your account has been registered. you can now login in</h2>
-              <a href="http://localhost:5000/login">here</a>
-              <p>${req.body.email}. Note that your login password will be <em>${userpassword}</em></p>
-              `;
-            sendEmail(message, data.email);
-            res.status(201).json({
-              message: req.t('user_created'),
-              data,
-            });
-          }
-        })
-        .catch((err) =>
-          res.status(400).json({
-            error: err.message,
-          })
-        );
+  }).then((emailExists) => {
+    if (emailExists) {
+      return res.status(400).json({
+        message: 'email_exists',
+      });
+    }
+    // console.log(password);
+    return User.create({
+      firstName,
+      lastName,
+      email,
+      role,
+      password,
     })
-   
+      .then((data) => {
+        if (data) {
+          data.password = undefined;
+          const message = `
+        <h2>Your account has been registered. you can now login in</h2>
+        <a href="http://localhost:5000/login">here</a>
+        <p>${req.body.email}. Note that your login password will be <em>${userpassword}</em></p>
+        `;
+          sendEmail(message, data.email);
+          res.status(201).json({
+            message: req.t('user_created'),
+            data,
+          });
+        }
+      })
+      .catch((err) =>
+        res.status(400).json({
+          error: err.message,
+        })
+      );
+  });
 };
 
 const allUsers = (req, res) => {
@@ -82,6 +80,7 @@ const allUsers = (req, res) => {
         });
       }
       return res.status(200).json({
+        Results: data.length,
         data,
       });
     })

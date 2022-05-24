@@ -1,14 +1,24 @@
 import express from 'express';
-import authController from '../../controllers/authController';
-import { addUser, allUsers, findOneUser, update, deleteUser} from '../../controllers/usersController'
+import { login, protect, restrictTo } from '../../controllers/authController';
+import {
+  addUser,
+  allUsers,
+  findOneUser,
+  update,
+  deleteUser,
+} from '../../controllers/usersController';
 
 const router = express.Router();
 
-router.post('/login', authController.login);
-router.post('/register', authController.protect, addUser)
-router.get('/', authController.protect, allUsers)
-router.get('/:id', authController.protect, findOneUser)
-router.put('/:id', authController.protect, update)
-router.delete('/:id', authController.protect, deleteUser)
+router.post('/login', login);
+
+router.use(protect);
+router.use(restrictTo('admin'));
+
+router.post('/register', addUser);
+router.get('/', allUsers);
+router.get('/:id', findOneUser);
+router.patch('/:id', update);
+router.delete('/:id', deleteUser);
 
 export default router;

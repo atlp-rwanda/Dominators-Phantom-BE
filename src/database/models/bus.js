@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     routeId: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      // defaultValue: DataTypes.UUIDV4,
       allowNull: true,
     },
     busType: {
