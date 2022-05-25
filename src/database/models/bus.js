@@ -1,7 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class AssignDriver extends Model {
+  class Bus extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,40 +9,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.User, {
-        foreignKey: {
-          name: 'UserId',
-          allowNull: true,
-        },
-        as: 'Users',
-      });
-      this.belongsTo(models.Bus, {
-        foreignKey: {
-          name: 'BusId',
-          allowNull: false,
-        },
-        as: 'Buses',
+      this.hasMany(models.AssignDriver, {
+        foreignKey: 'BusId',
+        as: 'AssignDriver',
       });
     }
   }
-  AssignDriver.init(
+  Bus.init(
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      UserId: DataTypes.INTEGER,
-      BusId: {
-        allowNull: true,
+      prateNumber: {
         type: DataTypes.STRING,
         unique: true,
       },
+      routeId: DataTypes.STRING,
+      busType: DataTypes.STRING,
+      prateNumber: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: 'AssignDriver',
+      modelName: 'Bus',
     }
   );
-  return AssignDriver;
+  return Bus;
 };

@@ -3,10 +3,26 @@ import { user, userDefinition } from './user';
 import { route, createDefinition } from './routeDoc';
 import { Profile, ProfileDefinition } from './profile';
 import { users, usersDefinition } from './drivers&operators';
+import { bus, busDefinition } from './bus';
+import { AssignDriverToBuse, AssignDefinition } from './assign';
 
-
-const paths = { ...welcome, ...user, ...route, ...Profile, ...users };
-const definitions = { ...userDefinition, ...createDefinition, ...ProfileDefinition, ...usersDefinition };
+const paths = {
+  ...welcome,
+  ...user,
+  ...route,
+  ...Profile,
+  ...users,
+  ...bus,
+  ...AssignDriverToBuse,
+};
+const definitions = {
+  ...userDefinition,
+  ...createDefinition,
+  ...ProfileDefinition,
+  ...usersDefinition,
+  ...busDefinition,
+  ...AssignDefinition,
+};
 
 const config = {
   swagger: '2.0',

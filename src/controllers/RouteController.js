@@ -7,8 +7,7 @@ const busRoutes = model.routes;
 const addRoute = async (req, res) => {
 
     if (!(req.body.origin && req.body.destination && req.body.distance && req.body.code && req.body.latitude && req.body.longitude))
-        return responseHandler(res, 400, req.t("missing_params"))
-
+        return responseHandler(res, 400, req.t("missing_params",req))
     const point = draw(req.body.latitude, req.body.longitude);
 
     await busRoutes.findOrCreate({

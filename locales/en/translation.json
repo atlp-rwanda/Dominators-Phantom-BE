@@ -5,6 +5,7 @@
   "already_exist": "record already exists",
   "not_found": "Cannot find the requested record.",
   "cannot_find": "Error retrieving the requested record! Try again!",
+  "user_nolonger_exist": "The token belongs to a user who no longer exist.",
   "created_ok": "Record created successfully",
   "create_fail": "Failed to add new record! Try again!",
   "updated_ok": "Record was updated successfully.",
@@ -30,5 +31,6 @@
   "driver_to_buses_create":"Driver Have been Assigned to Buses",
   "driver_has_assigned_exit":"The driver already has a bus registered to him",
   "fail":"fail",
-  "success":"Success"
+  "success":"Success",
+  "record_not_found":"No Assigned Driver is here Try Again"
 }

@@ -27,7 +27,8 @@
       }
     },
     "test": {
-      "command": "nyc mocha --require @babel/register ./__test__/ --recursive --timeout 20000 --exit",
+      "command":"sequelize-cli db:migrate:undo:all ; sequelize-cli db:migrate ; sequelize-cli db:seed:all ; nyc mocha --require @babel/register ./__test__/ --recursive --timeout 20000 --exit",
+      
       "env": {
         "NODE_ENV": "test",
         "PORT": 5000

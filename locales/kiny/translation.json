@@ -27,5 +27,6 @@
   "driver_to_buses_create":"Umushoferi Yahawe Bisi",
   "driver_has_assigned_exit":"Umushoferi asanzwe afite bus imwanditseho",
   "fail":"Byanze",
-  "success":"Byakunze"
+  "success":"Byakunze",
+  "record_not_found":"Nta mushoferi wagenwe uri hano Gerageza Ongera"
 }

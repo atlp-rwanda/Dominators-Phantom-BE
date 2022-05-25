@@ -1,24 +1,22 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('AssignDrivers', {
+    await queryInterface.createTable('Buses', {
       id: {
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
         type: Sequelize.UUID,
       },
-      UserId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Users',
-          key: 'id',
-        },
+      routeId: {
+        type: Sequelize.STRING,
       },
-      BusId: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUID4,
+      prateNumber: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+      },
+      busType: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -31,6 +29,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('AssignDrivers');
+    await queryInterface.dropTable('Buses');
   },
 };

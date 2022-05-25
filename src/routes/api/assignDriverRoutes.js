@@ -4,6 +4,7 @@ import {
   findOneAssign,
   getAllDriverAssignToBuses,
   PostAssignDriverToBuses,
+  UnAssignDriver,
   UpdateOneAssign,
 } from '../../controllers/assignController';
 const router = express.Router();
@@ -15,7 +16,7 @@ router.get(
   getAllDriverAssignToBuses
 );
 router.post(
-  '/',
+  '/bus/:busId/driver/:driverId',
   authController.protect,
   authController.IsOperator,
   PostAssignDriverToBuses
@@ -31,5 +32,11 @@ router.patch(
   authController.protect,
   authController.IsOperator,
   UpdateOneAssign
+);
+router.delete(
+  '/:id',
+  authController.protect,
+  authController.IsOperator,
+  UnAssignDriver
 );
 export default router;

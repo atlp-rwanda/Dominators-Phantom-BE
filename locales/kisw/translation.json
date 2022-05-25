@@ -27,5 +27,6 @@
   "driver_to_buses_create":"Dereva Amepangiwa Mabasi",
   "driver_has_assigned_exit":"Dereva tayari ana basi lililosajiliwa kwake",
   "fail":"Imeshindwa",
-  "success":"Mafanikio"
+  "success":"Mafanikio",
+  "record_not_found":"Hakuna Dereva Aliyekabidhiwa aliye hapa Jaribu Tena"
 }

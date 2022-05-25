@@ -2,7 +2,7 @@
 export const users = {
   '/api/v1/users/register': {
     post: {
-      tags: ['CREATE USER'],
+      tags: ['Users'],
       summary: 'CREATE',
       description: 'CREATE',
       operationId: 'addUser',
@@ -36,7 +36,7 @@ export const users = {
 
   '/api/v1/users': {
     get: {
-      tags: ['GET USERS'],
+      tags: ['Users'],
       summary: 'GET_ALL',
       description: 'GET_ALL',
       operationId: 'findAll',
@@ -54,7 +54,7 @@ export const users = {
   },
   '/api/v1/users/:id': {
     delete: {
-      tags: ['DELETE USER'],
+      tags: ['Users'],
       summary: 'DELETE',
       description: 'DELETE',
       operationId: 'delete',
