@@ -19,6 +19,7 @@ export const user = {
         200: {
           description: 'User Logged in successfully',
         },
+
         400: {
           description: 'Please provide email and password!',
         },

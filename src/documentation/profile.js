@@ -98,8 +98,8 @@ export const ProfileDefinition = {
     type: 'object',
     in: 'body',
     required: [
-      'firstname',
-      'lastname',
+      'firstName',
+      'lastName',
       'phone',
       'email',
       'role',

@@ -13,7 +13,6 @@ const definitions = {
   ...usersDefinition,
   ...busDefinition,
 };
-
 const config = {
   swagger: '2.0',
   info: {

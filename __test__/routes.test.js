@@ -1,9 +1,17 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../src/server';
+
 chai.use(chaiHttp);
 
 const token = `Bearer ${process.env.ADMIN_TOKEN}`;
+import props from '../src/config/config';
+chai.use(chaiHttp);
+
+const config = props[process.env.NODE_ENV];
+const { token } = config;
+
+
 const REQ_URL = '/api/v1/routes/';
 let ROUTE_ID;
 let EXISTING_ROUTE;
@@ -164,4 +172,3 @@ describe('TESTING ROUTES END POINTS', () => {
     });
 
 });
-
