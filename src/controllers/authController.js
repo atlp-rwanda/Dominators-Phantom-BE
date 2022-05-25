@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import AppError from '../utils/appError';
 import models from '../database/models';
 import { promisify } from 'util';
+import catchAsync from '../utils/catchAsync';
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -48,7 +49,7 @@ exports.login = async (req, res, next) => {
   createSendToken(user, 200, res);
 };
 
-exports.protect = async (req, res, next) => {
+exports.protect = catchAsync(async (req, res, next) => {
   //1 Getting tocken and check its there
   let token;
   if (
@@ -57,28 +58,28 @@ exports.protect = async (req, res, next) => {
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
+  console.log(token);
   // console.log(token)
   if (!token) {
-    return next(
-      new AppError('You are not logged in! Please login to get access', 401)
-    );
+    return next(new AppError(req.t('not_logged_in'), 401));
   }
   // 2. verificatoin token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   // 3.check if user still exists
 
-  const freshUser = await models.User.findOne({
+  const currentUser = await models.User.findOne({
     where: {
       id: decoded.id,
     },
   });
+  console.log(currentUser);
 
-  if (!freshUser) {
-    return next(
-      new AppError('The token belonging to this use does no long exist.', 401)
-    );
+  if (!currentUser) {
+    return next(new AppError(req.t('user_nolonger_exist'), 401));
   }
 
+  //Grant access to protected route
+  req.user = currentUser;
   next();
-};
+});

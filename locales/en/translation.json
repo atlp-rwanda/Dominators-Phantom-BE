@@ -5,6 +5,7 @@
   "already_exist": "record already exists",
   "not_found": "Cannot find the requested record.",
   "cannot_find": "Error retrieving the requested record! Try again!",
+  "user_nolonger_exist": "The token belongs to a user who no longer exist.",
   "created_ok": "Record created successfully",
   "create_fail": "Failed to add new record! Try again!",
   "updated_ok": "Record was updated successfully.",

@@ -1,7 +1,7 @@
 export const Profile = {
   '/api/v1/profile/:id/update': {
     post: {
-      tags: ['CREATE PROFILE'],
+      tags: ['Profile'],
       summary: 'CREATE',
       description: 'CREATE',
       consumes: ['application/json'],
@@ -16,7 +16,6 @@ export const Profile = {
             $ref: '#/definitions/update',
           },
         },
-     
       ],
       responses: {
         200: {
@@ -34,7 +33,7 @@ export const Profile = {
 
   '/api/v1/profile': {
     get: {
-      tags: ['FETCH USERS'],
+      tags: ['Profile'],
       summary: 'FETCH_ALL',
       description: 'FETCH_ALL',
       operationId: 'fetchAll',
@@ -67,7 +66,7 @@ export const Profile = {
   },
   '/api/v1/profile/:id': {
     delete: {
-      tags: ['DELETE PROFILE'],
+      tags: ['Profile'],
       summary: 'DELETE',
       description: 'DELETE',
       operationId: 'delete',
@@ -99,8 +98,8 @@ export const ProfileDefinition = {
     type: 'object',
     in: 'body',
     required: [
-      'firstname',
-      'lastname',
+      'firstName',
+      'lastName',
       'phone',
       'email',
       'role',
