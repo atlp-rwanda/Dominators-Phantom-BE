@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
@@ -47,5 +48,4 @@ app.use(
 
 //ERROR HANDLING MIDDLEWARE
 app.use(globalErrorHandler);
-
-export default app
+export default app;

@@ -1,6 +1,14 @@
 import express from 'express';
-import { addRoute, findAll, findOne, updateRoute, removeRoute, deleteAll } from '../../controllers/RouteController.js';
+import {
+  addRoute,
+  findAll,
+  findOne,
+  updateRoute,
+  removeRoute,
+  deleteAll,
+} from '../../controllers/RouteController';
 import authController from '../../controllers/authController';
+
 const router = express.Router();
 
 router.get('/', authController.protect, findAll);
