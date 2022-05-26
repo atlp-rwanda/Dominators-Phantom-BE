@@ -61,14 +61,9 @@ const addUser = async (req, res) => {
         res.status(400).json({
           error: err.message,
         })
-        .catch((err) =>
-          res.status(400).json({
-            error: err.message,
-          })
-        );
-    })
+      );
+  });
 };
-
 const allUsers = (req, res) => {
   return User.findAll({
     attributes: {
@@ -84,7 +79,6 @@ const allUsers = (req, res) => {
         });
       }
       return res.status(200).json({
-        Results: data.length,
         data,
       });
     })
