@@ -1,8 +1,5 @@
-
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -14,8 +11,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasOne(models.Profile, {
         foreignKey: 'userId',
-        as: 'Profiles'
-      })
+        as: 'Profiles',
+      });
+      this.hasOne(models.AssignDriver, {
+        foreignKey: 'UserId',
+        as: 'AssignDriver',
+      });
     }
   }
   User.init(

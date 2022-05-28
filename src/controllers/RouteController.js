@@ -20,7 +20,7 @@ const addRoute = async (req, res) => {
         },
         defaults: { coordinates: point }
     }).then((created) => {
-        created[1] ? responseHandler(res, 200, req.t("created_ok")) : responseHandler(res, 401, req.t("already_exist"));
+        created[1] ? responseHandler(res, 200, req.t("created_ok"),req) : responseHandler(res, 401, req.t("already_exist"),req);
     });
 }
 
@@ -43,7 +43,7 @@ const fetchOne = async (req, res) => {
             routeSlug: id
         }
     }).then(data => {
-        null != data ? res.send(data) : responseHandler(res, 404, req.t("not_found"));
+        null != data ? res.send(data) : responseHandler(res, 404, req.t("not_found"),req);
     })
 }
 
@@ -57,7 +57,7 @@ const updateRoute = async (req, res) => {
                 req.body.latitude == undefined ? (latitude = data.coordinates[0]) : (req.body.latitude)
                 req.body.longitude == undefined ? (longitude = data.coordinates[1]) : (req.body.longitude)
             } else {
-                responseHandler(res, 400, req.t('updated_invalid_req'));
+                responseHandler(res, 400, req.t('updated_invalid_req'),req);
             }
 
         })
@@ -68,7 +68,7 @@ const updateRoute = async (req, res) => {
             routeSlug: id,
         }
     }).then(num => {
-        num[1].length > 0 && responseHandler(res, 200, req.t("updated_ok"));
+        num[1].length > 0 && responseHandler(res, 200, req.t("updated_ok"),req);
     });
 }
 
@@ -78,7 +78,7 @@ const removeRoute = async (req, res) => {
     await busRoutes.destroy({
         where: { routeSlug: id }
     }).then(num => {
-        1 == num ? responseHandler(res, 200, req.t("deleted_ok")) : responseHandler(res, 400, req.t("delete_invalid_req"));
+        1 == num ? responseHandler(res, 200, req.t("deleted_ok")) : responseHandler(res, 400, req.t("delete_invalid_req"),req);
     });
 }
 
@@ -87,7 +87,7 @@ const deleteAll = async (req, res) => {
         where: {},
         truncate: false
     }).then(nums => {
-        responseHandler(res, 200, req.t('many_deleted'));
+        responseHandler(res, 200, req.t('many_deleted'),req);
     });
 }
 
