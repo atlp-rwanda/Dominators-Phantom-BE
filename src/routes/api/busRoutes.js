@@ -13,7 +13,7 @@ import checkToken from '../../middlewares/checkToken.js';
 
 const router = express.Router();
 
-router.get('/', checkToken, protect, permMiddleware.checkPermission, findAll);
+router.get('/', findAll);
 router.get('/:id/', protect, permMiddleware.checkPermission, findOne);
 router.patch('/:id/', protect, permMiddleware.checkPermission, updateRoute);
 router.post('/', protect, permMiddleware.checkPermission, addRoute);

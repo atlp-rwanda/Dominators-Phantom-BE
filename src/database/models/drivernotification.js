@@ -1,52 +1,51 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class AssignDriver extends Model {
+  class DriverNotification extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsTo(models.Notification, {
+        foreignKey: 'notificationId',
+        targetKey: 'notificationId',
+        as: 'Notification',
+      });
       this.belongsTo(models.User, {
         foreignKey: {
-          name: 'UserId',
-          allowNull: true,
-        },
-        as: 'Users',
-      });
-      this.belongsTo(models.Bus, {
-        foreignKey: {
-          name: 'BusId',
+          name: 'userId',
           allowNull: false,
         },
-        as: 'Buses',
+        as: 'User',
       });
     }
   }
-  AssignDriver.init(
+  DriverNotification.init(
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      UserId: {
+      userId: {
         type: DataTypes.UUID,
-        allowNull: false,
-        foreignKey: true,
       },
-      BusId: {
+      notificationId: {
         allowNull: true,
         type: DataTypes.STRING,
         unique: true,
       },
+      viewStatus: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
     },
     {
       sequelize,
-      modelName: 'AssignDriver',
+      modelName: 'DriverNotification',
     }
   );
-  return AssignDriver;
+  return DriverNotification;
 };

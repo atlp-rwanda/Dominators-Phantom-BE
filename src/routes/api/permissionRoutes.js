@@ -12,30 +12,15 @@ import permMiddleware from '../../helpers/checkPermission';
 
 const router = express.Router();
 
-router.post(
-  '/',
-  protect,
-  permMiddleware.checkPermission,
-  addPermission
-);
+router.post('/', protect, permMiddleware.checkPermission, addPermission);
 router.get(
   '/',
   protect,
   permMiddleware.checkPermission,
   findAllPermissions
 );
-router.get(
-  '/:id',
-  protect,
-  permMiddleware.checkPermission,
-  findOnePermission
-);
-router.patch(
-  '/:id',
-  protect,
-  permMiddleware.checkPermission,
-  updatePermission
-);
+router.get('/:id', protect, permMiddleware.checkPermission, findOnePermission);
+router.patch('/:id', protect, permMiddleware.checkPermission, updatePermission);
 router.delete(
   '/:id',
   protect,

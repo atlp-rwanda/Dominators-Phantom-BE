@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'UserId',
         as: 'AssignDriver',
       });
+      this.hasMany(models.DriverNotification, {
+        foreignKey: 'userId',
+        as: 'DriverNotification',
+      });
     }
   }
   User.init(

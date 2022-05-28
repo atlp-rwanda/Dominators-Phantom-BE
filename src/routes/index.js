@@ -11,6 +11,7 @@ import profileRoutes from './api/profileRoutes';
 import journeyRoutes from './api/journeyRoutes';
 import { getAllJourneys } from '../controllers/simulateController';
 import businfoRoutes from './api/businfoRoutes';
+import notification from './api/notificationRoutes';
 
 const routes = express.Router();
 
@@ -19,14 +20,13 @@ routes.use('/buses', crudBusRoutes);
 routes.use('/routes', busRoutes);
 routes.use('/assign', assignDriver);
 routes.use('/unassigned', unassigned);
-routes.use('/permissions', permissionRoutes);
-routes.use('/roles', roleRoutes);
-routes.use('/roles', rolePermissionRoutes);
 routes.use('/journey', journeyRoutes);
 routes.get('/movements', getAllJourneys);
 routes.use('/permissions', permissionRoutes);
 routes.use('/roles', roleRoutes);
 routes.use('/roles', rolePermissionRoutes);
 routes.use('/bus-info', businfoRoutes);
+
+routes.use('/notification', notification);
 
 export default routes;

@@ -17,10 +17,7 @@ export const user = {
       ],
       responses: {
         200: {
-
           description: 'User Logged in successfully',
-
-
         },
 
         400: {
@@ -50,24 +47,16 @@ export const user = {
       ],
       responses: {
         200: {
-
           description: 'Logged out successfully',
-
-
         },
 
-        
         401: {
           description: 'You are not allowed. Check Your token',
         },
-        
       },
     },
   },
-
-  
-
-  }
+};
 
 export const userDefinition = {
   Login: {

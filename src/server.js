@@ -1,7 +1,7 @@
 import app from './app';
 import prop from './config/config';
+import notifyUser from './helpers/notifyUser';
 import socket from 'socket.io';
-
 const currentConfig = prop[process.env.NODE_ENV];
 const { port } = currentConfig;
 const server = app.listen(port, () =>
@@ -59,4 +59,5 @@ io.on('connection', (client) => {
   });
 });
 
+notifyUser(server);
 export default server;

@@ -5,8 +5,51 @@ import {
   sendNotification,
   sendNotficationUnAssigned,
 } from '../helpers/sendNotification';
+import { storeNotificationForDrivers } from '../helpers/storeNotification';
 const AssignDriver = model.AssignDriver;
 const User = model.User;
+const getAllNotifications = async (req, res) => {
+  const { page, size } = req.query;
+  const { limit, offset } = getPagination(page, size);
+
+  await model.DriverNotification.findAndCountAll({
+    limit,
+    offset,
+    include: [
+      {
+        model: model.Notification,
+        as: 'Notification',
+      },
+      {
+        model: model.User,
+        as: 'User',
+      },
+    ],
+  }).then((data) => {
+    const response = getPagingData(data, page, limit);
+    const noneViewed = response.result.filter(
+      ({ viewStatus, userId }) => viewStatus == false
+    );
+    res.status(200).json({ data: response });
+  });
+};
+const patchDriverViewNotification = async (req, res) => {
+  try {
+    const notificationId = req.params.notificationId;
+    await model.DriverNotification.update(
+      {
+        viewStatus: true,
+      },
+      {
+        where: { id: notificationId },
+      }
+    ).then((result) => {
+      result.length > 0 && responseHandler(res, 201, req.t('updated_ok'), req);
+    });
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+};
 const getAllDriverAssignToBuses = async (req, res) => {
   const { page, size } = req.query;
   const { limit, offset } = getPagination(page, size);
@@ -55,17 +98,17 @@ const PostAssignDriverToBuses = async (req, res) => {
   )
     return responseHandler(res, 400, req.t('missing_params'), req);
   try {
-    AssignDriver.findOrCreate({
+    const NewDriver = AssignDriver.findOrCreate({
       where: {
         UserId: req.params.driverId,
-        BusId: req.params.busId,
       },
+      defaults: { BusId: req.params.busId },
     }).then((created) => {
       created[1]
         ? responseHandler(
             res,
             201,
-            { message: req.t('driver_to_buses_create') },
+            { message: req.t('driver_to_buses_create'), NewDriver: created[0] },
             req
           ) +
           User.findOne({
@@ -86,6 +129,12 @@ const PostAssignDriverToBuses = async (req, res) => {
               }</h2>
                  <p>please visit your Account and check new buse and be ready to start to drive</p>
                  `;
+              const NotifMessage = `${
+                data.firstName + ' ' + data.lastName
+              } You have been assigned Buse to drive with this PlateNumber ${
+                buses.prateNumber
+              }`;
+              storeNotificationForDrivers(NotifMessage, req.params.driverId);
               sendNotification(message, data.email);
             });
           })
@@ -132,7 +181,7 @@ const UpdateOneAssign = (req, res) => {
     AssignDriver.update(
       {
         UserId: req.body.userId,
-        BuseId: req.body.buseId,
+        BusId: req.body.buseId,
       },
       {
         where: { id: AssignedId },
@@ -171,6 +220,12 @@ const UnAssignDriver = async (req, res) => {
         }</h2>
       <p>please visit wait while the operator are still finding new buse to assigne to you</p>
       `;
+        const NotifMessage = `${
+          data.Users.firstName + ' ' + data.Users.lastName
+        } You have been Unassigned Buse to drive with this PlateNumber ${
+          data.Buses.prateNumber
+        }`;
+        storeNotificationForDrivers(NotifMessage, data.Users.id);
         sendNotficationUnAssigned(message, data.Users.email);
       })
       .then(() => {
@@ -193,4 +248,6 @@ export {
   findOneAssign,
   UpdateOneAssign,
   UnAssignDriver,
+  getAllNotifications,
+  patchDriverViewNotification,
 };
