@@ -16,7 +16,7 @@ chai.use(chaiHttp);
 describe('Root testing: welcome', () => {
   before((done) => {
     done();
-<<<<<<< HEAD
+
   })
   it('it should repond message welcome', (done) => {
     chai.request(app)
@@ -26,7 +26,6 @@ describe('Root testing: welcome', () => {
         res.body.should.have.property('message').eql('Welcome to Dominators-Phantom-API!');
         done();
       });
-=======
   });
   it('it should repond message welcome', (done) => {
     chai
@@ -42,6 +41,5 @@ describe('Root testing: welcome', () => {
         // done();
       });
     done();
->>>>>>> f1fa83b... Added login feature, jwt on a succesful login and documentation
   });
 });

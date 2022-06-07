@@ -9,7 +9,6 @@ import {
   deleteUser,
 } from '../../controllers/usersController';
 
-
 const router = express.Router();
 
 router.post('/login', authController.login);

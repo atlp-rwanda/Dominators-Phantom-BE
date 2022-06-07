@@ -165,8 +165,3 @@ describe('TESTING ROUTES END POINTS', () => {
 
 });
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 3ede931... crud route tests

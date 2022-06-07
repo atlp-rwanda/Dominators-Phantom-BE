@@ -17,18 +17,7 @@ export const user = {
       ],
       responses: {
         200: {
-<<<<<<< HEAD
-<<<<<<< HEAD
           description: 'User Logged in successfully',
-=======
-          description: 'User Loged in successfully',
-        },
-        400: {
-          description: 'Please provide email and password!',
->>>>>>> f1fa83b... Added login feature, jwt on a succesful login and documentation
-=======
-          description: 'User Logged in successfully',
->>>>>>> 9a5d282... Added language translation
         },
         400: {
           description: 'Please provide email and password!',
@@ -42,21 +31,7 @@ export const user = {
         },
       },
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  }
-=======
   },
->>>>>>> f1fa83b... Added login feature, jwt on a succesful login and documentation
-=======
-
-  }
-
->>>>>>> bcab845... added Get Post Delete Put for routes
-=======
-  },
->>>>>>> 7f55af9... ft crud operation for bus:
 };
 
 export const userDefinition = {

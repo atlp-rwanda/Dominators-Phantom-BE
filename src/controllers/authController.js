@@ -2,11 +2,8 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import AppError from '../utils/appError';
 import models from '../database/models';
-
 import { promisify } from 'util';
 import catchAsync from '../utils/catchAsync';
-
-
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -14,11 +11,7 @@ const signToken = (id) =>
   });
 
 const createSendToken = (user, statusCode, res) => {
-
-  const token = signToken(user._id);
-
-
-
+  const token = signToken(user.id);
 
   //remove the password from the output
   user.password = undefined;
@@ -37,9 +30,7 @@ exports.login = async (req, res, next) => {
 
   //1)Check if email & password exist.
   if (!email || !password) {
-
     return next(new AppError(req.t('please'), 400));
-
   }
 
   //2)Check if user exist and password is correct
@@ -51,9 +42,7 @@ exports.login = async (req, res, next) => {
   };
 
   if (!user || !(await correctPassword(password, user.password))) {
-
     return next(new AppError(req.t('incorrect'), 401));
-
   }
 
   //3)if everything is ok, then send token to user

@@ -11,6 +11,8 @@
   "many_deleted": "Les enregistrements ont été supprimés avec succès",
   "delete_invalid_req": "Impossible de supprimer l'enregistrement, demande invalide",
   "deleted_fail": "Échec de la suppression de l'enregistrement",
+  "incorrect": "email ou mot de passe incorrect",
+  "please": "Veuillez fournir un email et un mot de passe!",
   "required_field": "Tous les champs doivent être remplis",
   "email_invalid": "Email invalide",
   "email_exists": "L'utilisateur avec l'e-mail existe",

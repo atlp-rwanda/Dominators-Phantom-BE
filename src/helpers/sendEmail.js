@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import "dotenv/config";
+import jwt from "jsonwebtoken";
 
 function sendEmail(message, toEmail) {
   let transporter = nodemailer.createTransport({

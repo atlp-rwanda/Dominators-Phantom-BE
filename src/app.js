@@ -15,14 +15,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
-app.use(express.json())
-app.use(cors());
-import i18next from 'i18next';
-import Backend from 'i18next-fs-backend';
-import middleware from 'i18next-http-middleware';
-
-app.use(express.urlencoded({ extended: false }));
 i18next
   .use(Backend)
   .use(middleware.LanguageDetector)
@@ -40,9 +32,6 @@ app.get('/api/v1', (req, res) => {
     message: req.t('welcome_message'),
   });
 });
-
-app.use(cors());
-app.use(express.json());
 
 app.use('/api/v1/', routes);
 
