@@ -6,6 +6,7 @@ import assignDriver from './api/assignDriverRoutes';
 import unassigned from './api/unassignedRoute';
 import profileRoutes from './api/profileRoutes';
 import permissionRoutes from './api/permissionRoutes';
+import roleRoutes from './api/roleRoutes';
 
 const routes = express.Router();
 routes.use('/users', userRoutes, profileRoutes);
@@ -14,5 +15,6 @@ routes.use('/routes', busRoutes);
 routes.use('/assign', assignDriver);
 routes.use('/unassigned', unassigned);
 routes.use('/permissions', permissionRoutes)
+routes.use('/roles', roleRoutes)
 
 export default routes;

@@ -5,10 +5,9 @@ const permission = model.permissions;
 const addPermission = async (req, res) => {
   // Validate request
   if (!req.body.name || !req.body.description) {
-    res.status(400).send({
+    return responseHandler(res, 400, {
       message: 'Invalid request! Missing required items!',
     });
-    return;
   }
 
   // Create a PERMISSION
@@ -22,16 +21,17 @@ const addPermission = async (req, res) => {
     })
     .then(([permission, created]) => {
       if (created) responseHandler(res, 200, permission);
-      else responseHandler(res, 400, 'Sorry! That permission already exists.');
+      else
+        responseHandler(res, 400, {
+          message: 'Sorry! That permission already exists.',
+        });
     })
     .catch((err) => {
-      console.log(' 🔥 🔥 🔥 🔥 🔥 🔥 ');
       console.log('-err:', err);
-      responseHandler(
-        res,
-        500,
-        err.message || 'Some error occurred while creating the permission.'
-      );
+      responseHandler(res, 500, {
+        error:
+          err.message || 'Some error occurred while creating the permission.',
+      });
     });
 };
 
@@ -43,7 +43,9 @@ const findAllPermissions = async (req, res) => {
       count: allPermissions.length,
     });
   } catch (err) {
-    responseHandler(res, 500, err.message || 'Internal Server Error');
+    responseHandler(res, 500, {
+      error: err.message || 'Internal Server Error',
+    });
   }
 };
 
@@ -55,18 +57,15 @@ const findOnePermission = async (req, res) => {
     });
 
     if (!onePermission)
-      return responseHandler(
-        res,
-        404,
-        `Permission with id: ${permissionId} does not exists!`
-      );
+      return responseHandler(res, 404, {
+        message: `Permission with id: ${permissionId} does not exists!`,
+      });
     else return responseHandler(res, 200, onePermission);
   } catch (err) {
-    responseHandler(
-      res,
-      500,
-      err.message || 'Some errors occurred while retrieving all permission.'
-    );
+    responseHandler(res, 500, {
+      error:
+        err.message || 'Some errors occurred while retrieving the permission.',
+    });
   }
 };
 
@@ -78,11 +77,9 @@ const updatePermission = async (req, res) => {
     });
 
     if (!permissionFound)
-      return responseHandler(
-        res,
-        404,
-        `Permission with id: ${permissionId} does not exists!`
-      );
+      return responseHandler(res, 404, {
+        message: `Permission with id: ${permissionId} does not exists!`,
+      });
     else {
       const permissionUpdates = await permission.update(
         {
@@ -98,11 +95,10 @@ const updatePermission = async (req, res) => {
       });
     }
   } catch (err) {
-    responseHandler(
-      res,
-      500,
-      err.message || 'Some errors occurred while updating the permission.'
-    );
+    responseHandler(res, 500, {
+      error:
+        err.message || 'Some errors occurred while updating the permission.',
+    });
   }
 };
 
@@ -114,23 +110,22 @@ const deletePermission = async (req, res) => {
     });
 
     if (!permissionFound)
-      return responseHandler(
-        res,
-        404,
-        `Permission with id: ${permissionId} does not exists!`
-      );
+      return responseHandler(res, 404, {
+        message: `Permission with id: ${permissionId} does not exists!`,
+      });
     else {
       await permission.destroy({
         where: { permission_id: permissionId },
       });
-      return responseHandler(res, 200, 'Permission deleted successfuully!');
+      return responseHandler(res, 200, {
+        message: 'Permission deleted successfully!',
+      });
     }
   } catch (err) {
-    responseHandler(
-      res,
-      500,
-      err.message || 'Some errors occurred while deleting the permission.'
-    );
+    responseHandler(res, 500, {
+      error:
+        err.message || 'Some errors occurred while deleting the permission.',
+    });
   }
 };
 
