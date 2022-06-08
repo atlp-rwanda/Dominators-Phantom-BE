@@ -70,7 +70,8 @@ export const login = async (req, res, next) => {
 
 
 exports.protect = async (req, res, next) => {
-  //1 Getting tocken and check its there
+  //1 Getting tocken and check its ther
+  let token 
   if (!req.headers.authorization)
     return next(new AppError(req.t('not_logged_in'), 500));
   if (
@@ -91,10 +92,10 @@ exports.protect = async (req, res, next) => {
   }
 
   // 3.check if user still exists
-
+console.log(decoded)
   const currentUser = await models.User.findOne({
     where: {
-      id: decoded.user.id,
+      id: decoded.id,
     },
   });
 

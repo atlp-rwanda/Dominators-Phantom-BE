@@ -4,6 +4,7 @@ import { passwordManager } from '../../controllers/passwordController';
 import { addUser, allUsers, findOneUser, update, deleteUser} from '../../controllers/usersController'
 import checkToken from '../../middlewares/checkToken';
 
+
 const router = express.Router();
 
 router.post('/login', login);

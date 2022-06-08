@@ -1,5 +1,6 @@
 import express from 'express';
-import authController from '../../controllers/authController';
+import {protect,UserOperator} from '../../controllers/authController';
+import authController from "../../controllers/authController"
 import {
   findOneAssign,
   getAllDriverAssignToBuses,
@@ -11,32 +12,32 @@ const router = express.Router();
 
 router.get(
   '/',
-  authController.protect,
-  authController.UserOperator,
+  protect,
+  UserOperator,
   getAllDriverAssignToBuses
 );
 router.post(
   '/bus/:busId/driver/:driverId',
-  authController.protect,
-  authController.UserOperator,
+  protect,
+  UserOperator,
   PostAssignDriverToBuses
 );
 router.get(
   '/:id',
-  authController.protect,
-  authController.UserOperator,
+  protect,
+  UserOperator,
   findOneAssign
 );
 router.patch(
   '/:id',
-  authController.protect,
-  authController.UserOperator,
+  protect,
+ UserOperator,
   UpdateOneAssign
 );
 router.delete(
   '/:id',
-  authController.protect,
-  authController.UserOperator,
+  protect,
+  UserOperator,
   UnAssignDriver
 );
 export default router;

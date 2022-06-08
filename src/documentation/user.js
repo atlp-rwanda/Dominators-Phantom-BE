@@ -35,6 +35,35 @@ export const user = {
       },
     },
   },
+  '/api/v1/users/logout': {
+    post: {
+      tags: ['Authentication'],
+      summary: 'This will logout a user',
+      description: ' ',
+      produces: ['application/json'],
+      parameters: [
+        {
+          name: 'Authorization',
+          in: 'header',
+          required: false,
+        },
+      ],
+      responses: {
+        200: {
+
+          description: 'Logged out successfully',
+
+
+        },
+
+        
+        401: {
+          description: 'You are not allowed. Check Your token',
+        },
+        
+      },
+    },
+  },
 
   
 
