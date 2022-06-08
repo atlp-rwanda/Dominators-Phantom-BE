@@ -172,4 +172,7 @@ const deleteUser = (req, res) => {
   });
 };
 
+
+
+
 export { addUser, allUsers, findOneUser, update, deleteUser };
