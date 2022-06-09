@@ -5,7 +5,7 @@ const router = express.Router();
 router.get(
   '/',
   authController.protect,
-  authController.IsOperator,
+  authController.UserOperator,
   getAllDriverUnAssigned
 );
 

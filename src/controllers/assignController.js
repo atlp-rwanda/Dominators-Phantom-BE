@@ -48,7 +48,6 @@ const getAllDriverUnAssigned = async (req, res) => {
 };
 
 const PostAssignDriverToBuses = async (req, res) => {
-  console.log(req.params);
   if (
     (!req.params.driverId && !req.params.busId) ||
     req.params.driverId == '' ||

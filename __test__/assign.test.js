@@ -63,10 +63,9 @@ describe.only('asssign User with Operator', () => {
     };
     chai
       .request(server)
-      .post('/api/v1/assign')
+      .post('/api/v1/assign/bus/""/driver/""')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${OperatorToken}`)
-      .send(data)
       .then((res) => {
         chai.expect(res).to.have.status(400);
       });

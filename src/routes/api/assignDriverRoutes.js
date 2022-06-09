@@ -12,31 +12,31 @@ const router = express.Router();
 router.get(
   '/',
   authController.protect,
-  authController.IsOperator,
+  authController.UserOperator,
   getAllDriverAssignToBuses
 );
 router.post(
   '/bus/:busId/driver/:driverId',
   authController.protect,
-  authController.IsOperator,
+  authController.UserOperator,
   PostAssignDriverToBuses
 );
 router.get(
   '/:id',
   authController.protect,
-  authController.IsOperator,
+  authController.UserOperator,
   findOneAssign
 );
 router.patch(
   '/:id',
   authController.protect,
-  authController.IsOperator,
+  authController.UserOperator,
   UpdateOneAssign
 );
 router.delete(
   '/:id',
   authController.protect,
-  authController.IsOperator,
+  authController.UserOperator,
   UnAssignDriver
 );
 export default router;

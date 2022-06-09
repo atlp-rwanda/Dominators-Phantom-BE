@@ -81,7 +81,7 @@ exports.protect = async (req, res, next) => {
   req.user = currentUser;
   next();
 };
-exports.IsOperator = async (req, res, next) => {
+exports.UserOperator = async (req, res, next) => {
   //1 to check if user is OPerator Only
   token = req.headers.authorization.split(' ')[1];
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
