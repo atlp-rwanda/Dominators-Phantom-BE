@@ -15,23 +15,19 @@
     "dev": {
       "command": "nodemon --exec babel-node ./src/server",
       "env": {
-        "PORT": 3000,
         "NODE_ENV": "development"
       }
     },
     "prod": {
       "command": "node ./dist/server",
       "env": {
-        "NODE_ENV": "production",
-        "PORT": 8000
+        "NODE_ENV": "production"
       }
     },
     "test": {
-      "command":"sequelize-cli db:migrate:undo:all ; sequelize-cli db:migrate ; sequelize-cli db:seed:all ; nyc mocha --require @babel/register ./__test__/ --recursive --timeout 20000 --exit",
-      
+      "command": "sequelize-cli db:migrate:undo:all ; sequelize-cli db:migrate ; sequelize-cli db:seed:all ; nyc mocha --require @babel/register ./__test__/ --recursive --timeout 20000 --exit",
       "env": {
-        "NODE_ENV": "test",
-        "PORT": 5000
+        "NODE_ENV": "test"
       }
     }
   },

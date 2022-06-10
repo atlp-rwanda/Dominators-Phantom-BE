@@ -132,10 +132,7 @@ describe.only('asssign User with Operator', () => {
       .set('Acuthorization', token)
       .send(data)
       .then((res) => {
-        chai.expect(res).to.status(401);
-      })
-      .catch((err) => {
-        done(err);
+        chai.expect(res).to.status(500);
       });
     done();
   });
