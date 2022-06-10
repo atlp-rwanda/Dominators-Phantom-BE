@@ -58,8 +58,8 @@ const findOneUser = (req, res) => {
 const updateUser = async (req, res) => {
   const id = req.params.id;
   const {
-    firstname,
-    lastname,
+    firstName,
+    lastName,
     phone,
     email,
     role,
@@ -81,8 +81,8 @@ if(!user){
 } 
 
 const userProfile = await Profile.create({
-  firstname,
-  lastname,
+  firstName,
+  lastName,
   userId: user.id,
   phone,
   email,
