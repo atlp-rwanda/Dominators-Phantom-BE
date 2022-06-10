@@ -20,7 +20,7 @@ const addPermission = async (req, res) => {
       },
     })
     .then(([permission, created]) => {
-      if (created) responseHandler(res, 200, permission);
+      if (created) responseHandler(res, 201, permission);
       else
         responseHandler(res, 400, {
           message: 'Sorry! That permission already exists.',

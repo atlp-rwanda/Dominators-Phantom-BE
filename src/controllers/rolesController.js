@@ -21,7 +21,7 @@ const addRole = async (req, res) => {
       },
     })
     .then(([role, created]) => {
-      if (created) responseHandler(res, 200, role);
+      if (created) responseHandler(res, 201, role);
       else
         responseHandler(res, 400, {
           message: 'Sorry! That role already exists.',

@@ -21,13 +21,16 @@ module.exports = (sequelize, DataTypes) => {
   }
   Role_permission.init(
     {
-      role_id: {
+      assigned_id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
+        primaryKey: true
+      },
+      role_id: {
+        type: DataTypes.UUID,
       },
       permission_id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
       },
     },
     {
