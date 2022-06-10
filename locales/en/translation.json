@@ -14,7 +14,6 @@
   "deleted_ok": "Record was deleted successfully",
   "many_deleted": "Records were deleted successfully",
   "delete_invalid_req": "Cannot delete the record, Invalid request",
-  "deleted_fail": "Failed to delete the record",
   "incorrect": "Incorrect email or password",
   "please": "Please provide email and password!",
   "required_field": "All fields must be completed",
