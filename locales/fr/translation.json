@@ -23,5 +23,11 @@
   "user_update": "L'utilisateur avec ${id} a été mis à jour avec succès",
   "uesr_exists": " L'utilisateur avec l'identifiant ${id} n'existe pas",
   "user_deleted": " L'utilisateur avec l'identifiant ${id} a bien été supprimé",
-  "invalid_email": "ID d'entrée non valide, il doit s'agir d'un nombre"
+  "invalid_email": "ID d'entrée non valide, il doit s'agir d'un nombre",
+  "driver_to_buses_create":"Le conducteur a été affecté aux bus",
+  "driver_has_assigned_exit":"Le conducteur a déjà un bus enregistré auprès de lui",
+  "fail":"Échouer",
+  "success":"Succès",
+  "record_not_found":"Aucun conducteur n'est ici Réessayez"
+
 }

@@ -23,10 +23,34 @@ const addBus = async (req, res) => {
     })
     .then(([bus, created]) => {
       if (created) responseHandler(res, 200, bus);
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+      else responseHandler(res, 400, 'Bus already exists.', req);
+    })
+    .catch((err) => {
+=======
+=======
+>>>>>>> 7f55af9 (ft crud operation for bus:)
+=======
+>>>>>>> d741551 (ft crud operation for bus:)
+=======
+>>>>>>> 82aaf0d0e4e9cbfb31458228314870e50d879539
       else responseHandler(res, 400, 'Bus already exists.');
     })
     .catch((err) => {
       console.log('-err:', err);
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> aa591d6 (get heroku ready)
+=======
+>>>>>>> 7f55af9 (ft crud operation for bus:)
+=======
+>>>>>>> d741551 (ft crud operation for bus:)
+=======
+>>>>>>> 82aaf0d0e4e9cbfb31458228314870e50d879539
       responseHandler(
         res,
         500,

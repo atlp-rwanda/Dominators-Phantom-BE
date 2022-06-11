@@ -23,5 +23,10 @@
   "user_update": "User with ${id} was updated successfully",
   "uesr_exists": "User with id of ${id} does not exist",
   "user_deleted": "User with id of ${id} successfully deleted",
-  "invalid_email": "ID mushyizemo ntiyemewe, shyiramo umubare"
+  "invalid_email": "ID mushyizemo ntiyemewe, shyiramo umubare",
+  "driver_to_buses_create":"Umushoferi Yahawe Bisi",
+  "driver_has_assigned_exit":"Umushoferi asanzwe afite bus imwanditseho",
+  "fail":"Byanze",
+  "success":"Byakunze",
+  "record_not_found":"Nta mushoferi wagenwe uri hano Gerageza Ongera"
 }

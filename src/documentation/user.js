@@ -17,13 +17,15 @@ export const user = {
       ],
       responses: {
         200: {
+
           description: 'User Logged in successfully',
+
+
         },
 
         400: {
           description: 'Please provide email and password!',
         },
-
         401: {
           description: 'Incorrect email or password',
         },
@@ -33,7 +35,10 @@ export const user = {
       },
     },
   },
-};
+
+  
+
+  }
 
 export const userDefinition = {
   Login: {

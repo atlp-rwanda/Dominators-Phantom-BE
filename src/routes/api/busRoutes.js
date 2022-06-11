@@ -20,3 +20,4 @@ router.delete('/:id', authController.protect, removeRoute);
 router.delete('/', authController.protect, deleteAll);
 
 export default router;
+

@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-
 import bcrypt from 'bcryptjs';
 import generatePassword from '../helpers/generatePassword';
 import { sendEmail } from '../helpers/sendEmail';
@@ -34,7 +33,6 @@ const addUser = async (req, res) => {
         message: 'email_exists',
       });
     }
-    console.log(password);
     return User.create({
       firstName,
       lastName,

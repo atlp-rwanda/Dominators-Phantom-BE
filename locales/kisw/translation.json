@@ -23,5 +23,10 @@
   "user_update": "Mtumiaji aliye na ${id} alisasishwa kwa mafanikio",
   "uesr_exists": "Mtumiaji aliye na kitambulisho cha ${id} hayupo",
   "user_deleted": "Mtumiaji aliye na kitambulisho cha ${id} amefutwa",
-  "invalid_email": "id ingizo batili, lazima iwe nambari"
+  "invalid_email": "id ingizo batili, lazima iwe nambari",
+  "driver_to_buses_create":"Dereva Amepangiwa Mabasi",
+  "driver_has_assigned_exit":"Dereva tayari ana basi lililosajiliwa kwake",
+  "fail":"Imeshindwa",
+  "success":"Mafanikio",
+  "record_not_found":"Hakuna Dereva Aliyekabidhiwa aliye hapa Jaribu Tena"
 }
