@@ -50,14 +50,21 @@ const assignPermissionToRole = async (req, res) => {
 
 const findAllPermissionOnRole = async (req, res) => {
   try {
-    let permissionOnRole = []
-    const allPermissionOnRole = await rolePermission.findAll();
+    const roleId = req.params.roleId;
+    let permissionOnRole = [];
+    const allPermissionOnRole = await rolePermission.findAll({
+      where: {
+        role_id: roleId,
+      },
+    });
     for (let i = 0; i < allPermissionOnRole.length; i++) {
-      permissionOnRole.push(await permission.findOne({
-        where: {
-          permission_id: allPermissionOnRole[i].permission_id,
-        },
-      }));
+      permissionOnRole.push(
+        await permission.findOne({
+          where: {
+            permission_id: allPermissionOnRole[i].permission_id,
+          },
+        })
+      );
     }
 
     return responseHandler(res, 200, {
@@ -81,16 +88,26 @@ const findOnePermissionOnRole = async (req, res) => {
         permission_id: permissionId,
       },
     });
-    const onePermissionOnRole = await permission.findOne({
-      where: {
-        permission_id: permissionIDOnRole.permission_id,
-      },
-    })
-    if (!onePermissionOnRole)
+
+    if (!permissionIDOnRole) {
       return responseHandler(res, 404, {
-        message: `Either of IDs does not exists!`,
+        message: 'Permission on the role does not exist!',
       });
-    else return responseHandler(res, 200, { permissionOnRole: onePermissionOnRole });
+    } else {
+      const onePermissionOnRole = await permission.findOne({
+        where: {
+          permission_id: permissionId,
+        },
+      });
+      if (!onePermissionOnRole)
+        return responseHandler(res, 404, {
+          message: `Permission with that ID does not exist!`,
+        });
+      else
+        return responseHandler(res, 200, {
+          permissionOnRole: onePermissionOnRole,
+        });
+    }
   } catch (err) {
     responseHandler(res, 500, {
       error:
@@ -110,23 +127,23 @@ const removeOnePermissionOnRole = async (req, res) => {
         permission_id: permissionId,
       },
     });
+    console.log('ON 🔥ON 🔥ON 🔥ON 🔥');
+    console.log(permissionIDOnRole);
     if (!permissionIDOnRole) {
       return responseHandler(res, 404, {
-        message: "Sorry, either of IDs does not exists",
+        message: 'Sorry, either of IDs does not exists',
       });
-    }
-    else {
+    } else {
       await rolePermission.destroy({
-        where: { 
+        where: {
           role_id: roleId,
           permission_id: permissionId,
-         },
+        },
       });
       return responseHandler(res, 200, {
         message: 'Permission on the Role has been deleted successfully!',
       });
     }
-    
   } catch (err) {
     responseHandler(res, 500, {
       error:
@@ -140,5 +157,5 @@ export {
   assignPermissionToRole,
   findAllPermissionOnRole,
   findOnePermissionOnRole,
-  removeOnePermissionOnRole
+  removeOnePermissionOnRole,
 };
