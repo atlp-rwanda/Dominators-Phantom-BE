@@ -1,21 +1,11 @@
 import express from 'express';
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 82aaf0d0e4e9cbfb31458228314870e50d879539
 import {
   allUsers,
   findOneUser,
   updateUser,
   deleteUser,
 } from '../../controllers/profilecontroller';
-<<<<<<< HEAD
-=======
 
-import { allUsers, findOneUser, updateUser, deleteUser } from '../../controllers/profilecontroller'
->>>>>>> d741551 (ft crud operation for bus:)
-=======
->>>>>>> 82aaf0d0e4e9cbfb31458228314870e50d879539
 import multer from 'multer';
 const path = require('path');
 
