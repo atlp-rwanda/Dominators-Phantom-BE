@@ -9,28 +9,25 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.permissions, {
-        foreignKey: 'permission_id',
-        as: 'permissions',
-      }),
-        this.hasMany(models.roles, {
-          foreignKey: 'role_id',
-          as: 'roles',
-        });
+      // this.hasMany(models.permissions, {
+      //   foreignKey: 'permission_id',
+      //   as: 'permissions',
+      // }),
+      //   this.hasMany(models.roles, {
+      //     foreignKey: 'role_id',
+      //     as: 'roles',
+      //   });
     }
   }
   Role_permission.init(
     {
-      assigned_id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
-      },
       role_id: {
         type: DataTypes.UUID,
+        primaryKey: true
       },
       permission_id: {
         type: DataTypes.UUID,
+        primaryKey: true
       },
     },
     {

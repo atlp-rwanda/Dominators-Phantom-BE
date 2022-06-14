@@ -127,8 +127,6 @@ const removeOnePermissionOnRole = async (req, res) => {
         permission_id: permissionId,
       },
     });
-    console.log('ON 🔥ON 🔥ON 🔥ON 🔥');
-    console.log(permissionIDOnRole);
     if (!permissionIDOnRole) {
       return responseHandler(res, 404, {
         message: 'Sorry, either of IDs does not exists',

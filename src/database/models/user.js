@@ -16,11 +16,22 @@ module.exports = (sequelize, DataTypes) => {
       this.hasOne(models.AssignDriver, {
         foreignKey: 'UserId',
         as: 'AssignDriver',
+        as: 'Profiles'
+      })
+      this.belongsTo(models.roles, {
+        foreignKey: { name: 'role', allowNull: true },
+        as: 'roles',
       });
     }
   }
   User.init(
     {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: uuid(),
+        primaryKey: true,
+        allowNull: false,
+      },
       firstName: { type: DataTypes.STRING, allowNull: false },
       lastName: { type: DataTypes.STRING, allowNull: false },
       email: {

@@ -9,10 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.role_permissions, {
+      this.belongsToMany(models.roles, {
+        through: models.role_permissions,
         foreignKey: { name: 'permission_id', allowNull: true },
         as: 'Role_permissions',
       });
+      // this.belongsTo(models.role_permissions, {
+      //   foreignKey: { name: 'permission_id', allowNull: true },
+      //   as: 'Role_permissions',
+      // });
     }
   }
   Permission.init(

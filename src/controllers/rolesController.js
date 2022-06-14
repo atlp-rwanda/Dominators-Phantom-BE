@@ -2,6 +2,9 @@ import responseHandler from '../utils/responseHandler';
 import model from '../database/models';
 
 const role = model.roles;
+const rolePermission = model.role_permissions;
+const permission = model.permissions;
+
 
 const addRole = async (req, res) => {
   // Validate request
@@ -52,20 +55,52 @@ const findAllRoles = async (req, res) => {
 const findOneRole = async (req, res) => {
   try {
     const roleId = req.params.id;
+    let permissionOnRole = [];
     const oneRole = await role.findOne({
-      where: { role_id: roleId },
+      where: {
+        role_id: roleId,
+      },
     });
 
     if (!oneRole)
       return responseHandler(res, 404, {
         message: `Role with id: ${roleId} does not exists!`,
       });
-    else return responseHandler(res, 200, oneRole);
+    else {
+      const allPermissionOnRole = await rolePermission.findAll({
+        where: {
+          role_id: roleId,
+        },
+      });
+      for (let i = 0; i < allPermissionOnRole.length; i++) {
+        permissionOnRole.push(
+          await permission.findOne({
+            where: {
+              permission_id: allPermissionOnRole[i].permission_id,
+            },
+          })
+        );
+      }
+      const response = {
+        role_id: oneRole.role_id,
+        name: oneRole.name,
+        description: oneRole.description,
+        createdAt: oneRole.createdAt,
+        updatedAt: oneRole.updatedAt,
+        permissions: permissionOnRole,
+      };
+
+      return responseHandler(res, 200, response);
+    }
   } catch (err) {
     responseHandler(res, 500, {
       error: err.message || 'Some errors occurred while retrieving the role.',
     });
   }
+};
+
+const findAllUserOnRole = async (req, res) => {
+  
 };
 
 const updateRole = async (req, res) => {
