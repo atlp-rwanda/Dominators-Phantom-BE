@@ -1,6 +1,8 @@
 import models from '../database/models';
 // import {fileUpload} from "../utils/multer"
+
 import {fileUpload} from '../utils/multer';
+
 import path from "path"
 const User = models.User;
 const Profile = models.Profile
@@ -58,8 +60,10 @@ const findOneUser = (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+
 req.body.profilePic = await fileUpload(req)
 const profilePic = req.body.profilePic;
+
   const id = req.params.id;
   const {
     firstName,

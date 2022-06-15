@@ -43,6 +43,8 @@ const fileFilter = (req, file, cb) => {
   
   const uploadImg = multer({storage: storage}).single('profilePic', fileFilter);
 
+  
+
 router.get('/', allUsers);
 router.put('/:id/update', uploadImg, updateUser);
 router.get('/:id', findOneUser);
