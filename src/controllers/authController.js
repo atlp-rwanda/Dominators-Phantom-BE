@@ -64,7 +64,12 @@ exports.protect = async (req, res, next) => {
     return next(new AppError(req.t('not_logged_in'), 401));
   }
   // 2. verificatoin token
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  var decoded;
+  try {
+    decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  } catch (error) {
+    return next(new AppError('You need to login again', 401));
+  }
 
   // 3.check if user still exists
 
@@ -73,7 +78,6 @@ exports.protect = async (req, res, next) => {
       id: decoded.user.id,
     },
   });
-  console.log(currentUser);
 
   if (!currentUser) {
     return next(new AppError(req.t('user_nolonger_exist'), 401));
