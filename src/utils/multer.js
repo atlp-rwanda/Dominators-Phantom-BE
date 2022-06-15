@@ -1,31 +1,24 @@
-const multer = require('multer')
-const path = require('path')
+import cloudinary from "cloudinary"
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, new Date().getTime() + path.extname(file.originalname))
+
+
+export const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+      cb(null, true)
+    } else {
+      cb(new Error('Unsupported files'), false)
+    }
   }
-})
-
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true)
-  } else {
-    cb(new Error('Unsupported files'), false)
-  }
-}
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 10
-  },
-  fileFilter: fileFilter
-})
-
-module.exports = {
-  upload: upload
-}
+export const fileUpload = async (req) => {
+    let profilePic = "";
+    await cloudinary.v2.uploader.upload(
+      req.file.path,
+      async function (err, image) {
+        if (err) console.log(err);
+        profilePic = image.url;
+      }
+    );
+    return profilePic;
+  };
+  
+  
