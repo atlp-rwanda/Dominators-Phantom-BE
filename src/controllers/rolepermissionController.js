@@ -3,19 +3,40 @@ import model from '../database/models';
 
 const rolePermission = model.role_permissions;
 const permission = model.permissions;
+const role = model.roles;
 
 const assignPermissionToRole = async (req, res) => {
   const roleId = req.params.roleId;
-  if (!roleId) {
-    return responseHandler(res, 404, {
-      message: 'Role with that is not found!',
+  const permissionId = req.body.permission_id;
+
+  // validate request
+  if (!roleId || !permissionId) {
+    return responseHandler(res, 400, {
+      message: 'Invalid request! Missing required items!',
     });
   }
 
-  // Validate request
-  if (!req.body.permission_id) {
-    return responseHandler(res, 400, {
-      message: 'Invalid request! Missing required items!',
+  // check if role exists in DB
+  const roleFound = await role.findOne({
+    where: {
+      role_id: roleId
+    }
+  })
+  if (!roleFound) {
+    return responseHandler(res, 404, {
+      message: 'Role is not found!',
+    });
+  }
+
+  // check if role exists in DB
+  const permissionFound = await permission.findOne({
+    where: {
+      permission_id: permissionId
+    }
+  })
+  if (!permissionFound) {
+    return responseHandler(res, 404, {
+      message: 'Permission is not found!',
     });
   }
 
@@ -24,7 +45,7 @@ const assignPermissionToRole = async (req, res) => {
     .findOrCreate({
       where: {
         role_id: roleId,
-        permission_id: req.body.permission_id,
+        permission_id: permissionId,
       },
     })
     .then(([role_permission, created]) => {
