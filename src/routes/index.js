@@ -10,7 +10,6 @@ import unassigned from './api/unassignedRoute';
 import profileRoutes from './api/profileRoutes';
 import journeyRoutes from './api/journeyRoutes';
 import { getAllJourneys } from '../controllers/simulateController';
-
 const routes = express.Router();
 routes.use('/users', userRoutes, profileRoutes);
 routes.use('/buses', crudBusRoutes);

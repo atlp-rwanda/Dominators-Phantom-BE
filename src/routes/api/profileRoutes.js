@@ -7,7 +7,6 @@ import {
 } from '../../controllers/profilecontroller';
 import cloudinary from '../../utils/cloudinary';
 import permMiddleware from '../../helpers/checkPermission';
-
 import multer from 'multer';
 const path = require('path');
 
@@ -33,6 +32,7 @@ const fileFilter = (req, file, cb) => {
     cb(new Error('Unsupported files'), false);
   }
 };
+
 // const fileUpload = async (req) => {
 //   let profilePic = "";
 //   await cloudinary.v2.uploader.upload(
