@@ -33,6 +33,7 @@ const fileFilter = (req, file, cb) => {
     cb(new Error('Unsupported files'), false);
   }
 };
+
 // const fileUpload = async (req) => {
 //   let profilePic = "";
 //   await cloudinary.v2.uploader.upload(
