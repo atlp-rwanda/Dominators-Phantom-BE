@@ -3,7 +3,15 @@ import {config} from 'dotenv'
 config()
 
 
-export const redisClient = createClient();       
+const {REDIS_URL, REDIS_PWD} = process.env
+export const redisClient = createClient({
+  url:REDIS_URL,
+  password:REDIS_PWD
+}
+);  
+
+
+     
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 redisClient.on('connect', () => console.log('Redis Client connected'));
 (async () =>{
