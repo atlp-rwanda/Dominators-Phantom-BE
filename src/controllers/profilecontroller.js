@@ -1,6 +1,6 @@
 import models from '../database/models';
 // import {fileUpload} from "../utils/multer"
-import multer from 'multer';
+import {fileUpload} from '../utils/multer';
 import path from "path"
 const User = models.User;
 const Profile = models.Profile
@@ -58,7 +58,8 @@ const findOneUser = (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  // req.body.profilePic = await fileUpload(req)
+req.body.profilePic = await fileUpload(req)
+const profilePic = req.body.profilePic;
   const id = req.params.id;
   const {
     firstName,
@@ -66,7 +67,7 @@ const updateUser = async (req, res) => {
     phone,
     email,
     role,
-    profilePic,
+    // profilePic,
     province,
     district,
     sector,
@@ -82,6 +83,7 @@ const updateUser = async (req, res) => {
 if(!user){
   return res.status(404).json({message:'no user found with this ID'})
 } 
+req.body.profilePic = await fileUpload(req)
 
 const userProfile = await Profile.create({
   firstName,
@@ -90,7 +92,7 @@ const userProfile = await Profile.create({
   phone,
   email,
   role,
-  profilePic: req.file.path,
+  profilePic,
   province,
   district,
   sector,
