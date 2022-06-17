@@ -32,7 +32,7 @@ app.get('/api/v1', (req, res) => {
     message: req.t('welcome_message'),
   });
 });
-
+app.use('/uploads', express.static('uploads'))
 app.use('/api/v1/', routes);
 
 app.use(

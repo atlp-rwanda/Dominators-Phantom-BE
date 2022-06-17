@@ -16,20 +16,16 @@ chai.use(chaiHttp);
 describe('Root testing: welcome', () => {
   before((done) => {
     done();
-  });
+
+  })
   it('it should repond message welcome', (done) => {
-    chai
-      .request(app)
+    chai.request(app)
       .get('/api/v1')
       .end((err, res) => {
-        chai.expect(res.statusCode).to.equal(200);
-        chai.expect(res.body).to.have.property('message');
-        // res.should.have.status(200);
-        // res.body.should.have
-        //   .property('message')
-        //   .eql('Welcome to Dominators-Phantom-API!');
-        // done();
+        res.should.have.status(200);
+        res.body.should.have.property('message').eql('Welcome to Dominators-Phantom-API!');
+        done();
       });
-    done();
+
   });
 });

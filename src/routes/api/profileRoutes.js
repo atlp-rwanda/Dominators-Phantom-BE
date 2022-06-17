@@ -5,31 +5,34 @@ import {
   updateUser,
   deleteUser,
 } from '../../controllers/profilecontroller';
+
 import multer from 'multer';
 const path = require('path');
 
 const router = express.Router();
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads');
+    cb(null, './uploads')
   },
   filename: function (req, file, cb) {
-    cb(null, new Date().getTime() + path.extname(file.originalname));
-  },
-});
+    cb(null, new Date().getTime() + path.extname(file.originalname))
+  }
+})
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true)
   } else {
-    cb(new Error('Unsupported files'), false);
+    cb(new Error('Unsupported files'), false)
   }
-};
+}
 
-const uploadImg = multer({ storage, fileFilter }).single('profilePic');
+  
+  const uploadImg = multer({storage: storage}).single('profilePic');
 
 router.get('/', allUsers);
-router.post('/:id/update', uploadImg, updateUser);
+router.put('/:id/update', uploadImg, updateUser);
 router.get('/:id', findOneUser);
 router.delete('/:id', deleteUser);
 

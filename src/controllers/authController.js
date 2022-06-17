@@ -5,13 +5,13 @@ import models from '../database/models';
 import { promisify } from 'util';
 import catchAsync from '../utils/catchAsync';
 
-const signToken = (id) =>
-  jwt.sign({ id }, process.env.JWT_SECRET, {
+const signToken = (user) =>
+  jwt.sign({ user }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
 const createSendToken = (user, statusCode, res) => {
-  const token = signToken(user.id);
+  const token = signToken(user);
 
   //remove the password from the output
   user.password = undefined;
@@ -49,37 +49,52 @@ exports.login = async (req, res, next) => {
   createSendToken(user, 200, res);
 };
 
-exports.protect = catchAsync(async (req, res, next) => {
+let token;
+exports.protect = async (req, res, next) => {
   //1 Getting tocken and check its there
-  let token;
+  if (!req.headers.authorization)
+    return next(new AppError(req.t('not_logged_in'), 500));
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
-  console.log(token);
-  // console.log(token)
   if (!token) {
     return next(new AppError(req.t('not_logged_in'), 401));
   }
   // 2. verificatoin token
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  var decoded;
+  try {
+    decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  } catch (error) {
+    return next(new AppError('You need to login again', 401));
+  }
 
   // 3.check if user still exists
 
   const currentUser = await models.User.findOne({
     where: {
-      id: decoded.id,
+      id: decoded.user.id,
     },
   });
-  console.log(currentUser);
 
   if (!currentUser) {
     return next(new AppError(req.t('user_nolonger_exist'), 401));
   }
 
-  //Grant access to protected route
+  //Grant access to protected roe
   req.user = currentUser;
   next();
-});
+};
+exports.UserOperator = async (req, res, next) => {
+  //1 to check if user is OPerator Only
+  token = req.headers.authorization.split(' ')[1];
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  if (decoded.user.role !== 'operator') {
+    return next(
+      new AppError("You don't have permission to perform this task ", 401)
+    );
+  }
+  next();
+};

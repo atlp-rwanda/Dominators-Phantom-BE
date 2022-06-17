@@ -23,14 +23,17 @@ const addBus = async (req, res) => {
     })
     .then(([bus, created]) => {
       if (created) responseHandler(res, 200, bus);
-      else responseHandler(res, 400, 'Bus already exists.');
+      else responseHandler(res, 400, 'Bus already exists.', req);
     })
+
     .catch((err) => {
       console.log('-err:', err);
+
       responseHandler(
         res,
         500,
-        err.message || 'Some error occurred while creating the route.'
+        err.message || 'Some error occurred while creating the route.',
+        req
       );
     });
 };
