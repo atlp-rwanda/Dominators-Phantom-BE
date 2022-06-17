@@ -82,8 +82,6 @@ const profilePic = req.body.profilePic;
 if(!user){
   return res.status(404).json({message:'no user found with this ID'})
 } 
-req.body.profilePic = await fileUpload(req)
-
 
 const userProfile = await Profile.create({
   firstName,
