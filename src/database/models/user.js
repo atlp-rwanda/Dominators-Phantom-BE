@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.roles, {
         foreignKey: { name: 'role', allowNull: true },
         as: 'roles',
+        as: 'Profiles',
+      });
+      this.hasOne(models.AssignDriver, {
+        foreignKey: 'UserId',
+        as: 'AssignDriver',
       });
     }
   }

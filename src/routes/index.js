@@ -8,6 +8,9 @@ import profileRoutes from './api/profileRoutes';
 import permissionRoutes from './api/permissionRoutes';
 import roleRoutes from './api/roleRoutes';
 import rolePermissionRoutes from './api/rolepermissionRoutes';
+import assignDriver from './api/assignDriverRoutes';
+import unassigned from './api/unassignedRoute';
+import profileRoutes from './api/profileRoutes';
 
 const routes = express.Router();
 routes.use('/users', userRoutes, profileRoutes);
@@ -18,5 +21,7 @@ routes.use('/unassigned', unassigned);
 routes.use('/permissions', permissionRoutes)
 routes.use('/roles', roleRoutes)
 routes.use('/roles', rolePermissionRoutes)
+routes.use('/assign', assignDriver);
+routes.use('/unassigned', unassigned);
 
 export default routes;
