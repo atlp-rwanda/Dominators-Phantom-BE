@@ -5,6 +5,7 @@ import {
   updateUser,
   deleteUser,
 } from '../../controllers/profilecontroller';
+import cloudinary from "../../utils/cloudinary"
 
 import multer from 'multer';
 const path = require('path');
@@ -27,9 +28,20 @@ const fileFilter = (req, file, cb) => {
     cb(new Error('Unsupported files'), false)
   }
 }
+// const fileUpload = async (req) => {
+//   let profilePic = "";
+//   await cloudinary.v2.uploader.upload(
+//     req.file.path,
+//     async function (err, image) {
+//       if (err) console.log(err);
+//       profilePic = image.url;
+//     }
+//   );
+//   return profilePic;
+// };
 
   
-  const uploadImg = multer({storage: storage}).single('profilePic');
+  const uploadImg = multer({storage: storage}).single('profilePic', fileFilter);
 
 router.get('/', allUsers);
 router.put('/:id/update', uploadImg, updateUser);
