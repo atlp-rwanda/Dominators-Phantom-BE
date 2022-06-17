@@ -2,36 +2,46 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const roleId = await queryInterface.sequelize.query(
+      `SELECT role_id from roles;`
+    )
+    const roleIdRows = roleId[0]
+
+    const permissionId = await queryInterface.sequelize.query(
+      `SELECT permission_id from permissions;`
+    )
+    const permissionIdRow = permissionId[0]
+
     await queryInterface.bulkInsert(
       'role_permissions',
       [
         {
-          role_id: 'afc1def7-ba7d-4ada-a680-a31a67be0597',
-          permission_id: '74d00ea4-497d-41f0-ab99-fb8884520cbe',
+          role_id: roleIdRows[0].role_id,
+          permission_id: permissionIdRow[0].permission_id,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          role_id: 'afc1def7-ba7d-4ada-a680-a31a67be0597',
-          permission_id: '8acbf6a3-a2cd-4f54-ade3-13fce7c5c571',
+          role_id: roleIdRows[0].role_id,
+          permission_id: permissionIdRow[1].permission_id,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          role_id: 'afc1def7-ba7d-4ada-a680-a31a67be0597',
-          permission_id: 'b48ad3a5-3fd9-4295-b896-f29e0a6d7024',
+          role_id: roleIdRows[0].role_id,
+          permission_id: permissionIdRow[2].permission_id,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          role_id: 'afc1def7-ba7d-4ada-a680-a31a67be0597',
-          permission_id: 'a79d3a4e-00a6-40af-9c07-235d1267d4d4',
+          role_id: roleIdRows[0].role_id,
+          permission_id: permissionIdRow[3].permission_id,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          role_id: 'afc1def7-ba7d-4ada-a680-a31a67be0597',
-          permission_id: '54762a9e-e9e4-43b9-9e04-031261323bf8',
+          role_id: roleIdRows[0].role_id,
+          permission_id: permissionIdRow[4].permission_id,
           createdAt: new Date(),
           updatedAt: new Date()
         }

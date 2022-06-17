@@ -105,8 +105,8 @@ const allPermissions = {
   },
   permissions: {
     post: 'add permission',
-    get: 'get all permissions',
     get: 'get one permission',
+    get: 'get all permissions',
     update: 'update permission',
     delete: 'delete permission'
   }

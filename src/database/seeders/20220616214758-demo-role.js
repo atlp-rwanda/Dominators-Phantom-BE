@@ -6,7 +6,7 @@ module.exports = {
       'roles',
       [
         {
-          role_id: 'afc1def7-ba7d-4ada-a680-a31a67be0597',
+          // role_id: 'afc1def7-ba7d-4ada-a680-a31a67be0597',
           name: 'admin',
           description: 'the center of everthing carried on the app',
           createdAt: new Date(),
