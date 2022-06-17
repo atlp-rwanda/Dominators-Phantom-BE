@@ -14,26 +14,21 @@ export const createJourney = async (req, res) => {
     return null;
   }
   try {
-    const checkAssign = await assign.findAll({ where: { UserId: '1' } });
+    const checkAssign = await assign.findAll({ where: { UserId: '9' } });
     const busId = checkAssign[0].BusId;
     const busInfo = await buses.findAll({
       where: {
         id: busId,
       },
     });
+
     const routeId = busInfo[0].routeId;
     const routeInfo = await routes.findAll({
-      where: { routeId: 'd97074c1-1d7e-4432-b4f5-adaa15831dd7' },
+      where: { routeId: routeId },
     });
-
     const lat = parseFloat(routeInfo[0].coordinates[0]);
     const long = parseFloat(routeInfo[0].coordinates[1]);
 
-    const point = draw(lat, long);
-    // res.json({
-    //   Message: 'MBPA!',
-    //   Route: point,
-    // });
     const driverId = checkAssign[0].UserId;
 
     const resp = await journeys.findOrCreate({
