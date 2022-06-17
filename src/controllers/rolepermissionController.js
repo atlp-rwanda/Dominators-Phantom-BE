@@ -28,7 +28,7 @@ const assignPermissionToRole = async (req, res) => {
     });
   }
 
-  // check if role exists in DB
+  // check if permission exists in DB
   const permissionFound = await permission.findOne({
     where: {
       permission_id: permissionId

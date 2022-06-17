@@ -1,5 +1,6 @@
 import responseHandler from '../utils/responseHandler';
 import model from '../database/models';
+import slug from 'slug';
 
 const permission = model.permissions;
 const addPermission = async (req, res) => {

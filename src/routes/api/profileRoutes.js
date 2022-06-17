@@ -8,6 +8,7 @@ import {
 
 import multer from 'multer';
 const path = require('path');
+import permMiddleware from '../../helpers/checkPermission';
 
 const router = express.Router();
 
@@ -31,8 +32,8 @@ const fileFilter = (req, file, cb) => {
   
   const uploadImg = multer({storage: storage}).single('profilePic');
 
-router.get('/', allUsers);
-router.put('/:id/update', uploadImg, updateUser);
+router.get('/', permMiddleware.checkPermission, allUsers);
+router.post('/:id/update', uploadImg, updateUser);
 router.get('/:id', findOneUser);
 router.delete('/:id', deleteUser);
 

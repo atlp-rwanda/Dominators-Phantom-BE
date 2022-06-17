@@ -9,15 +9,46 @@ import {
   deleteAll,
 } from '../../controllers/RouteController';
 import authController from '../../controllers/authController';
+import permMiddleware from '../../helpers/checkPermission';
 
 const router = express.Router();
 
-router.get('/', authController.protect, findAll);
-router.get('/:id/', authController.protect, findOne);
-router.put('/:id/', authController.protect, updateRoute);
-router.post('/', authController.protect, addRoute);
-router.delete('/:id', authController.protect, removeRoute);
-router.delete('/', authController.protect, deleteAll);
+router.get(
+  '/',
+  authController.protect,
+  permMiddleware.checkPermission,
+  findAll
+);
+router.get(
+  '/:id/',
+  authController.protect,
+  permMiddleware.checkPermission,
+  findOne
+);
+router.put(
+  '/:id/',
+  authController.protect,
+  permMiddleware.checkPermission,
+  updateRoute
+);
+router.post(
+  '/',
+  authController.protect,
+  permMiddleware.checkPermission,
+  addRoute
+);
+router.delete(
+  '/:id',
+  authController.protect,
+  permMiddleware.checkPermission,
+  removeRoute
+);
+router.delete(
+  '/',
+  authController.protect,
+  permMiddleware.checkPermission,
+  deleteAll
+);
 
 export default router;
 

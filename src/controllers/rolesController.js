@@ -1,5 +1,6 @@
 import responseHandler from '../utils/responseHandler';
 import model from '../database/models';
+import slug from 'slug';
 
 const role = model.roles;
 const rolePermission = model.role_permissions;

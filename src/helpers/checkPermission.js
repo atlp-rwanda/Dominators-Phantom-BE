@@ -80,13 +80,13 @@ const allPermissions = {
   },
   roles: {
     post: 'add role',
-    get: 'get all roles',
     get: 'get one role',
+    get: 'get one permission on role',
+    get: 'get all permissions on role',
+    get: 'get all roles',
     update: 'uptate role',
     delete: 'delete role',
     post: 'add permission on role',
-    get: 'get all permissions on role',
-    get: 'get one permission on role',
     delete: 'delete permission on role'
   },
   routes: {
