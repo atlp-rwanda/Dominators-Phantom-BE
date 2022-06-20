@@ -12,7 +12,7 @@ export const checkUser = async (req, res, next) => {
     token = req.headers.authorization.split(' ')[1];
   }
   if (!token) {
-    res.status(400).send({
+    res.status(400).json({
       Message: 'Token required! ',
       Token: token,
     });
@@ -29,14 +29,15 @@ export const checkUser = async (req, res, next) => {
         },
       });
       const userRole = currentUser.dataValues.role;
-      if (userRole !== 'operator') {
-        res.status(401).send({
+      if (userRole !== 'driver') {
+        res.status(401).json({
           Messsage: 'Unauthorized!',
         });
       }
+      req.user = currentUser;
       next();
     } catch (error) {
-      res.status(400).send({
+      res.status(400).json({
         Message: 'Something went wrong! ' + error,
         Stack: error.stack,
       });

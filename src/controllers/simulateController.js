@@ -8,56 +8,54 @@ const routes = model.routes;
 //command bus to start moving
 export const createJourney = async (req, res) => {
   if (!req.body.JourneyTitle || !req.body.Speed || !req.body.passengers) {
-    res.status(400).send({
+    res.status(400).json({
       Message: 'Oops! All fields required!',
     });
     return null;
   }
   try {
-    const checkAssign = await assign.findAll({ where: { UserId: '9' } });
-    const busId = checkAssign[0].BusId;
-    const busInfo = await buses.findAll({
-      where: {
-        id: busId,
-      },
+    const currentUser = req.user;
+    const driverId = currentUser.id.toString();
+    const isAssigned = await assign.findOne({
+      where: { UserId: currentUser.id },
     });
-
-    const routeId = busInfo[0].routeId;
-    const routeInfo = await routes.findAll({
+    const busId = isAssigned.BusId;
+    const busInfo = await buses.findOne({
+      where: { id: busId },
+    });
+    const routeId = busInfo.routeId;
+    const routeInfo = await routes.findOne({
       where: { routeId: routeId },
     });
-    const lat = parseFloat(routeInfo[0].coordinates[0]);
-    const long = parseFloat(routeInfo[0].coordinates[1]);
 
-    const driverId = checkAssign[0].UserId;
-
+    const point = draw(
+      parseFloat(routeInfo.coordinates[0]),
+      parseFloat(routeInfo.coordinates[1])
+    );
     const resp = await journeys.findOrCreate({
       where: {
         journeyTitle: req.body.JourneyTitle,
         currentLocation: point,
         speed: req.body.Speed,
-        timeExpected: req.body.timeExpected,
         passengers: req.body.passengers,
         routeID: routeId,
         driverID: driverId,
         busID: busId,
-        status: 'Moving',
-        trafficStatus: req.body.trafficStatus,
-        createdAt: Date.now(),
       },
     });
 
     if (resp) {
-      res.status(201).send({
+      res.status(201).json({
         Message: 'Journey Started',
         Status: 'Bus Moving..',
-        BusInfo: resp,
+        MotionInfo: resp,
       });
     }
   } catch (error) {
-    res.status(400).send({
+    res.status(400).json({
       Message: 'An Error Occured!',
       Error: "We couldn't start the journey " + error,
+      StackError: error.stack,
     });
   }
 };
@@ -72,7 +70,7 @@ export const getAllJourneys = async (req, res) => {
       Data: motions,
     });
   } catch (error) {
-    res.status(400).send({
+    res.status(400).json({
       Message: "Sorry, We couldn't retrieve motions at this time.",
     });
   }
@@ -84,13 +82,13 @@ export const getJourney = async (req, res) => {
     const id = req.params.journeyId;
     const resp = await journeys.findAll({ where: { journeyId: id } });
     if (resp) {
-      res.status(200).send({
+      res.status(200).json({
         Message: 'Motion Retrieved Successfully!',
         Motion: resp,
       });
     }
   } catch (error) {
-    res.status(400).send({
+    res.status(400).json({
       Message: 'Something went wrong, ' + error,
     });
   }
@@ -104,7 +102,7 @@ export const slowDown = async (req, res) => {
     //find out the current speed
     const journey = await journeys.findAll({ where: { journeyId: id } });
     if (journey[0].speed <= minimum) {
-      res.status(400).send({
+      res.status(400).json({
         Message: 'Minimum speed of ' + minimum + ' km/h reached.',
         Warning: "You can't go below minimum speed",
       });
@@ -116,13 +114,13 @@ export const slowDown = async (req, res) => {
         { where: { journeyId: id } }
       );
       if (resp) {
-        res.status(200).send({
+        res.status(200).json({
           Message: 'Motion Slowed Down to ' + decrement + ' km/h !!',
         });
       }
     }
   } catch (error) {
-    res.status(400).send({
+    res.status(400).json({
       Message: 'Something went wrong, ' + error,
     });
   }
@@ -136,7 +134,7 @@ export const speedUp = async (req, res) => {
     //find out the current speed
     const journey = await journeys.findAll({ where: { journeyId: id } });
     if (journey[0].speed >= maximum) {
-      res.status(400).send({
+      res.status(400).json({
         Message: 'Maximum speed of ' + maximum + ' km/h reached.',
         Warning: "You can't go above maximum speed",
       });
@@ -148,13 +146,13 @@ export const speedUp = async (req, res) => {
         { where: { journeyId: id } }
       );
       if (resp) {
-        res.status(200).send({
+        res.status(200).json({
           Message: 'Motion speed has increased to ' + increment + ' km/h !!',
         });
       }
     }
   } catch (error) {
-    res.status(400).send({
+    res.status(400).json({
       Message: 'Something went wrong, ' + error,
     });
   }
@@ -172,7 +170,7 @@ export const pauseOrResume = async (req, res) => {
         { where: { journeyId: id } }
       );
       if (updateStatus) {
-        res.status(200).send({
+        res.status(200).json({
           Message: 'Journey Paused',
         });
       }
@@ -182,17 +180,17 @@ export const pauseOrResume = async (req, res) => {
         { where: { journeyId: id } }
       );
       if (updateStatus) {
-        res.status(200).send({
+        res.status(200).json({
           Message: 'Journey Resumed',
         });
       }
     } else if (status === 'Stopped') {
-      res.status(400).send({
+      res.status(400).json({
         Message: "Ended/Cancelled Journey can't be Paused/Resumed.",
       });
     }
   } catch (error) {
-    res.status(400).send({
+    res.status(400).json({
       Message: 'Something went wrong, ' + error,
     });
   }
@@ -210,18 +208,18 @@ export const stopJourney = async (req, res) => {
         { where: { journeyId: id } }
       );
       if (updateStatus) {
-        res.status(200).send({
+        res.status(200).json({
           Message: 'Journey Stopped',
           Reason: 'Ended/Cancelled',
         });
       }
     } else if (status === 'Stopped') {
-      res.status(400).send({
+      res.status(400).json({
         Message: 'The Journey Already Stopped!.',
       });
     }
   } catch (error) {
-    res.status(400).send({
+    res.status(400).json({
       Message: 'Something went wrong, ' + error,
     });
   }
@@ -241,12 +239,12 @@ export const editJourneyInfo = async (req, res) => {
       }
     );
     if (isUpdated) {
-      res.status(200).send({
+      res.status(200).json({
         Message: 'Journey Info Updated Successfully!',
       });
     }
   } catch (error) {
-    res.status(400).send({
+    res.status(400).json({
       Message: 'Something went wrong, ' + error,
       Stack: error.stack,
     });
