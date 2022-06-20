@@ -5,6 +5,7 @@ import {
   findOnePermission,
   updatePermission,
   deletePermission,
+  deleteAllPermission,
 } from '../../controllers/permissionsController';
 import authController from '../../controllers/authController';
 import permMiddleware from '../../helpers/checkPermission';
@@ -40,6 +41,12 @@ router.delete(
   authController.protect,
   permMiddleware.checkPermission,
   deletePermission
+);
+router.delete(
+  '/',
+  authController.protect,
+  permMiddleware.checkPermission,
+  deleteAllPermission
 );
 
 export default router;

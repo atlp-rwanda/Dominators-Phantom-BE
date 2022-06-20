@@ -5,6 +5,7 @@ import {
   findOneRole,
   updateRole,
   deleteRole,
+  deleteAllRole,
 } from '../../controllers/rolesController';
 import authController from '../../controllers/authController';
 import permMiddleware from '../../helpers/checkPermission';
@@ -40,6 +41,12 @@ router.delete(
   authController.protect,
   permMiddleware.checkPermission,
   deleteRole
+);
+router.delete(
+  '/',
+  authController.protect,
+  permMiddleware.checkPermission,
+  deleteAllRole
 );
 
 export default router;

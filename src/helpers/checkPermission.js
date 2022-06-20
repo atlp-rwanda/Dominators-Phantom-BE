@@ -40,8 +40,16 @@ exports.checkPermission = async (req, res, next) => {
       console.log('<<<<<<<<', urlComp[3]);
 
       const target = urlComp[3];
-      const action = req.method;
-      const requiredPermission = allPermissions[target][action.toLowerCase()];
+      const action = req.method
+      const usedAction = req.params.id
+        ? `${action.toLowerCase()}One`
+        : req.params.permissionId && req.params.roleId
+        ? `${action.toLowerCase()}OnePermission`
+        : req.params.roleId
+        ? `${action.toLowerCase()}Permissions`
+        : action.toLowerCase()
+
+      const requiredPermission = allPermissions[target][usedAction];
       console.log('<<<<<<<<<Required permission: ', requiredPermission);
 
       let permissionDB = []
@@ -69,45 +77,67 @@ exports.checkPermission = async (req, res, next) => {
   next();
 };
 
-// Retrieve permissions in the Database
+// Permissions on API routes
 const allPermissions = {
   users: {
     post: 'add user',
     get: 'get all users',
-    get: 'get one user',
-    update: 'update user',
-    delete: 'delete user'
+    getOne: 'get one user',
+    updateOne: 'update user',
+    deleteOne: 'delete user'
   },
   roles: {
     post: 'add role',
-    get: 'get one role',
-    get: 'get one permission on role',
-    get: 'get all permissions on role',
+    getOne: 'get one role',
+    getOnePermission: 'get one permission on role',
+    getPermissions: 'get all permissions on role',
     get: 'get all roles',
-    update: 'uptate role',
-    delete: 'delete role',
-    post: 'add permission on role',
-    delete: 'delete permission on role'
+    updateOne: 'uptate role',
+    deleteOne: 'delete role',
+    delete: 'delete many roles',
+    postPermissions: 'add permission on role',
+    deleteOnePermission: 'delete permission on role',
+    deletePermissions: 'delete many permissions on role'
   },
   routes: {
     post: 'add route',
     get: 'get all routes',
-    get: 'get one route',
-    update: 'update route',
-    delete: 'delete route'
+    getOne: 'get one route',
+    updateOne: 'update route',
+    deleteOne: 'delete route',
+    delete: 'delete many routes'
   },
   buses: {
     post: 'add bus',
     get: 'get all buses',
-    get: 'get one bus',
-    update: 'update bus',
-    delete: 'delete bus'
+    getOne: 'get one bus',
+    updateOne: 'update bus',
+    deleteOne: 'delete bus',
+    delete: 'delete many buses'
   },
   permissions: {
     post: 'add permission',
-    get: 'get one permission',
+    getOne: 'get one permission',
     get: 'get all permissions',
-    update: 'update permission',
-    delete: 'delete permission'
+    updateOne: 'update permission',
+    deleteOne: 'delete permission',
+    delete: 'delete many permissions'
+  },
+  assign: {
+    post: 'add driver on bus',
+    get: 'get all drivers on bus',
+    getOne: 'get one assigned driver',
+    updateOne: 'get one assigned driver',
+    deleteOne: 'unassign driver',
+  }, 
+  unassign: {
+    get: 'get all unassigned drivers'
+  },
+  journey: {
+    post: 'add journey',
+    get: 'get all journeys',
+    getOne: 'get one journey',
+    updateOne: 'get one journey',
+    deleteOne: 'delete journey',
   }
 };

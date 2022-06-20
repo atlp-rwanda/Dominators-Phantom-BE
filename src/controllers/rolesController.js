@@ -6,7 +6,6 @@ const role = model.roles;
 const rolePermission = model.role_permissions;
 const permission = model.permissions;
 
-
 const addRole = async (req, res) => {
   // Validate request
   if (!req.body.name || !req.body.description) {
@@ -100,10 +99,6 @@ const findOneRole = async (req, res) => {
   }
 };
 
-const findAllUserOnRole = async (req, res) => {
-  
-};
-
 const updateRole = async (req, res) => {
   try {
     const roleId = req.params.id;
@@ -162,4 +157,27 @@ const deleteRole = async (req, res) => {
   }
 };
 
-export { addRole, findAllRoles, findOneRole, updateRole, deleteRole };
+const deleteAllRole = async (req, res) => {
+  await role
+    .destroy({
+      where: {},
+      truncate: false,
+    })
+    .then((nums) => {
+      responseHandler(res, 200, {
+        message: `${nums} Roles were deleted successfully!`,
+      });
+    })
+    .catch((err) => {
+      res.status(500);
+    });
+};
+
+export {
+  addRole,
+  findAllRoles,
+  findOneRole,
+  updateRole,
+  deleteRole,
+  deleteAllRole,
+};

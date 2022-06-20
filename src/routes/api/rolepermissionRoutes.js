@@ -3,6 +3,7 @@ import {
   assignPermissionToRole,
   findAllPermissionOnRole,
   findOnePermissionOnRole,
+  removeAllPermissionOnRole,
   removeOnePermissionOnRole,
 } from '../../controllers/rolepermissionController';
 import authController from '../../controllers/authController';
@@ -33,6 +34,12 @@ router.delete(
   authController.protect,
   permMiddleware.checkPermission,
   removeOnePermissionOnRole
+);
+router.delete(
+  '/:roleId/permissions/',
+  authController.protect,
+  permMiddleware.checkPermission,
+  removeAllPermissionOnRole
 );
 
 export default router;

@@ -19,9 +19,9 @@ const assignPermissionToRole = async (req, res) => {
   // check if role exists in DB
   const roleFound = await role.findOne({
     where: {
-      role_id: roleId
-    }
-  })
+      role_id: roleId,
+    },
+  });
   if (!roleFound) {
     return responseHandler(res, 404, {
       message: 'Role is not found!',
@@ -31,9 +31,9 @@ const assignPermissionToRole = async (req, res) => {
   // check if permission exists in DB
   const permissionFound = await permission.findOne({
     where: {
-      permission_id: permissionId
-    }
-  })
+      permission_id: permissionId,
+    },
+  });
   if (!permissionFound) {
     return responseHandler(res, 404, {
       message: 'Permission is not found!',
@@ -172,9 +172,40 @@ const removeOnePermissionOnRole = async (req, res) => {
   }
 };
 
+const removeAllPermissionOnRole = async (req, res) => {
+  try {
+    const roleId = req.params.roleId;
+    const roleAssigned = await rolePermission.findAll({
+      where: {
+        role_id: roleId,
+      },
+    });
+    if (!roleAssigned) {
+      return responseHandler(res, 404, {
+        message: 'Role is not assigned any permission!',
+      });
+    } else {
+      await role
+        .destroy({
+          where: {},
+          truncate: false,
+        })
+        .then((nums) => {
+          responseHandler(res, 200, {
+            message: `${nums} Permission were removed from the role successfully!`,
+          });
+        })
+        .catch((err) => {
+          res.status(500);
+        });
+    }
+  } catch (error) {}
+};
+
 export {
   assignPermissionToRole,
   findAllPermissionOnRole,
   findOnePermissionOnRole,
   removeOnePermissionOnRole,
+  removeAllPermissionOnRole
 };

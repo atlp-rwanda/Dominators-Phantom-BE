@@ -130,10 +130,27 @@ const deletePermission = async (req, res) => {
   }
 };
 
+const deleteAllPermission = async (req, res) => {
+  await permission
+    .destroy({
+      where: {},
+      truncate: false,
+    })
+    .then((nums) => {
+      responseHandler(res, 200, {
+        message: `${nums} Permissions were deleted successfully!`,
+      });
+    })
+    .catch((err) => {
+      res.status(500);
+    });
+};
+
 export {
   addPermission,
   findAllPermissions,
   findOnePermission,
   updatePermission,
   deletePermission,
+  deleteAllPermission,
 };
