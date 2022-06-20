@@ -7,7 +7,6 @@ const permission = model.permissions;
 
 exports.checkPermission = async (req, res, next) => {
   const currentRole = req.user.role;
-  console.log('>>>>>current role: ', currentRole);
 
   try {
     let permissionOnRole = [];
@@ -36,8 +35,6 @@ exports.checkPermission = async (req, res, next) => {
       }
 
       const urlComp = req.originalUrl.split('/');
-      console.log(urlComp)
-      console.log('<<<<<<<<', urlComp[3]);
 
       const target = urlComp[3];
       const action = req.method
@@ -50,14 +47,12 @@ exports.checkPermission = async (req, res, next) => {
         : action.toLowerCase()
 
       const requiredPermission = allPermissions[target][usedAction];
-      console.log('<<<<<<<<<Required permission: ', requiredPermission);
 
       let permissionDB = []
       const db = await permission.findAll();
       for (let i = 0; i < db.length; i++) {
         permissionDB.push(db[i].name)
       }
-      console.log(permissionDB);
 
       let permissionNames = [];
       for (let i = 0; i < permissionOnRole.length; i++) {
