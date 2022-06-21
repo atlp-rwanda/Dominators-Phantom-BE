@@ -1,5 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
+import { v4 as uuid } from 'uuid';
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**

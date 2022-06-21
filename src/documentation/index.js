@@ -6,10 +6,16 @@ import { Profile, ProfileDefinition } from './profile';
 import { users, usersDefinition } from './drivers&operators';
 import { bus, busDefinition } from './bus';
 import { AssignDriverToBuse, AssignDefinition } from './assign';
-import { route, createDefinition } from './routeDoc';
-import { Profile, ProfileDefinition } from './profile';
-import { users, usersDefinition } from './drivers&operators';
-import { bus, busDefinition } from './bus';
+
+const paths = {
+  ...welcome,
+  ...user,
+  ...route,
+  ...Profile,
+  ...users,
+  ...bus,
+  ...AssignDriverToBuse,
+};
 
 const definitions = {
   ...userDefinition,
