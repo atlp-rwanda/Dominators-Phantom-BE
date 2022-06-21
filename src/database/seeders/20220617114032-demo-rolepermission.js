@@ -44,6 +44,12 @@ module.exports = {
           permission_id: permissionIdRow[4].permission_id,
           createdAt: new Date(),
           updatedAt: new Date()
+        },
+        {
+          role_id: roleIdRows[0].role_id,
+          permission_id: permissionIdRow[5].permission_id,
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ],
       {}

@@ -87,7 +87,7 @@ const allPermissions = {
     getOnePermission: 'get one permission on role',
     getPermissions: 'get all permissions on role',
     get: 'get all roles',
-    updateOne: 'uptate role',
+    updateOne: 'update role',
     deleteOne: 'delete role',
     delete: 'delete many roles',
     postPermissions: 'add permission on role',
@@ -122,7 +122,7 @@ const allPermissions = {
     post: 'add driver on bus',
     get: 'get all drivers on bus',
     getOne: 'get one assigned driver',
-    updateOne: 'get one assigned driver',
+    updateOne: 'update one assigned driver',
     deleteOne: 'unassign driver',
   }, 
   unassign: {
@@ -132,7 +132,7 @@ const allPermissions = {
     post: 'add journey',
     get: 'get all journeys',
     getOne: 'get one journey',
-    updateOne: 'get one journey',
+    updateOne: 'update one journey',
     deleteOne: 'delete journey',
   }
 };
