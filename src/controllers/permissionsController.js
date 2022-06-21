@@ -12,8 +12,13 @@ const addPermission = async (req, res) => {
   }
 
   // Create a PERMISSION
-
-  await permission
+  const permissionFound = await permission.findOne({
+    where: {
+      name: req.body.name
+    }
+  })
+  if (!permissionFound) {
+    await permission
     .findOrCreate({
       where: {
         name: req.body.name,
@@ -34,6 +39,12 @@ const addPermission = async (req, res) => {
           err.message || 'Some error occurred while creating the permission.',
       });
     });
+  } else {
+    responseHandler(res, 400, {
+      message: 'Sorry! That permission already exists.',
+    });
+  }
+  
 };
 
 const findAllPermissions = async (req, res) => {

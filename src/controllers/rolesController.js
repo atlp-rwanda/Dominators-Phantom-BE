@@ -16,7 +16,13 @@ const addRole = async (req, res) => {
 
   // Create a ROLE
 
-  await role
+  const roleFound = await role.findOne({
+    where: {
+      name: req.body.name
+    }
+  })
+  if (!roleFound) {
+    await role
     .findOrCreate({
       where: {
         name: req.body.name,
@@ -36,6 +42,12 @@ const addRole = async (req, res) => {
         error: err.message || 'Some error occurred while creating the role.',
       });
     });
+  } else {
+    responseHandler(res, 400, {
+      message: 'Sorry! That role already exists.',
+    });
+  }
+  
 };
 
 const findAllRoles = async (req, res) => {
