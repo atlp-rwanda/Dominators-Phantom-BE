@@ -1,4 +1,5 @@
 import cloudinary from "cloudinary"
+import { clear } from "../helpers/clearuploads"
 
 
 
@@ -8,7 +9,8 @@ export const fileFilter = (req, file, cb) => {
     } else {
       cb(new Error('Unsupported files'), false)
     }
-  }
+  }  
+
 export const fileUpload = async (req) => {
     let profilePic = "";
     await cloudinary.v2.uploader.upload(
@@ -18,6 +20,7 @@ export const fileUpload = async (req) => {
         profilePic = image.url;
       }
     );
+    clear()
     return profilePic;
   };
   
