@@ -77,7 +77,7 @@ const allUsers = (req, res) => {
     attributes: {
       exclude: ['password'],
     },
-    include: 'Profiles',
+    include: 'profiles',
   })
 
     .then((data) => {

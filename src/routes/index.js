@@ -18,7 +18,5 @@ routes.use('/unassigned', unassigned);
 routes.use('/permissions', permissionRoutes)
 routes.use('/roles', roleRoutes)
 routes.use('/roles', rolePermissionRoutes)
-routes.use('/assign', assignDriver);
-routes.use('/unassigned', unassigned);
 
 export default routes;
