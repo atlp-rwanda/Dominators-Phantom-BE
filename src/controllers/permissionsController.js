@@ -3,6 +3,7 @@ import model from '../database/models';
 import slug from 'slug';
 
 const permission = model.permissions;
+const rolepermission = model.role_permissions;
 const addPermission = async (req, res) => {
   // Validate request
   if (!req.body.name || !req.body.description) {
@@ -14,46 +15,47 @@ const addPermission = async (req, res) => {
   // Create a PERMISSION
   const permissionFound = await permission.findOne({
     where: {
-      name: req.body.name
-    }
-  })
+      name: req.body.name,
+    },
+  });
   if (!permissionFound) {
     await permission
-    .findOrCreate({
-      where: {
-        name: req.body.name,
-        description: req.body.description,
-      },
-    })
-    .then(([permission, created]) => {
-      if (created) responseHandler(res, 201, permission);
-      else
-        responseHandler(res, 400, {
-          message: 'Sorry! That permission already exists.',
+      .findOrCreate({
+        where: {
+          name: req.body.name,
+          description: req.body.description,
+        },
+      })
+      .then(([permission, created]) => {
+        if (created) responseHandler(res, 201, permission);
+        else
+          responseHandler(res, 400, {
+            message: 'Sorry! That permission already exists.',
+          });
+      })
+      .catch((err) => {
+        console.log('-err:', err);
+        responseHandler(res, 500, {
+          error:
+            err.message || 'Some error occurred while creating the permission.',
         });
-    })
-    .catch((err) => {
-      console.log('-err:', err);
-      responseHandler(res, 500, {
-        error:
-          err.message || 'Some error occurred while creating the permission.',
       });
-    });
   } else {
     responseHandler(res, 400, {
       message: 'Sorry! That permission already exists.',
     });
   }
-  
 };
 
 const findAllPermissions = async (req, res) => {
   try {
     const allPermissions = await permission.findAll();
-    return responseHandler(res, 200, {
-      allPermissions: allPermissions,
-      count: allPermissions.length,
-    });
+    if (allPermissions) {
+      return responseHandler(res, 200, {
+        allPermissions: allPermissions,
+        count: allPermissions.length,
+      });
+    }
   } catch (err) {
     responseHandler(res, 500, {
       error: err.message || 'Internal Server Error',
@@ -129,6 +131,9 @@ const deletePermission = async (req, res) => {
       await permission.destroy({
         where: { permission_id: permissionId },
       });
+      await rolepermission.destroy({
+        where: { permission_id: permissionId },
+      })
       return responseHandler(res, 200, {
         message: 'Permission deleted successfully!',
       });

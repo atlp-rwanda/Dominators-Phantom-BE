@@ -78,7 +78,7 @@ const allPermissions = {
     post: 'add user',
     get: 'get all users',
     getOne: 'get one user',
-    updateOne: 'update user',
+    patchOne: 'update user',
     deleteOne: 'delete user'
   },
   roles: {
@@ -87,7 +87,7 @@ const allPermissions = {
     getOnePermission: 'get one permission on role',
     getPermissions: 'get all permissions on role',
     get: 'get all roles',
-    updateOne: 'update role',
+    patchOne: 'update role',
     deleteOne: 'delete role',
     delete: 'delete many roles',
     postPermissions: 'add permission on role',
@@ -98,7 +98,7 @@ const allPermissions = {
     post: 'add route',
     get: 'get all routes',
     getOne: 'get one route',
-    updateOne: 'update route',
+    patchOne: 'update route',
     deleteOne: 'delete route',
     delete: 'delete many routes'
   },
@@ -106,7 +106,7 @@ const allPermissions = {
     post: 'add bus',
     get: 'get all buses',
     getOne: 'get one bus',
-    updateOne: 'update bus',
+    patchOne: 'update bus',
     deleteOne: 'delete bus',
     delete: 'delete many buses'
   },
@@ -114,7 +114,7 @@ const allPermissions = {
     post: 'add permission',
     getOne: 'get one permission',
     get: 'get all permissions',
-    updateOne: 'update permission',
+    patchOne: 'update permission',
     deleteOne: 'delete permission',
     delete: 'delete many permissions'
   },
@@ -122,7 +122,7 @@ const allPermissions = {
     post: 'add driver on bus',
     get: 'get all drivers on bus',
     getOne: 'get one assigned driver',
-    updateOne: 'update one assigned driver',
+    patchOne: 'update one assigned driver',
     deleteOne: 'unassign driver',
   }, 
   unassign: {
@@ -132,7 +132,7 @@ const allPermissions = {
     post: 'add journey',
     get: 'get all journeys',
     getOne: 'get one journey',
-    updateOne: 'update one journey',
+    patchOne: 'update one journey',
     deleteOne: 'delete journey',
   }
 };
