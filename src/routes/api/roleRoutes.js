@@ -1,56 +1,52 @@
-import { Router } from 'express';
+import express from 'express';
 import {
-  addBus,
-  findAll,
-  findOne,
-  updateBus,
-  removeBus,
-  deleteAll,
-} from '../../controllers/busController';
-import paginatedResult from '../../utils/busPagination';
-import model from '../../database/models';
+  addRole,
+  findAllRoles,
+  findOneRole,
+  updateRole,
+  deleteRole,
+  deleteAllRole,
+} from '../../controllers/rolesController';
 import authController from '../../controllers/authController';
 import permMiddleware from '../../helpers/checkPermission';
 
-const buses = model.Bus;
-const router = Router();
+const router = express.Router();
 
-router.get(
-  '/',
-  paginatedResult(buses),
-  authController.protect,
-  permMiddleware.checkPermission,
-  findAll
-);
-router.get(
-  '/:id/',
-  authController.protect,
-  permMiddleware.checkPermission,
-  findOne
-);
-router.patch(
-  '/:id/',
-  authController.protect,
-  permMiddleware.checkPermission,
-  updateBus
-);
 router.post(
   '/',
   authController.protect,
   permMiddleware.checkPermission,
-  addBus
+  addRole
+);
+router.get(
+  '/',
+  authController.protect,
+  permMiddleware.checkPermission,
+  findAllRoles
+);
+router.get(
+  '/:id',
+  authController.protect,
+  permMiddleware.checkPermission,
+  findOneRole
+);
+router.patch(
+  '/:id',
+  authController.protect,
+  permMiddleware.checkPermission,
+  updateRole
 );
 router.delete(
   '/:id',
   authController.protect,
   permMiddleware.checkPermission,
-  removeBus
+  deleteRole
 );
 router.delete(
   '/',
   authController.protect,
   permMiddleware.checkPermission,
-  deleteAll
+  deleteAllRole
 );
 
 export default router;

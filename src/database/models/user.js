@@ -1,5 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
+import { v4 as uuid } from 'uuid';
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,7 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasOne(models.Profile, {
         foreignKey: 'userId',
-        as: 'Profiles',
+        as: 'profiles',
+      });
+      this.belongsTo(models.roles, {
+        foreignKey: { name: 'role', allowNull: true },
+        as: 'roles',
       });
       this.hasOne(models.AssignDriver, {
         foreignKey: 'UserId',
@@ -21,6 +27,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: uuid(),
+        primaryKey: true,
+        allowNull: false,
+      },
       firstName: { type: DataTypes.STRING, allowNull: false },
       lastName: { type: DataTypes.STRING, allowNull: false },
       email: {

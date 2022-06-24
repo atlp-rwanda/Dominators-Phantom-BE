@@ -6,6 +6,7 @@ import {
   deleteUser,
 } from '../../controllers/profilecontroller';
 import cloudinary from "../../utils/cloudinary"
+import permMiddleware from '../../helpers/checkPermission';
 
 import multer from 'multer';
 const path = require('path');
@@ -45,8 +46,8 @@ const fileFilter = (req, file, cb) => {
 
   
 
-router.get('/', allUsers);
-router.put('/:id/update', uploadImg, updateUser);
+router.get('/', permMiddleware.checkPermission, allUsers);
+router.post('/:id/update', uploadImg, updateUser);
 router.get('/:id', findOneUser);
 router.delete('/:id', deleteUser);
 

@@ -4,13 +4,13 @@ module.exports = {
     await queryInterface.createTable('Profiles', {
       id: {
         allowNull: false,
-        autoIncrement: true,
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
       },
       userId: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
       },
       firstName: {
         type: Sequelize.STRING,

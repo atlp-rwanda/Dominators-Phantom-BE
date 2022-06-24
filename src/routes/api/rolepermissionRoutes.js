@@ -1,56 +1,45 @@
-
 import express from 'express';
 import {
-  addRoute,
-  findAll,
-  findOne,
-  updateRoute,
-  removeRoute,
-  deleteAll,
-} from '../../controllers/RouteController';
+  assignPermissionToRole,
+  findAllPermissionOnRole,
+  findOnePermissionOnRole,
+  removeAllPermissionOnRole,
+  removeOnePermissionOnRole,
+} from '../../controllers/rolepermissionController';
 import authController from '../../controllers/authController';
 import permMiddleware from '../../helpers/checkPermission';
-import checkToken from '../../middlewares/checkToken.js';
 
 const router = express.Router();
 
-router.get(
-  '/',
-  checkToken,
-  authController.protect,
-  permMiddleware.checkPermission,
-  findAll
-);
-router.get(
-  '/:id/',
-  authController.protect,
-  permMiddleware.checkPermission,
-  findOne
-);
-router.put(
-  '/:id/',
-  authController.protect,
-  permMiddleware.checkPermission,
-  updateRoute
-);
 router.post(
-  '/',
+  '/:roleId/permissions',
   authController.protect,
   permMiddleware.checkPermission,
-  addRoute
+  assignPermissionToRole
+);
+router.get(
+  '/:roleId/permissions',
+  authController.protect,
+  permMiddleware.checkPermission,
+  findAllPermissionOnRole
+);
+router.get(
+  '/:roleId/permissions/:permissionId',
+  authController.protect,
+  permMiddleware.checkPermission,
+  findOnePermissionOnRole
 );
 router.delete(
-  '/:id',
+  '/:roleId/permissions/:permissionId',
   authController.protect,
   permMiddleware.checkPermission,
-  removeRoute
+  removeOnePermissionOnRole
 );
 router.delete(
-  '/',
+  '/:roleId/permissions/',
   authController.protect,
   permMiddleware.checkPermission,
-  deleteAll
+  removeAllPermissionOnRole
 );
 
 export default router;
-

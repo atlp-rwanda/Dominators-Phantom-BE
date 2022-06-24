@@ -9,6 +9,8 @@
     "start": "npm run build && better-npm-run prod",
     "migrate": "sequelize-cli db:migrate",
     "undo-migrate": "sequelize-cli db:migrate:undo",
+    "seed": "sequelize-cli db:seed:all",
+    "undo-seed": "sequelize-cli db:seed:undo",
     "build": "babel src -d dist"
   },
   "betterScripts": {
@@ -35,9 +37,12 @@
   "license": "ISC",
   "dependencies": {
     "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.9",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/register": "^7.17.7",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
     "@types/i18next-fs-backend": "^1.1.2",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
@@ -61,14 +66,12 @@
     "redis": "^4.1.0",
     "sequelize": "^6.18.0",
     "sequelize-slugify": "^1.6.1",
+    "slug": "^5.3.0",
     "swagger-ui-express": "^4.3.0",
     "util": "^0.12.4",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.9",
-    "@babel/node": "^7.16.8",
-    "@babel/preset-env": "^7.16.11",
     "chai": "^4.3.6",
     "coverage": "^0.4.1",
     "eslint": "^8.13.0",
