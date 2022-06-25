@@ -5,12 +5,9 @@ import {
   updateUser,
   deleteUser,
 } from '../../controllers/profilecontroller';
-<<<<<<< HEAD
-import cloudinary from "../../utils/cloudinary"
+import cloudinary from '../../utils/cloudinary';
 import permMiddleware from '../../helpers/checkPermission';
 
-=======
->>>>>>> 97e60bb (Getting Started with Bus Simulation)
 import multer from 'multer';
 const path = require('path');
 
@@ -35,8 +32,7 @@ const fileFilter = (req, file, cb) => {
   } else {
     cb(new Error('Unsupported files'), false);
   }
-<<<<<<< HEAD
-}
+};
 // const fileUpload = async (req) => {
 //   let profilePic = "";
 //   await cloudinary.v2.uploader.upload(
@@ -49,15 +45,7 @@ const fileFilter = (req, file, cb) => {
 //   return profilePic;
 // };
 
-  
-  const uploadImg = multer({storage: storage}).single('profilePic', fileFilter);
-=======
-};
-
-const uploadImg = multer({ storage: storage }).single('profilePic');
->>>>>>> 97e60bb (Getting Started with Bus Simulation)
-
-  
+const uploadImg = multer({ storage: storage }).single('profilePic', fileFilter);
 
 router.get('/', permMiddleware.checkPermission, allUsers);
 router.post('/:id/update', uploadImg, updateUser);
