@@ -16,7 +16,7 @@ const io = socket(server, {
 });
 
 io.on('connection', (client) => {
-  console.log('Client connected successfully! 🔥 ' + client.id);
+  //console.log('Client connected successfully! 🔥 ' + client.id);
 
   client.on('COORDINATES', (journey) => {
     io.emit('COORDINATES', journey);
