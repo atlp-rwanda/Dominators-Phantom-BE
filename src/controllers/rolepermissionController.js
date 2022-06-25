@@ -69,6 +69,73 @@ const assignPermissionToRole = async (req, res) => {
     });
 };
 
+const assignSelectedPermissions = async (req, res) => {
+  const roleId = req.params.roleId;
+  const permissionIds = req.body.permission_ids;
+
+  // validate request
+  if (!roleId || permissionIds.length == 0) {
+    return responseHandler(res, 400, {
+      message: 'Invalid request! Missing required items!',
+    });
+  }
+
+  // check if role exists in DB
+  const roleFound = await role.findOne({
+    where: {
+      role_id: roleId,
+    },
+  });
+  if (!roleFound) {
+    return responseHandler(res, 404, {
+      message: 'Role is not found!',
+    });
+  }
+
+  // check if permission exists in DB
+  for (let i = 0; i < permissionIds.length; i++) {
+    const permissionFound = await permission.findOne({
+      where: {
+        permission_id: permissionIds[i],
+      },
+    });
+    if (!permissionFound) {
+      return responseHandler(res, 404, {
+        message: 'Permission is not found!',
+      });
+    }
+
+    // Assign PERMISSION to a ROLE
+    await rolePermission
+      .findOrCreate({
+        where: {
+          role_id: roleId,
+          permission_id: permissionIds[i],
+        },
+      })
+      .then(([role_permission, created]) => {
+        if(!created) {
+          responseHandler(res, 400, {
+            message:
+              'Sorry! That permission already exists on that particular role.',
+          });
+        }
+          
+      })
+      .catch((err) => {
+        console.log('-err:', err);
+        responseHandler(res, 500, {
+          error:
+            err.message ||
+            'Some error occurred while assigning a permission to a role.',
+        });
+      });
+  } return responseHandler(res, 201, {
+    message: 'Permissions have been added to the role successfull!',
+  });
+
+};
+
 const findAllPermissionOnRole = async (req, res) => {
   try {
     const roleId = req.params.roleId;
@@ -172,6 +239,41 @@ const removeOnePermissionOnRole = async (req, res) => {
   }
 };
 
+const removeSelectedPermission = async (req, res) => {
+  try {
+    const roleId = req.params.roleId;
+    const permissionIds = req.body.IDs;
+    for (let i = 0; i < permissionIds.length; i++) {
+      const permissionIDOnRole = await rolePermission.findOne({
+        where: {
+          role_id: roleId,
+          permission_id: permissionIds[i],
+        },
+      });
+      if (!permissionIDOnRole) {
+        return responseHandler(res, 404, {
+          message: 'Sorry, either of IDs does not exists',
+        });
+      } else {
+        await rolePermission.destroy({
+          where: {
+            role_id: roleId,
+            permission_id: permissionIds[i],
+          },
+        });
+      }
+    }
+    return responseHandler(res, 200, {
+      message: 'Permission Selected has been removed successfully!',
+    });
+  } catch (err) {
+    responseHandler(res, 500, {
+      error:
+        err.message || 'Some errors occurred while deleting the permission.',
+    });
+  }
+};
+
 const removeAllPermissionOnRole = async (req, res) => {
   try {
     const roleId = req.params.roleId;
@@ -204,8 +306,10 @@ const removeAllPermissionOnRole = async (req, res) => {
 
 export {
   assignPermissionToRole,
+  assignSelectedPermissions,
   findAllPermissionOnRole,
   findOnePermissionOnRole,
   removeOnePermissionOnRole,
-  removeAllPermissionOnRole
+  removeSelectedPermission,
+  removeAllPermissionOnRole,
 };

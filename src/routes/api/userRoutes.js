@@ -13,21 +13,21 @@ import permMiddleware from '../../helpers/checkPermission';
 
 const router = express.Router();
 
-router.post('/login', authController.login);
-router.post('/register', authController.protect, addUser);
+router.post('/login', login);
+router.post('/register', protect, addUser);
 router.post('/reset', passwordManager.verifyEmail);
 router.post('/reset/:id', passwordManager.resetPassword);
 router.get(
   '/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   allUsers
 );
-router.get('/:id', authController.protect, findOneUser);
-router.put('/:id', authController.protect, update);
+router.get('/:id', protect, findOneUser);
+router.put('/:id', protect, update);
 router.delete(
   '/:id',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   deleteUser
 );

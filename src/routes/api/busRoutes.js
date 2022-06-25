@@ -1,4 +1,3 @@
-
 import express from 'express';
 import {
   addRoute,
@@ -8,7 +7,7 @@ import {
   removeRoute,
   deleteAll,
 } from '../../controllers/RouteController';
-import authController from '../../controllers/authController';
+import { protect } from '../../controllers/authController';
 import permMiddleware from '../../helpers/checkPermission';
 import checkToken from '../../middlewares/checkToken.js';
 
@@ -17,40 +16,39 @@ const router = express.Router();
 router.get(
   '/',
   checkToken,
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   findAll
 );
 router.get(
   '/:id/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   findOne
 );
 router.put(
   '/:id/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   updateRoute
 );
 router.post(
   '/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   addRoute
 );
 router.delete(
   '/:id',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   removeRoute
 );
 router.delete(
   '/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   deleteAll
 );
 
 export default router;
-

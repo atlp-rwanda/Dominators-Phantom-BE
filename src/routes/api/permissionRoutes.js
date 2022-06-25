@@ -7,44 +7,44 @@ import {
   deletePermission,
   deleteAllPermission,
 } from '../../controllers/permissionsController';
-import authController from '../../controllers/authController';
+import { protect } from '../../controllers/authController';
 import permMiddleware from '../../helpers/checkPermission';
 
 const router = express.Router();
 
 router.post(
   '/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   addPermission
 );
 router.get(
-  '/',
-  authController.protect,
+  '/:page/:size',
+  protect,
   permMiddleware.checkPermission,
   findAllPermissions
 );
 router.get(
   '/:id',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   findOnePermission
 );
 router.patch(
   '/:id',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   updatePermission
 );
 router.delete(
   '/:id',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   deletePermission
 );
 router.delete(
   '/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   deleteAllPermission
 );

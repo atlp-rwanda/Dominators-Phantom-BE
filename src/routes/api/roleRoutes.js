@@ -7,44 +7,44 @@ import {
   deleteRole,
   deleteAllRole,
 } from '../../controllers/rolesController';
-import authController from '../../controllers/authController';
+import { protect } from '../../controllers/authController';
 import permMiddleware from '../../helpers/checkPermission';
 
 const router = express.Router();
 
 router.post(
   '/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   addRole
 );
 router.get(
   '/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   findAllRoles
 );
 router.get(
   '/:id',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   findOneRole
 );
 router.patch(
   '/:id',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   updateRole
 );
 router.delete(
   '/:id',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   deleteRole
 );
 router.delete(
   '/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   deleteAllRole
 );

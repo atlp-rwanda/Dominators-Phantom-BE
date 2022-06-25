@@ -9,7 +9,7 @@ import {
 } from '../../controllers/busController';
 import paginatedResult from '../../utils/busPagination';
 import model from '../../database/models';
-import authController from '../../controllers/authController';
+import { protect } from '../../controllers/authController';
 import permMiddleware from '../../helpers/checkPermission';
 
 const buses = model.Bus;
@@ -18,37 +18,37 @@ const router = Router();
 router.get(
   '/',
   paginatedResult(buses),
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   findAll
 );
 router.get(
   '/:id/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   findOne
 );
 router.patch(
   '/:id/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   updateBus
 );
 router.post(
   '/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   addBus
 );
 router.delete(
   '/:id',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   removeBus
 );
 router.delete(
   '/',
-  authController.protect,
+  protect,
   permMiddleware.checkPermission,
   deleteAll
 );

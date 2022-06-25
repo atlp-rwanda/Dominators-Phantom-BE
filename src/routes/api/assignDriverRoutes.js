@@ -1,6 +1,5 @@
 import express from 'express';
 import {protect,UserOperator} from '../../controllers/authController';
-import authController from "../../controllers/authController"
 import {
   findOneAssign,
   getAllDriverAssignToBuses,

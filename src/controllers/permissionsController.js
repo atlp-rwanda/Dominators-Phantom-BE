@@ -1,6 +1,6 @@
 import responseHandler from '../utils/responseHandler';
 import model from '../database/models';
-import slug from 'slug';
+import { getPagination, getPagingData } from '../utils/paginationHandler';
 
 const permission = model.permissions;
 const rolepermission = model.role_permissions;
@@ -48,12 +48,17 @@ const addPermission = async (req, res) => {
 };
 
 const findAllPermissions = async (req, res) => {
+  const { page, size } = req.params;
+  const { limit, offset } = getPagination(page, size);
+
   try {
-    const allPermissions = await permission.findAll();
+    const allPermissions = await permission.findAndCountAll({
+      limit,
+      offset,
+    });
     if (allPermissions) {
       return responseHandler(res, 200, {
-        allPermissions: allPermissions,
-        count: allPermissions.length,
+        allPermissions: getPagingData(allPermissions, page, limit)
       });
     }
   } catch (err) {
@@ -133,7 +138,7 @@ const deletePermission = async (req, res) => {
       });
       await rolepermission.destroy({
         where: { permission_id: permissionId },
-      })
+      });
       return responseHandler(res, 200, {
         message: 'Permission deleted successfully!',
       });
