@@ -21,5 +21,8 @@ routes.use('/roles', roleRoutes);
 routes.use('/roles', rolePermissionRoutes);
 routes.use('/journey', journeyRoutes);
 routes.get('/movements', getAllJourneys);
+routes.use('/permissions', permissionRoutes);
+routes.use('/roles', roleRoutes);
+routes.use('/roles', rolePermissionRoutes);
 
 export default routes;
