@@ -5,6 +5,7 @@ import { sendEmail } from '../helpers/sendEmail';
 import model from '../database/models';
 
 const User = model.User;
+const Role = model.roles;
 
 dotenv.config();
 
@@ -14,6 +15,12 @@ const addUser = async (req, res) => {
   const userpassword = generatePassword();
   const password = await bcrypt.hash(userpassword, 10);
 
+  const roleFound = await Role.findOne({
+    where: {
+      name: role,
+    },
+  });
+
   if (firstName === '' || lastName === '' || email === '' || role === '') {
     return res.status(500).json({
       message: req.t('required_field'),
@@ -22,6 +29,8 @@ const addUser = async (req, res) => {
     return res.status(400).json({
       message: req.t('email_invalid'),
     });
+  } else if (!roleFound) {
+    return res.status(404).json({ message: req.t('Role is not found') });
   }
   User.findOne({
     where: {
@@ -68,7 +77,7 @@ const allUsers = (req, res) => {
     attributes: {
       exclude: ['password'],
     },
-    include: 'Profiles',
+    include: 'profiles',
   })
 
     .then((data) => {

@@ -112,10 +112,7 @@ const userProfile = await Profile.create({
       data: {
         userProfile,
       },
-
     });
-  
-    
   } catch (error) {
     res.status(404).json({
       message: 'No user with that ID',

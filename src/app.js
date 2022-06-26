@@ -15,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(express.urlencoded({ extended: false }));
 i18next
   .use(Backend)
   .use(middleware.LanguageDetector)
@@ -33,6 +34,11 @@ app.get('/api/v1', (req, res) => {
   });
 });
 app.use('/uploads', express.static('uploads'))
+app.use('/api/v1/', routes);
+
+app.use(cors());
+app.use(express.json());
+
 app.use('/api/v1/', routes);
 
 app.use(
