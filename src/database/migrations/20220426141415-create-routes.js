@@ -4,7 +4,7 @@ module.exports = {
     await queryInterface.createTable('routes', {
       routeId: {
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
         primaryKey: true,
       },
       origin: {
@@ -28,7 +28,11 @@ module.exports = {
         unique: true
       },
 
-      coordinates: {
+      fromCoordinates: {
+        type: Sequelize.ARRAY(Sequelize.DECIMAL),
+        allowNull: false
+      },
+      toCoordinates: {
         type: Sequelize.ARRAY(Sequelize.DECIMAL),
         allowNull: false
       },

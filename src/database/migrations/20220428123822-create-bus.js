@@ -4,7 +4,7 @@ module.exports = {
     await queryInterface.createTable('Buses', {
       id: {
         allowNull: false,
-        defaultValue: Sequelize.UUIDV4,
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
         primaryKey: true,
         type: Sequelize.UUID,
       },
