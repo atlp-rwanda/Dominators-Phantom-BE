@@ -5,17 +5,15 @@ import models from '../database/models';
 import { promisify } from 'util';
 import { deleteToken, setToken } from '../config/redix';
 
-
-  const signToken = (id) =>{
+const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-  expiresIn: process.env.JWT_EXPIRES_IN,
+    expiresIn: process.env.JWT_EXPIRES_IN,
   });
-  
-}
+};
 
-const createSendToken = async(user, statusCode, res) => {
-  const token =  signToken(user.dataValues.id);
- await setToken(token, token);
+const createSendToken = async (user, statusCode, res) => {
+  const token = signToken(user.dataValues.id);
+  await setToken(token, token);
 
   //remove the password from the output
   user.password = undefined;
@@ -34,15 +32,13 @@ export const logout = async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
     const delTok = await deleteToken(token);
     if (!delTok) {
-      res.status(500).json({message:'error while clearing your data'});
+      res.status(500).json({ message: 'error while clearing your data' });
     }
-    res.status(200).json({message:"Logged out successfully"})
+    res.status(200).json({ message: 'Logged out successfully' });
   } catch (error) {
-    return res.status(500).json({message:'There was error loging out'});
+    return res.status(500).json({ message: 'There was error loging out' });
   }
 };
-
-
 
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -67,11 +63,9 @@ export const login = async (req, res, next) => {
   createSendToken(user, 200, res);
 };
 
-
-
 exports.protect = async (req, res, next) => {
   //1 Getting tocken and check its ther
-  let token 
+  let token;
   if (!req.headers.authorization)
     return next(new AppError(req.t('not_logged_in'), 500));
   if (
@@ -92,7 +86,7 @@ exports.protect = async (req, res, next) => {
   }
 
   // 3.check if user still exists
-console.log(decoded)
+  console.log(decoded);
   const currentUser = await models.User.findOne({
     where: {
       id: decoded.id,
@@ -107,6 +101,7 @@ console.log(decoded)
   req.user = currentUser;
   next();
 };
+
 exports.UserOperator = async (req, res, next) => {
   //1 to check if user is OPerator Only
   token = req.headers.authorization.split(' ')[1];
@@ -118,13 +113,9 @@ exports.UserOperator = async (req, res, next) => {
   }
   if (!token || token.length === 4 || token === 'loggedout') {
     return next(
-        new AppError('You are not logged in! please login to get access', 401)
+      new AppError('You are not logged in! please login to get access', 401)
     );
-}
+  }
 
- 
- 
-next();
-
-
+  next();
 };
