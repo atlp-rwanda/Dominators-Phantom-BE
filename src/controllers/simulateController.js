@@ -29,8 +29,8 @@ export const createJourney = async (req, res) => {
     });
 
     const point = draw(
-      parseFloat(routeInfo.coordinates[0]),
-      parseFloat(routeInfo.coordinates[1])
+      parseFloat(routeInfo.fromCoordinates[0]),
+      parseFloat(routeInfo.fromCoordinates[1])
     );
     const resp = await journeys.findOrCreate({
       where: {

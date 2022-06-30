@@ -18,7 +18,7 @@ router.get(
 router.post(
   '/bus/:busId/driver/:driverId',
   protect,
-  UserOperator,
+  // UserOperator,
   PostAssignDriverToBuses
 );
 router.get(
