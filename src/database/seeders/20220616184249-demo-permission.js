@@ -132,7 +132,7 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          name: 'updating route',
+          name: 'update route',
           description: 'deleting many permissions on role previledge',
           createdAt: new Date(),
           updatedAt: new Date()

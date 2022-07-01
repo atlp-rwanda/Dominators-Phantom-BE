@@ -2,10 +2,14 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const routeId = await queryInterface.sequelize.query(
+      `SELECT "routeId" from routes;`
+    )
+    const routeIdRows = routeId[0]
+    
     await queryInterface.bulkInsert('Buses', [
       {
-        id:"4d100fe5-2bed-41a1-a8cf-83749986f686",
-        routeId: '02e7eadd-0e17-47fe-aa0c-553ce1545682',
+        routeId: routeIdRows[0].routeId,
         prateNumber: 'RAB309',
         busType: 'YUTONGO',
         createdAt: new Date(),
@@ -15,12 +19,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
     await queryInterface.bulkDelete('Buses', null, {});
   },
 };
+// 20220603114223-BusSeed

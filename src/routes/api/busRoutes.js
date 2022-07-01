@@ -26,7 +26,7 @@ router.get(
   permMiddleware.checkPermission,
   findOne
 );
-router.put(
+router.patch(
   '/:id/',
   protect,
   permMiddleware.checkPermission,
