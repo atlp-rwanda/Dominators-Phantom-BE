@@ -13,8 +13,8 @@ const addUser = async (req, res) => {
   // static create(req, res) {
   const { firstName, lastName, email, role } = req.body;
   const userpassword = generatePassword();
-  const password = await bcrypt.hash(userpassword, 10);
-
+  const password = await bcrypt.hash(userpassword, 12);
+  const frontendUrl = process.env.FRONTEND_URL;
   const roleFound = await Role.findOne({
     where: {
       name: role,
@@ -49,12 +49,11 @@ const addUser = async (req, res) => {
       role,
       password,
     })
-
       .then((data) => {
         if (data) {
           const message = `
               <h2>Your account has been registered. you can now login in</h2>
-              <a href="http://localhost:5000/login">here</a>
+              <a href="${frontendUrl}/login?email=${data.email}&password=${userpassword}">here</a>
               <p>${req.body.email}. Note that your login password will be <em>${userpassword}</em></p>
               `;
           sendEmail(message, data.email);
@@ -64,14 +63,15 @@ const addUser = async (req, res) => {
           });
         }
       })
-      .catch((err) =>
+      .catch((err) =>{
+        console.log(err);
         res.status(400).json({
           error: err.message,
         })
+      }
       );
   });
 };
-
 const allUsers = (req, res) => {
   return User.findAll({
     attributes: {
@@ -79,17 +79,17 @@ const allUsers = (req, res) => {
     },
     include: 'profiles',
   })
-
     .then((data) => {
       console.log(data);
       if (data.length === 0) {
-        return res.status(404).json({
+        res.status(404).json({
           message: req.t('no_users'),
         });
+      } else {
+        res.status(200).json({
+          data,
+        });
       }
-      return res.status(200).json({
-        data,
-      });
     })
     .catch((err) => {
       res.status(400).json({
@@ -180,8 +180,6 @@ const deleteUser = (req, res) => {
     });
   });
 };
-
-
 
 
 export { addUser, allUsers, findOneUser, update, deleteUser };
