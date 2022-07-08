@@ -34,9 +34,9 @@ exports.checkPermission = async (req, res, next) => {
         );
       }
 
-      const urlComp = req.originalUrl.split('/');
+      const urlComp = req.originalUrl.split('/')[3];
 
-      const target = urlComp[3];
+      const target = urlComp.includes('?') ? urlComp.split('?')[0] : urlComp;
       const action = req.method
       const usedAction = req.params.id
         ? `${action.toLowerCase()}One`

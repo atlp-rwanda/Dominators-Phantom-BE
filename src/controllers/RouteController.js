@@ -6,15 +6,15 @@ const busRoutes = model.routes;
 
 const addRoute = async (req, res) => {
   if (
-    !(
-      req.body.origin &&
-      req.body.destination &&
-      req.body.distance &&
-      req.body.code &&
-      req.body.fromLatitude &&
-      req.body.fromLongitude &&
-      req.body.toLatitude &&
-      req.body.toLongitude
+    (
+      !req.body.origin ||
+      !req.body.destination ||
+      !req.body.distance ||
+      !req.body.code ||
+      !req.body.fromLatitude ||
+      !req.body.fromLongitude ||
+      !req.body.toLatitude ||
+      !req.body.toLongitude
     )
   )
     return responseHandler(res, 400, req.t('missing_params', req));

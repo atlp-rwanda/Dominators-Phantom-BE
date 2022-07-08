@@ -80,7 +80,7 @@ export const getAllJourneys = async (req, res) => {
 export const getJourney = async (req, res) => {
   try {
     const id = req.params.journeyId;
-    const resp = await journeys.findAll({ where: { journeyId: id } });
+    const resp = await journeys.findOne({ where: { journeyId: id } });
     if (resp) {
       res.status(200).json({
         Message: 'Motion Retrieved Successfully!',

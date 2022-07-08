@@ -10,7 +10,7 @@ module.exports = {
         {
           origin: 'Kigali',
           destination: 'Huye',
-          distance: '200km',
+          distance: '200',
           routeSlug: slug('Kigali'),
           code: '303',
           fromCoordinates: draw(1.234567, 32.03456),

@@ -19,7 +19,7 @@ router.post(
   addPermission
 );
 router.get(
-  '/:page/:size',
+  '/',
   protect,
   permMiddleware.checkPermission,
   findAllPermissions
