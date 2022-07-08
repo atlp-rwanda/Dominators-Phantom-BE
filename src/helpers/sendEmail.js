@@ -1,7 +1,11 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+
 dotenv.config();
+
+const frontendUrl = process.env.FRONTEND_URL;
+
 function sendEmail(message, toEmail) {
   let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -33,7 +37,7 @@ function sendReset(email) {
     expiresIn: '1h',
   });
 
-  const url = `https://localhost:3000/api/v1/users/reset/${token}`;
+  const url = `${frontendUrl}/Reset?token=${token}`;
   const msg = `<h2>DOMINATORS</h2>
 <h4>Password Reset Link</h4>
 <div>
