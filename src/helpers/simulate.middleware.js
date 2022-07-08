@@ -25,7 +25,7 @@ export const checkUser = async (req, res, next) => {
 
       const currentUser = await models.User.findOne({
         where: {
-          id: decoded.user.id,
+          id: decoded.id,
         },
       });
       const userRole = currentUser.dataValues.role;
