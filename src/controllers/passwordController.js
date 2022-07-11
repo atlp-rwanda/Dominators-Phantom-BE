@@ -1,5 +1,5 @@
 import model from '../database/models';
-import { resetLink } from '../helpers/sendEmail';
+import { sendEmail, sendReset } from '../helpers/sendEmail';
 import msg from '../utils/responseHandler';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -14,9 +14,13 @@ const verifyEmail = async (req, res) => {
       where: { email: user_email },
     })
     .then((num) => {
-      null != num
-        ? (resetLink(user_email), msg(res, 200, 'Password reset link was sent'))
-        : msg(res, 401, req.t('no_user'));
+      if (!num) msg(res, 404, req.t('no_user'));
+      sendEmail({
+        to: user_email,
+        subject: 'Reset Password',
+        html: sendReset(user_email),
+      });
+      msg(res, 200, 'Password reset link was sent');
     });
 };
 
