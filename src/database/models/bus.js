@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // this.hasMany(models.routes, {
+      //   foreignKey: 'routeId',
+      //   as: 'routes',
+      // })
+
       this.hasMany(models.AssignDriver, {
         foreignKey: 'BusId',
         as: 'AssignDriver',
@@ -28,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       routeId: DataTypes.STRING,
       busType: DataTypes.STRING,
-      prateNumber: DataTypes.STRING,
+
     },
     {
       sequelize,

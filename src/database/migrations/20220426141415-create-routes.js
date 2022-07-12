@@ -6,6 +6,10 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal('uuid_generate_v4()'),
         primaryKey: true,
+        references: {
+          model: 'routes', 
+          key: 'routeId'
+        }
       },
       origin: {
         type: Sequelize.STRING

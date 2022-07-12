@@ -26,6 +26,7 @@ function paginatedResult(model) {
       results.results = await model.findAll({
         size: size,
         offset: page * size,
+        
       });
     } else {
       results.results = await model.findAll({});

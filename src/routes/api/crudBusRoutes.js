@@ -7,17 +7,13 @@ import {
   removeBus,
   deleteAll,
 } from '../../controllers/busController';
-import paginatedResult from '../../utils/busPagination';
-import model from '../../database/models';
 import { protect } from '../../controllers/authController';
 import permMiddleware from '../../helpers/checkPermission';
 
-const buses = model.Bus;
 const router = Router();
 
 router.get(
   '/',
-  paginatedResult(buses),
   protect,
   permMiddleware.checkPermission,
   findAll

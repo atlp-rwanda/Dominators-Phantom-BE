@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-    
+      // this.hasMany(models.Bus, {
+      //   foreignKey: 'routeId',
+      //   as: 'Bus',
+      // });
     }
   }
   routes.init(

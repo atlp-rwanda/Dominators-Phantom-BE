@@ -1,7 +1,9 @@
 import responseHandler from '../utils/responseHandler';
 import model from '../database/models';
+import {getPagination, getPagingData} from "../utils/paginationHandler"
 
 const buses = model.Bus;
+const routes = model.routes;
 const addBus = async (req, res) => {
   // Validate request
   if (!req.body.prateNumber || !req.body.routeId || !req.body.busType) {
@@ -39,7 +41,31 @@ const addBus = async (req, res) => {
 };
 
 const findAll = async (req, res) => {
-  res.json(res.paginatedResults);
+  let route
+  const {page, size} = req.query;
+  const {limit, offset} = getPagination(page, size);
+ const allBus = await buses.findAndCountAll({
+   limit, offset,
+  }
+  )
+  /* this is an example for new snippet extension make by me xD */
+  for (let i = 0; i < allBus.length; i++) {
+    route = await routes.findOne({
+      where: {
+        routeId: allBus[i].routeId
+      }
+    })
+    
+  }
+ 
+  // allBus.forEach(bus => {
+  //   const route = await routes.findOne({
+  //     where: {routeId: bus.routeId}
+  //   })
+  // });
+  
+  const responce = {allBus, route}
+  res.json({data:getPagingData(responce, page, limit)});
 };
 
 const findOne = async (req, res) => {
