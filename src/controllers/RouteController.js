@@ -6,30 +6,27 @@ const busRoutes = model.routes;
 
 const addRoute = async (req, res) => {
   if (
-    !(
-      req.body.origin &&
-      req.body.destination &&
-      req.body.distance &&
-      req.body.code &&
-      req.body.fromLatitude &&
-      req.body.fromLongitude &&
-      req.body.toLatitude &&
-      req.body.toLongitude
-    )
+    !req.body.origin ||
+    !req.body.destination ||
+    !req.body.distance ||
+    !req.body.code ||
+    !req.body.fromLatitude ||
+    !req.body.fromLongitude ||
+    !req.body.toLatitude ||
+    !req.body.toLongitude
   )
     return responseHandler(res, 400, req.t('missing_params', req));
   const fromPoint = draw(req.body.fromLatitude, req.body.fromLongitude);
   const toPoint = draw(req.body.toLatitude, req.body.toLongitude);
 
   await busRoutes
-    .findOrCreate({
-      where: {
-        origin: req.body.origin,
-        destination: req.body.destination,
-        code: req.body.code,
-        distance: req.body.distance,
-      },
-      defaults: { fromCoordinates: fromPoint, toCoordinates: toPoint },
+    .create({
+      fromCoordinates: fromPoint,
+      toCoordinates: toPoint,
+      origin: req.body.origin,
+      destination: req.body.destination,
+      code: req.body.code,
+      distance: req.body.distance,
     })
     .then((created) => {
       created[1]

@@ -17,7 +17,6 @@ router.get(
   '/',
   checkToken,
   protect,
-  permMiddleware.checkPermission,
   findAll
 );
 router.get(

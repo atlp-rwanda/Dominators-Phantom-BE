@@ -48,7 +48,7 @@ const addPermission = async (req, res) => {
 };
 
 const findAllPermissions = async (req, res) => {
-  const { page, size } = req.params;
+  const { page, size } = req.query;
   const { limit, offset } = getPagination(page, size);
 
   try {

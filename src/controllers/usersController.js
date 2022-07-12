@@ -10,7 +10,6 @@ const Role = model.roles;
 dotenv.config();
 
 const addUser = async (req, res) => {
-  // static create(req, res) {
   const { firstName, lastName, email, role } = req.body;
   const userpassword = generatePassword();
   const password = await bcrypt.hash(userpassword, 12);
@@ -51,27 +50,30 @@ const addUser = async (req, res) => {
     })
       .then((data) => {
         if (data) {
+          const query = encodeURIComponent(
+            `email=${data.email}&password=${userpassword}`
+          );
           const message = `
               <h2>Your account has been registered. you can now login in</h2>
-              <a href="${frontendUrl}/login?email=${data.email}&password=${userpassword}">here</a>
+              <a href="${frontendUrl}/login?${query}">here</a>
               <p>${req.body.email}. Note that your login password will be <em>${userpassword}</em></p>
               `;
-          sendEmail(message, data.email);
+          sendEmail({ to: data.email, subject: 'Registration', html });
           res.status(201).json({
             message: req.t('user_created'),
             data,
           });
         }
       })
-      .catch((err) =>{
+      .catch((err) => {
         console.log(err);
         res.status(400).json({
           error: err.message,
-        })
-      }
-      );
+        });
+      });
   });
 };
+
 const allUsers = (req, res) => {
   return User.findAll({
     attributes: {
@@ -180,6 +182,5 @@ const deleteUser = (req, res) => {
     });
   });
 };
-
 
 export { addUser, allUsers, findOneUser, update, deleteUser };
