@@ -82,7 +82,6 @@ exports.protect = async (req, res, next) => {
   }
   // 2. verificatoin token
   var decoded;
-  console.log(decoded);
   try {
     decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
   } catch (error) {
@@ -92,7 +91,7 @@ exports.protect = async (req, res, next) => {
   // 3.check if user still exists
   const currentUser = await models.User.findOne({
     where: {
-      id: decoded.user.id,
+      id: decoded.id,
     },
   });
 
