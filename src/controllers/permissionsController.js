@@ -58,7 +58,7 @@ const findAllPermissions = async (req, res) => {
     });
     if (allPermissions) {
       return responseHandler(res, 200, {
-        allPermissions: getPagingData(allPermissions, page, limit)
+        allPermissions: getPagingData(allPermissions, page, limit),
       });
     }
   } catch (err) {

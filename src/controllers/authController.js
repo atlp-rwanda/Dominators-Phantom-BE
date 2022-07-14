@@ -3,8 +3,8 @@ import bcrypt from 'bcryptjs';
 import AppError from '../utils/appError';
 import models from '../database/models';
 import { promisify } from 'util';
-import { deleteToken, setToken } from '../config/redix';
-
+import catchAsync from '../utils/catchAsync';
+import { setToken } from '../config/redix';
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -66,9 +66,9 @@ export const login = async (req, res, next) => {
   createSendToken(user, 200, res);
 };
 
+let token;
 exports.protect = async (req, res, next) => {
   //1 Getting tocken and check its ther
-  let token;
   if (!req.headers.authorization)
     return next(new AppError(req.t('not_logged_in'), 500));
   if (
@@ -89,7 +89,6 @@ exports.protect = async (req, res, next) => {
   }
 
   // 3.check if user still exists
-  console.log(decoded);
   const currentUser = await models.User.findOne({
     where: {
       id: decoded.id,
@@ -107,9 +106,7 @@ exports.protect = async (req, res, next) => {
 
 exports.UserOperator = async (req, res, next) => {
   //1 to check if user is OPerator Only
-  token = req.headers.authorization.split(' ')[1];
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  if (decoded.user.role !== 'operator') {
+  if (req.user.role !== 'operator') {
     return next(
       new AppError("You don't have permission to perform this task ", 401)
     );

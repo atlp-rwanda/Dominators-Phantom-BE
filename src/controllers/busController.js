@@ -27,8 +27,6 @@ const addBus = async (req, res) => {
     })
 
     .catch((err) => {
-      console.log('-err:', err);
-
       responseHandler(
         res,
         500,
@@ -67,7 +65,6 @@ const findOne = async (req, res) => {
 
 const updateBus = async (req, res) => {
   const { id } = req.params;
-  console.log('id:', id);
   await buses
     .update(req.body, {
       where: { id: id },
