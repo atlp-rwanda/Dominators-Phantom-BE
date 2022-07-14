@@ -6,6 +6,7 @@ import model from '../database/models';
 
 const User = model.User;
 const Role = model.roles;
+const Profile = model.Profile;
 
 dotenv.config();
 
@@ -53,7 +54,15 @@ const addUser = async (req, res) => {
           const query = encodeURIComponent(
             `email=${data.email}&password=${userpassword}`
           );
-          const message = `
+          Profile.create({
+            userId: data.id,
+            firstName,
+            lastName,
+            email,
+            role,
+            createdAt: new Date(),
+          });
+          const html = `
               <h2>Your account has been registered. you can now login in</h2>
               <a href="${frontendUrl}/login?${query}">here</a>
               <p>${req.body.email}. Note that your login password will be <em>${userpassword}</em></p>
@@ -162,25 +171,30 @@ const update = (req, res) => {
       });
   });
 };
-
-const deleteUser = (req, res) => {
-  const { id } = req.params;
-  User.findOne({
-    where: {
-      id,
-    },
-  }).then((user) => {
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findOne({ where: { id } });
     if (!user) {
       return res.status(404).json({
         message: req.t(`uesr_exists`),
       });
     }
-    return user.destroy().then(() => {
-      res.status(200).json({
+    const deleteUser = await user.destroy();
+    const deleteProfile = await Profile.destroy({ where: { userId: id } });
+    if (deleteUser && deleteProfile) {
+      return res.status(200).json({
         message: req.t(`user_deleted`),
       });
+    }
+    return res.status(400).json({
+      message: 'failed to delete user',
     });
-  });
+  } catch (error) {
+    res.status(400).json({
+      message: 'Something went wrong, ' + error,
+    });
+  }
 };
 
 export { addUser, allUsers, findOneUser, update, deleteUser };

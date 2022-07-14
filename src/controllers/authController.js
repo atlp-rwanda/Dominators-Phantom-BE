@@ -50,7 +50,10 @@ export const login = async (req, res, next) => {
 
   //2)Check if user exist and password is correct
 
-  const user = await models.User.findOne({ where: { email } });
+  const user = await models.User.findOne({
+    where: { email },
+    include: 'profiles',
+  });
 
   const correctPassword = async function (candidatePassword, userPassword) {
     return await bcrypt.compare(candidatePassword, userPassword);

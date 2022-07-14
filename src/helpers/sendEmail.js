@@ -44,4 +44,28 @@ function sendReset(email) {
   return msg;
 }
 
-export { sendEmail, sendReset };
+function resetLink(user) {
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.USER_EMAIL,
+      pass: process.env.USER_EMAIL_P,
+    },
+  });
+
+  let mailOptions = {
+    from: process.env.USER_EMAIL, // sender address
+    to: user, // list of receivers
+    subject: 'Reset Password', // Subject line
+    html: sendReset(user), // html body
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) return 0;
+    else return 1;
+  });
+}
+
+export { sendEmail, resetLink };

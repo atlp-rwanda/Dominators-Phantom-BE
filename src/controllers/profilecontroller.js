@@ -1,18 +1,12 @@
 import models from '../database/models';
-// import {fileUpload} from "../utils/multer"
-
-import {fileUpload} from '../utils/multer';
-
-import path from "path"
+import { fileUpload } from '../utils/multer';
 const User = models.User;
-const Profile = models.Profile
-
+const Profile = models.Profile;
 
 const allUsers = async (req, res) => {
   return Profile.findAll()
 
     .then((data) => {
-      console.log(data);
       if (data.length === 0) {
         return res.status(404).json({
           message: req.t('no_users'),
@@ -27,19 +21,13 @@ const allUsers = async (req, res) => {
         error: err.message,
       });
     });
-
-
 };
 
-
-const findOneUser = (req, res) => {
+const findOneProfile = (req, res) => {
   const { id } = req.params;
   Profile.findOne({
     where: {
-      id,
-    },
-    attributes: {
-      exclude: ['password'],
+      userId: id,
     },
   })
     .then((user) => {
@@ -53,74 +41,71 @@ const findOneUser = (req, res) => {
       });
     })
     .catch((err) =>
-      res.status(400).json({
+      res.status(404).json({
         error: req.t('invalid_id') || err.message,
       })
     );
 };
 
 const updateUser = async (req, res) => {
-
-req.body.profilePic = await fileUpload(req)
-const profilePic = req.body.profilePic;
-
-  const id = req.params.id;
-  const {
-    firstName,
-    lastName,
-    phone,
-    email,
-    role,
-    province,
-    district,
-    sector,
-    cell,
-    village,
-    bio,
-    category,
-    gender,
-    nationalId,
-  } = req.body;
   try {
+    const id = req.params.id;
     const user = await User.findOne({ where: { id } });
-if(!user){
-  return res.status(404).json({message:'no user found with this ID'})
-} 
+    if (!user) {
+      return res.status(404).json({ message: 'no user found with this ID' });
+    }
+    if (req.file) {
+      req.body.profilePic = await fileUpload(req);
+    }
 
+    const {
+      firstName,
+      lastName,
+      phone,
+      email,
+      role,
+      province,
+      district,
+      sector,
+      cell,
+      village,
+      bio,
+      category,
+      gender,
+      nationalId,
+      profilePic,
+    } = req.body;
 
-const userProfile = await Profile.create({
-  firstName,
-  lastName,
-  userId: user.id,
-  phone,
-  email,
-  role,
-  profilePic,
-  province,
-  district,
-  sector,
-  cell,
-  village,
-  bio,
-  category,
-  gender,
-  nationalId,})
+    await Profile.update(
+      {
+        firstName,
+        lastName,
+        email,
+        role,
+        province,
+        district,
+        sector,
+        cell,
+        village,
+        bio,
+        category,
+        gender,
+        nationalId,
+        profilePic,
+        updatedAt: new Date(),
+      },
+      { where: { userId: user.id } }
+    );
 
     res.status(201).json({
       status: 'success',
       message: 'User Updated Successully',
-      data: {
-        userProfile,
-      },
     });
   } catch (error) {
     res.status(404).json({
-      message: 'No user with that ID',
-      Error: error.stack,
+      message: 'Something went wrong!',
     });
-    console.error(error)
   }
-  
 };
 
 const deleteUser = async (req, res) => {
@@ -139,9 +124,8 @@ const deleteUser = async (req, res) => {
   } catch (error) {
     res.status(404).json({
       message: 'No user with that ID',
-      Error: error.stack,
     });
   }
 };
 
-export { allUsers, findOneUser, updateUser, deleteUser };
+export { allUsers, findOneProfile, updateUser, deleteUser };

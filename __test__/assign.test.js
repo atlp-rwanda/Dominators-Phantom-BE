@@ -1,6 +1,6 @@
 import test from './index';
 const { server, chai } = test;
-const token = `Bearer ${process.env.admintoken}`;
+const token = `Bearer ${process.env.ADMIN_TOKEN}`;
 var OperatorToken;
 
 describe.only('asssign User with Operator', () => {
