@@ -1,5 +1,6 @@
 import responseHandler from '../utils/responseHandler';
 import model from '../database/models';
+import { getPagination, getPagingData } from '../utils/paginationHandler';
 
 const buses = model.Bus;
 const addBus = async (req, res) => {
@@ -36,8 +37,24 @@ const addBus = async (req, res) => {
     });
 };
 
-const findAll = async (req, res) => {
-  res.json(res.paginatedResults);
+const findAllBuses = async (req, res) => {
+  const { page, size } = req.query;
+  const { limit, offset } = getPagination(page, size);
+  await buses
+    .findAndCountAll({
+      limit,
+      offset,
+      include: [
+        {
+          model: model.routes,
+          as: 'routes',
+        },
+      ],
+    })
+    .then((data) => {
+      const response = getPagingData(data, page, limit);
+      res.status(200).json({ data: response });
+    });
 };
 
 const findOne = async (req, res) => {
@@ -127,4 +144,4 @@ const deleteAll = async (req, res) => {
     });
 };
 
-export { addBus, findAll, findOne, updateBus, removeBus, deleteAll };
+export { addBus, findAllBuses, findOne, updateBus, removeBus, deleteAll };

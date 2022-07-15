@@ -9,11 +9,15 @@ module.exports = {
         type: Sequelize.UUID,
       },
       routeId: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
+        references: {
+          model: 'routes',
+          key: 'routeId',
+        },
       },
       prateNumber: {
         type: Sequelize.STRING,
-        primaryKey: true,
+        unique: true
       },
       busType: {
         type: Sequelize.STRING,
