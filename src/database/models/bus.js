@@ -13,6 +13,17 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'BusId',
         as: 'AssignDriver',
       });
+      this.belongsTo(models.routes, {
+        foreignKey: {
+          name: 'routeId',
+          allowNull: false,
+        },
+        targetKey: 'routeId',
+        as: 'routes',
+        // through: {
+        //   attributes: ['routeId'],
+        // },
+      });
     }
   }
   Bus.init(
@@ -26,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         unique: true,
       },
-      routeId: DataTypes.STRING,
+      routeId: DataTypes.UUID,
       busType: DataTypes.STRING,
       prateNumber: DataTypes.STRING,
     },

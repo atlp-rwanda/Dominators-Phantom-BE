@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-    
+      // routes.hasMany(models.Bus, {
+      //   foreignKey: 'routeId',
+      //   as: 'routes',
+      // });
     }
   }
   routes.init(
@@ -18,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       routeId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
       },
       origin: DataTypes.STRING,
       destination: DataTypes.STRING,

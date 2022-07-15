@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
   addBus,
-  findAll,
+  findAllBuses,
   findOne,
   updateBus,
   removeBus,
@@ -20,7 +20,7 @@ router.get(
   paginatedResult(buses),
   protect,
   permMiddleware.checkPermission,
-  findAll
+  findAllBuses
 );
 router.get('/:id/', protect, permMiddleware.checkPermission, findOne);
 router.patch('/:id/', protect, permMiddleware.checkPermission, updateBus);
