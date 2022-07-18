@@ -1,7 +1,6 @@
 /* eslint-disable import/no-named-as-default */
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
-import cors from 'cors';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import middleware from 'i18next-http-middleware';
@@ -10,9 +9,20 @@ import swaggerDocument from './documentation/index';
 import routes from './routes/index';
 
 const app = express();
-app.use(cors());
-
+app.all('*', function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Methods',
+    'POST, PUT, OPTIONS, PATCH, DELETE, GET'
+  );
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Content-Type, Access-Control-Allow-Headers,Access-Control-Allow-Origin, Authorization, X-Requested-With, x-access-token'
+  );
+  next();
+});
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: false }));
 
 i18next
